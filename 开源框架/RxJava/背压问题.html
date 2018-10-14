@@ -1,0 +1,1750 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>RxJava的背压问题 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../OKHttp/OkHttp的实现原理.html" />
+    
+    
+    <link rel="prev" href="RxJava.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">前言</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Android部分</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../Android/零碎知识点.html">
+            
+                <a href="../../Android/零碎知识点.html">
+            
+                    
+                    零碎知识点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../../Android/Activity的生命周期.html">
+            
+                <a href="../../Android/Activity的生命周期.html">
+            
+                    
+                    Activity的生命周期和启动模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../../Android/Fragment的生命周期.html">
+            
+                <a href="../../Android/Fragment的生命周期.html">
+            
+                    
+                    Fragment的生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../../Android/Service的生命周期.html">
+            
+                <a href="../../Android/Service的生命周期.html">
+            
+                    
+                    Service的生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../../Android/Broadcast.html">
+            
+                <a href="../../Android/Broadcast.html">
+            
+                    
+                    Broadcast
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../../Android/Android的内存泄漏总结.html">
+            
+                <a href="../../Android/Android的内存泄漏总结.html">
+            
+                    
+                    Android的内存泄漏总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../../Android/如何解决WebView的内存泄漏.html">
+            
+                <a href="../../Android/如何解决WebView的内存泄漏.html">
+            
+                    
+                    如何解决WebView的内存泄漏
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../../Android/Android的性能优化.html">
+            
+                <a href="../../Android/Android的性能优化.html">
+            
+                    
+                    Android性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../../Android/IPC进程间通信/IPC机制.html">
+            
+                <a href="../../Android/IPC进程间通信/IPC机制.html">
+            
+                    
+                    IPC通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.9.1" data-path="../../Android/IPC进程间通信/概述.html">
+            
+                <a href="../../Android/IPC进程间通信/概述.html">
+            
+                    
+                    概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.2" data-path="../../Android/IPC进程间通信/Binder.html">
+            
+                <a href="../../Android/IPC进程间通信/Binder.html">
+            
+                    
+                    Binder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.3" data-path="../../Android/IPC进程间通信/序列化.html">
+            
+                <a href="../../Android/IPC进程间通信/序列化.html">
+            
+                    
+                    序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.4" data-path="../../Android/IPC进程间通信/使用Bundle.html">
+            
+                <a href="../../Android/IPC进程间通信/使用Bundle.html">
+            
+                    
+                    使用Bundle
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.5" data-path="../../Android/IPC进程间通信/使用文件.html">
+            
+                <a href="../../Android/IPC进程间通信/使用文件.html">
+            
+                    
+                    使用文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.6" data-path="../../Android/IPC进程间通信/使用Messenger.html">
+            
+                <a href="../../Android/IPC进程间通信/使用Messenger.html">
+            
+                    
+                    使用Messenger
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.7" data-path="../../Android/IPC进程间通信/使用Aidl.html">
+            
+                <a href="../../Android/IPC进程间通信/使用Aidl.html">
+            
+                    
+                    使用AIDL
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../../Android/ListView和RecycleView.html">
+            
+                <a href="../../Android/ListView和RecycleView.html">
+            
+                    
+                    ListView和RecyclerView
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../../Android/View的事件分发机制/事件分发机制.html">
+            
+                <a href="../../Android/View的事件分发机制/事件分发机制.html">
+            
+                    
+                    View事件分发
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.11.1" data-path="../../Android/View的事件分发机制/View的滑动.html">
+            
+                <a href="../../Android/View的事件分发机制/View的滑动.html">
+            
+                    
+                    View的滑动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11.2" data-path="../../Android/View的事件分发机制/View的弹性滑动.html">
+            
+                <a href="../../Android/View的事件分发机制/View的弹性滑动.html">
+            
+                    
+                    View的弹性滑动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11.3" data-path="../../Android/View的事件分发机制/View的事件分发.html">
+            
+                <a href="../../Android/View的事件分发机制/View的事件分发.html">
+            
+                    
+                    View的事件分发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11.4" data-path="../../Android/View的事件分发机制/View的滑动冲突.html">
+            
+                <a href="../../Android/View的事件分发机制/View的滑动冲突.html">
+            
+                    
+                    View的滑动冲突
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../../Android/View的工作原理.html">
+            
+                <a href="../../Android/View的工作原理.html">
+            
+                    
+                    View工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../../Android/Android消息机制/Android消息机制.html">
+            
+                <a href="../../Android/Android消息机制/Android消息机制.html">
+            
+                    
+                    Android的消息机制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.13.1" data-path="../../Android/Android消息机制/ThreadLocal.html">
+            
+                <a href="../../Android/Android消息机制/ThreadLocal.html">
+            
+                    
+                    ThreadLocal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13.2" data-path="../../Android/Android消息机制/消息队列的工作原理.html">
+            
+                <a href="../../Android/Android消息机制/消息队列的工作原理.html">
+            
+                    
+                    消息队列的工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13.3" data-path="../../Android/Android消息机制/Looper的工作原理.html">
+            
+                <a href="../../Android/Android消息机制/Looper的工作原理.html">
+            
+                    
+                    Looper的工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13.4" data-path="../../Android/Android消息机制/Handler的工作原理.html">
+            
+                <a href="../../Android/Android消息机制/Handler的工作原理.html">
+            
+                    
+                    Handler的工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../../Android/RemoteView.html">
+            
+                <a href="../../Android/RemoteView.html">
+            
+                    
+                    RemoteView
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="../../Android/Android中的线程模型/IntentService.html">
+            
+                <a href="../../Android/Android中的线程模型/IntentService.html">
+            
+                    
+                    线程模型
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.15.1" data-path="../../Android/Android中的线程模型/AsyncTask详解.html">
+            
+                <a href="../../Android/Android中的线程模型/AsyncTask详解.html">
+            
+                    
+                    AsyncTask详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15.2" data-path="../../Android/Android中的线程模型/线程池.html">
+            
+                <a href="../../Android/Android中的线程模型/线程池.html">
+            
+                    
+                    线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15.3" data-path="../../Android/Android中的线程模型/HandlerThread.html">
+            
+                <a href="../../Android/Android中的线程模型/HandlerThread.html">
+            
+                    
+                    HandlerThread
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.16" data-path="../../Android/APK的安全性/如何攻击.html">
+            
+                <a href="../../Android/APK的安全性/如何攻击.html">
+            
+                    
+                    APK的安全性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.16.1" data-path="../../Android/APK的安全性/如何防御.html">
+            
+                <a href="../../Android/APK的安全性/如何防御.html">
+            
+                    
+                    如何防御
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">开源框架</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../响应式编程.html">
+            
+                <a href="../响应式编程.html">
+            
+                    
+                    响应式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../图片加载库原理.html">
+            
+                <a href="../图片加载库原理.html">
+            
+                    
+                    图片加载库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../热修复.html">
+            
+                <a href="../热修复.html">
+            
+                    
+                    热修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="RxJava.html">
+            
+                <a href="RxJava.html">
+            
+                    
+                    RxJava
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="3.4.1" data-path="背压问题.html">
+            
+                <a href="背压问题.html">
+            
+                    
+                    RxJava的背压问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="../OKHttp/OkHttp的实现原理.html">
+            
+                <a href="../OKHttp/OkHttp的实现原理.html">
+            
+                    
+                    OkHttp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.5.1" data-path="../OKHttp/Dispatcher.html">
+            
+                <a href="../OKHttp/Dispatcher.html">
+            
+                    
+                    Dispatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.2" data-path="../OKHttp/ConnectionPool.html">
+            
+                <a href="../OKHttp/ConnectionPool.html">
+            
+                    
+                    ConnectionPool
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="../插件化.html">
+            
+                <a href="../插件化.html">
+            
+                    
+                    插件化技术
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Java部分</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../../Java/final、finally、finalize的区别.html">
+            
+                <a href="../../Java/final、finally、finalize的区别.html">
+            
+                    
+                    Java基础知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../../Java/垃圾回收机制/垃圾回收机制.html">
+            
+                <a href="../../Java/垃圾回收机制/垃圾回收机制.html">
+            
+                    
+                    垃圾回收机制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../../Java/垃圾回收机制/对象已死吗.html">
+            
+                <a href="../../Java/垃圾回收机制/对象已死吗.html">
+            
+                    
+                    对象已死吗？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../../Java/垃圾回收机制/HotSpot的算法实现.html">
+            
+                <a href="../../Java/垃圾回收机制/HotSpot的算法实现.html">
+            
+                    
+                    HotSpot的算法实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.3" data-path="../../Java/垃圾回收机制/内存分配与回收策略.html">
+            
+                <a href="../../Java/垃圾回收机制/内存分配与回收策略.html">
+            
+                    
+                    内存分配与回收策略
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="../../Java/抽象类和接口.html">
+            
+                <a href="../../Java/抽象类和接口.html">
+            
+                    
+                    抽象类和接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="../../Java/Servlet.html">
+            
+                <a href="../../Java/Servlet.html">
+            
+                    
+                    Servlet（Server与Applet)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="../../Java/Xml的解析.html">
+            
+                <a href="../../Java/Xml的解析.html">
+            
+                    
+                    XML解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="../../Java/集合/集合.html">
+            
+                <a href="../../Java/集合/集合.html">
+            
+                    
+                    集合
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.6.1" data-path="../../Java/集合/HashMap的详解.html">
+            
+                <a href="../../Java/集合/HashMap的详解.html">
+            
+                    
+                    HashMap详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="../../Java/类加载机制.html">
+            
+                <a href="../../Java/类加载机制.html">
+            
+                    
+                    类加载机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="../../Java/线程池.html">
+            
+                <a href="../../Java/线程池.html">
+            
+                    
+                    线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.9" data-path="../../Java/线程部分.html">
+            
+                <a href="../../Java/线程部分.html">
+            
+                    
+                    线程部分
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.10" data-path="../../Java/Java中的内存模型与线程.html">
+            
+                <a href="../../Java/Java中的内存模型与线程.html">
+            
+                    
+                    内存模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">操作系统</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../../操作系统/线程调度.html">
+            
+                <a href="../../操作系统/线程调度.html">
+            
+                    
+                    线程与进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">设计模式</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../../设计模式/MVC与MVP.html">
+            
+                <a href="../../设计模式/MVC与MVP.html">
+            
+                    
+                    MVC与MVP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../../设计模式/面向对象六大原则.html">
+            
+                <a href="../../设计模式/面向对象六大原则.html">
+            
+                    
+                    面向对象六大原则
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="../../设计模式/单例模式.html">
+            
+                <a href="../../设计模式/单例模式.html">
+            
+                    
+                    单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="../../设计模式/Builder模式.html">
+            
+                <a href="../../设计模式/Builder模式.html">
+            
+                    
+                    Builder模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="../../设计模式/代理模式.html">
+            
+                <a href="../../设计模式/代理模式.html">
+            
+                    
+                    代理模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="../../设计模式/原型模式.html">
+            
+                <a href="../../设计模式/原型模式.html">
+            
+                    
+                    原型模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="../../设计模式/外观模式.html">
+            
+                <a href="../../设计模式/外观模式.html">
+            
+                    
+                    外观模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.8" data-path="../../设计模式/策略模式.html">
+            
+                <a href="../../设计模式/策略模式.html">
+            
+                    
+                    策略模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.9" data-path="../../设计模式/简单工厂模式.html">
+            
+                <a href="../../设计模式/简单工厂模式.html">
+            
+                    
+                    简单工厂
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.10" data-path="../../设计模式/观察者模式.html">
+            
+                <a href="../../设计模式/观察者模式.html">
+            
+                    
+                    观察者模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.11" data-path="../../设计模式/职责链模式.html">
+            
+                <a href="../../设计模式/职责链模式.html">
+            
+                    
+                    职责链模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.12" data-path="../../设计模式/适配器模式.html">
+            
+                <a href="../../设计模式/适配器模式.html">
+            
+                    
+                    适配器模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">计算机网络</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../../计算机网络/基本知识.html">
+            
+                <a href="../../计算机网络/基本知识.html">
+            
+                    
+                    网络基础知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../../计算机网络/TCP-IP协议分层.html">
+            
+                <a href="../../计算机网络/TCP-IP协议分层.html">
+            
+                    
+                    网络协议分层
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="../../计算机网络/TCP的三次握手四次挥手.html">
+            
+                <a href="../../计算机网络/TCP的三次握手四次挥手.html">
+            
+                    
+                    三次握手四次挥手
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="../../计算机网络/Http/Http1.0.html">
+            
+                <a href="../../计算机网络/Http/Http1.0.html">
+            
+                    
+                    HTTP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="../../计算机网络/Http/Https.html">
+            
+                <a href="../../计算机网络/Http/Https.html">
+            
+                    
+                    HTTPS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="../../计算机网络/TCP.html">
+            
+                <a href="../../计算机网络/TCP.html">
+            
+                    
+                    TCP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">算法</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../../算法/排序算法/排序算法总结.html">
+            
+                <a href="../../算法/排序算法/排序算法总结.html">
+            
+                    
+                    排序算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../../算法/排序算法/插入排序.html">
+            
+                <a href="../../算法/排序算法/插入排序.html">
+            
+                    
+                    插入排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" data-path="../../算法/排序算法/冒泡排序.html">
+            
+                <a href="../../算法/排序算法/冒泡排序.html">
+            
+                    
+                    冒泡排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" data-path="../../算法/排序算法/快速排序.html">
+            
+                <a href="../../算法/排序算法/快速排序.html">
+            
+                    
+                    快速排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4" data-path="../../算法/排序算法/选择排序.html">
+            
+                <a href="../../算法/排序算法/选择排序.html">
+            
+                    
+                    选择排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.5" data-path="../../算法/排序算法/堆排序.html">
+            
+                <a href="../../算法/排序算法/堆排序.html">
+            
+                    
+                    堆排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.6" data-path="../../算法/排序算法/归并排序.html">
+            
+                <a href="../../算法/排序算法/归并排序.html">
+            
+                    
+                    归并排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.7" data-path="../../算法/排序算法/计数排序.html">
+            
+                <a href="../../算法/排序算法/计数排序.html">
+            
+                    
+                    计数排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.8" data-path="../../算法/排序算法/基数排序.html">
+            
+                <a href="../../算法/排序算法/基数排序.html">
+            
+                    
+                    基数排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.9" data-path="../../算法/排序算法/木桶排序.html">
+            
+                <a href="../../算法/排序算法/木桶排序.html">
+            
+                    
+                    木桶排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../../算法/字符串压缩算法.html">
+            
+                <a href="../../算法/字符串压缩算法.html">
+            
+                    
+                    字符串压缩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../../算法/LeetCode 日常刷题（1）.html">
+            
+                <a href="../../算法/LeetCode 日常刷题（1）.html">
+            
+                    
+                    LeetCode日常刷题1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="../../算法/LeetCode日常刷题（2）.html">
+            
+                <a href="../../算法/LeetCode日常刷题（2）.html">
+            
+                    
+                    LeetCode日常刷题2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">数据结构</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../../数据结构/各种树.html">
+            
+                <a href="../../数据结构/各种树.html">
+            
+                    
+                    数据结构各种树
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">面经</li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" data-path="../../面经/牛客秋招android面经9月%28至9.16号%29合集.md">
+            
+                <span>
+            
+                    
+                    牛客网面经
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >RxJava的背压问题</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x80CC;&#x538B;&#x95EE;&#x9898;">&#x80CC;&#x538B;&#x95EE;&#x9898;</h1>
+<p><strong>&#x80CC;&#x538B;&#x662F;&#x6307;&#x5728;&#x5F02;&#x6B65;&#x573A;&#x666F;&#x4E2D;&#xFF0C;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x901F;&#x5EA6;&#x8FDC;&#x5FEB;&#x4E8E;&#x89C2;&#x5BDF;&#x8005;&#x7684;&#x5904;&#x7406;&#x901F;&#x5EA6;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E00;&#x79CD;&#x544A;&#x8BC9;&#x4E0A;&#x6E38;&#x7684;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#x964D;&#x4F4E;&#x53D1;&#x9001;&#x901F;&#x5EA6;&#x7684;&#x7B56;&#x7565;</strong></p>
+<p>&#x7B80;&#x800C;&#x8A00;&#x4E4B;&#xFF0C;<strong>&#x80CC;&#x538B;&#x662F;&#x6D41;&#x901F;&#x63A7;&#x5236;&#x7684;&#x4E00;&#x79CD;&#x7B56;&#x7565;</strong>&#x3002;</p>
+<p>&#x9700;&#x8981;&#x5F3A;&#x8C03;&#x4E24;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x80CC;&#x538B;&#x7B56;&#x7565;&#x7684;&#x4E00;&#x4E2A;&#x524D;&#x63D0;&#x662F;<strong>&#x5F02;&#x6B65;&#x73AF;&#x5883;</strong>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#x548C;&#x89C2;&#x5BDF;&#x8005;&#x5904;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x7EBF;&#x7A0B;&#x73AF;&#x5883;&#x4E2D;&#x3002;</li>
+<li>&#x80CC;&#x538B;&#xFF08;Backpressure&#xFF09;&#x5E76;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x50CF;flatMap&#x4E00;&#x6837;&#x53EF;&#x4EE5;&#x5728;&#x7A0B;&#x5E8F;&#x4E2D;&#x76F4;&#x63A5;&#x4F7F;&#x7528;&#x7684;&#x64CD;&#x4F5C;&#x7B26;&#xFF0C;&#x4ED6;&#x53EA;&#x662F;&#x4E00;&#x79CD;&#x63A7;&#x5236;&#x4E8B;&#x4EF6;&#x6D41;&#x901F;&#x7684;&#x7B56;&#x7565;&#x3002;</li>
+</ul>
+<h1 id="&#x54CD;&#x5E94;&#x5F0F;&#x62C9;&#x53D6;&#xFF08;reactive-pull&#xFF09;">&#x54CD;&#x5E94;&#x5F0F;&#x62C9;&#x53D6;&#xFF08;reactive pull&#xFF09;</h1>
+<p>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x56DE;&#x5FC6;&#x4E4B;&#x524D;&#x90A3;&#x7BC7;&#x300A;&#x5173;&#x4E8E;Rxjava&#x6700;&#x53CB;&#x597D;&#x7684;&#x6587;&#x7AE0;&#x300B;&#xFF0C;&#x91CC;&#x9762;&#x5176;&#x5B9E;&#x63D0;&#x5230;&#xFF0C;&#x5728;RxJava&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x578B;&#x4E2D;&#xFF0C;<strong>&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#x662F;&#x4E3B;&#x52A8;&#x7684;&#x63A8;&#x9001;&#x6570;&#x636E;&#x7ED9;&#x89C2;&#x5BDF;&#x8005;&#xFF0C;&#x89C2;&#x5BDF;&#x8005;&#x662F;&#x88AB;&#x52A8;&#x63A5;&#x6536;&#x7684;</strong>&#x3002;&#x800C;&#x54CD;&#x5E94;&#x5F0F;&#x62C9;&#x53D6;&#x5219;&#x53CD;&#x8FC7;&#x6765;&#xFF0C;<strong>&#x89C2;&#x5BDF;&#x8005;&#x4E3B;&#x52A8;&#x4ECE;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#x90A3;&#x91CC;&#x53BB;&#x62C9;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#x53D8;&#x6210;&#x88AB;&#x52A8;&#x7684;&#x7B49;&#x5F85;&#x901A;&#x77E5;&#x518D;&#x53D1;&#x9001;&#x6570;&#x636E;</strong>&#x3002;</p>
+<p>&#x7ED3;&#x6784;&#x793A;&#x610F;&#x56FE;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="https://dn-mhke0kuv.qbox.me/45aaa155f3b4ed976a65.png" alt=""></p>
+<p>&#x89C2;&#x5BDF;&#x8005;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x81EA;&#x8EAB;&#x5B9E;&#x9645;&#x60C5;&#x51B5;&#x6309;&#x9700;&#x62C9;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x88AB;&#x52A8;&#x63A5;&#x6536;&#xFF08;&#x4E5F;&#x5C31;&#x76F8;&#x5F53;&#x4E8E;&#x544A;&#x8BC9;&#x4E0A;&#x6E38;&#x89C2;&#x5BDF;&#x8005;&#x628A;&#x901F;&#x5EA6;&#x6162;&#x4E0B;&#x6765;&#xFF09;&#xFF0C;&#x6700;&#x7EC8;&#x5B9E;&#x73B0;&#x4E86;&#x4E0A;&#x6E38;&#x88AB;&#x89C2;&#x5BDF;&#x8005;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x7684;&#x901F;&#x5EA6;&#x7684;&#x63A7;&#x5236;&#xFF0C;&#x5B9E;&#x73B0;&#x4E86;&#x80CC;&#x538B;&#x7684;&#x7B56;&#x7565;&#x3002;</p>
+<h1 id="&#x6E90;&#x7801;">&#x6E90;&#x7801;</h1>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FlowableOnBackpressureBufferStategy</span></span>{
+...
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onNext</span><span class="hljs-params">(T t)</span> </span>{
+            <span class="hljs-keyword">if</span> (done) {
+                <span class="hljs-keyword">return</span>;
+            }
+            <span class="hljs-keyword">boolean</span> callOnOverflow = <span class="hljs-keyword">false</span>;
+            <span class="hljs-keyword">boolean</span> callError = <span class="hljs-keyword">false</span>;
+            Deque&lt;T&gt; dq = deque;
+            <span class="hljs-keyword">synchronized</span> (dq) {
+               <span class="hljs-keyword">if</span> (dq.size() == bufferSize) {
+                   <span class="hljs-keyword">switch</span> (strategy) {
+                   <span class="hljs-keyword">case</span> DROP_LATEST:
+                       dq.pollLast();
+                       dq.offer(t);
+                       callOnOverflow = <span class="hljs-keyword">true</span>;
+                       <span class="hljs-keyword">break</span>;
+                   <span class="hljs-keyword">case</span> DROP_OLDEST:
+                       dq.poll();
+                       dq.offer(t);
+                       callOnOverflow = <span class="hljs-keyword">true</span>;
+                       <span class="hljs-keyword">break</span>;
+                   <span class="hljs-keyword">default</span>:
+                       <span class="hljs-comment">// signal error</span>
+                       callError = <span class="hljs-keyword">true</span>;
+                       <span class="hljs-keyword">break</span>;
+                   }
+               } <span class="hljs-keyword">else</span> {
+                   dq.offer(t);
+               }
+            }
+
+            <span class="hljs-keyword">if</span> (callOnOverflow) {
+                <span class="hljs-keyword">if</span> (onOverflow != <span class="hljs-keyword">null</span>) {
+                    <span class="hljs-keyword">try</span> {
+                        onOverflow.run();
+                    } <span class="hljs-keyword">catch</span> (Throwable ex) {
+                        Exceptions.throwIfFatal(ex);
+                        s.cancel();
+                        onError(ex);
+                    }
+                }
+            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (callError) {
+                s.cancel();
+                onError(<span class="hljs-keyword">new</span> MissingBackpressureException());
+            } <span class="hljs-keyword">else</span> {
+                drain();
+            }
+        }
+...
+}
+</code></pre>
+<p>&#x5728;&#x8FD9;&#x6BB5;&#x6E90;&#x7801;&#x4E2D;&#xFF0C;&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;&#x80CC;&#x538B;&#x7B56;&#x7565;&#x8FDB;&#x884C;&#x4E86;&#x4E0D;&#x540C;&#x7684;&#x5904;&#x7406;&#x63AA;&#x65BD;&#xFF0C;&#x5F53;&#x7136;&#x8FD9;&#x53EA;&#x662F;&#x5217;&#x4E3E;&#x4E86;&#x4E00;&#x6BB5;&#x5173;&#x4E8E;buffer&#x80CC;&#x538B;&#x7B56;&#x7565;&#x7684;&#x4F8B;&#x5B50;&#x3002;</p>
+<h1 id="&#x6839;&#x6E90;">&#x6839;&#x6E90;</h1>
+<p>&#x4EA7;&#x751F;&#x80CC;&#x538B;&#x95EE;&#x9898;&#x7684;&#x6839;&#x6E90;&#x5C31;&#x662F;&#x4E0A;&#x6E38;&#x53D1;&#x9001;&#x901F;&#x5EA6;&#x4E0E;&#x4E0B;&#x6E38;&#x7684;&#x5904;&#x7406;&#x901F;&#x5EA6;&#x4E0D;&#x5747;&#x5BFC;&#x81F4;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x60F3;&#x8981;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x5C31;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x5339;&#x914D;&#x4E24;&#x4E2A;&#x901F;&#x7387;&#x8FBE;&#x5230;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x80CC;&#x538B;&#x6839;&#x6E90;&#x7684;&#x63AA;&#x65BD;&#x3002;</p>
+<p>&#x901A;&#x5E38;&#x6709;&#x4E24;&#x4E2A;&#x7B56;&#x7565;&#x53EF;&#x4F9B;&#x4F7F;&#x7528;&#xFF1A;</p>
+<ol>
+<li>&#x4ECE;&#x6570;&#x91CF;&#x4E0A;&#x89E3;&#x51B3;&#xFF0C;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x91C7;&#x6837;</li>
+<li>&#x4ECE;&#x901F;&#x5EA6;&#x4E0A;&#x89E3;&#x51B3;&#xFF0C;&#x964D;&#x4F4E;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x7684;&#x901F;&#x7387;</li>
+<li>&#x5229;&#x7528;flowable&#x548C;subscriber</li>
+</ol>
+<h1 id="&#x4F7F;&#x7528;flowable">&#x4F7F;&#x7528;Flowable</h1>
+<pre><code class="lang-java">Flowable&lt;Integer&gt; upstream = Flowable.create(<span class="hljs-keyword">new</span> FlowableOnSubscribe&lt;Integer&gt;() {
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(FlowableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{
+                Log.d(TAG, <span class="hljs-string">&quot;emit 1&quot;</span>);
+                emitter.onNext(<span class="hljs-number">1</span>);
+                Log.d(TAG, <span class="hljs-string">&quot;emit 2&quot;</span>);
+                emitter.onNext(<span class="hljs-number">2</span>);
+                Log.d(TAG, <span class="hljs-string">&quot;emit 3&quot;</span>);
+                emitter.onNext(<span class="hljs-number">3</span>);
+                Log.d(TAG, <span class="hljs-string">&quot;emit complete&quot;</span>);
+                emitter.onComplete();
+            }
+        }, BackpressureStrategy.ERROR); <span class="hljs-comment">//&#x589E;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x53C2;&#x6570;</span>
+
+        Subscriber&lt;Integer&gt; downstream = <span class="hljs-keyword">new</span> Subscriber&lt;Integer&gt;() {
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onSubscribe</span><span class="hljs-params">(Subscription s)</span> </span>{
+                Log.d(TAG, <span class="hljs-string">&quot;onSubscribe&quot;</span>);
+                s.request(Long.MAX_VALUE);  <span class="hljs-comment">//&#x6CE8;&#x610F;&#x8FD9;&#x53E5;&#x4EE3;&#x7801;</span>
+            }
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onNext</span><span class="hljs-params">(Integer integer)</span> </span>{
+                Log.d(TAG, <span class="hljs-string">&quot;onNext: &quot;</span> + integer);
+
+            }
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onError</span><span class="hljs-params">(Throwable t)</span> </span>{
+                 Log.w(TAG, <span class="hljs-string">&quot;onError: &quot;</span>, t);
+            }
+
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onComplete</span><span class="hljs-params">()</span> </span>{
+                Log.d(TAG, <span class="hljs-string">&quot;onComplete&quot;</span>);
+            }
+        };
+
+        upstream.subscribe(downstream);
+</code></pre>
+<p>&#x6211;&#x4EEC;&#x6CE8;&#x610F;&#x5230;&#x8FD9;&#x6B21;&#x548C;<code>Observable</code>&#x6709;&#x4E9B;&#x4E0D;&#x540C;. &#x9996;&#x5148;&#x662F;&#x521B;&#x5EFA;<code>Flowable</code>&#x7684;&#x65F6;&#x5019;&#x589E;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;&#x53C2;&#x6570;, &#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x7528;&#x6765;&#x9009;&#x62E9;&#x80CC;&#x538B;,&#x4E5F;&#x5C31;&#x662F;&#x51FA;&#x73B0;&#x4E0A;&#x4E0B;&#x6E38;&#x6D41;&#x901F;&#x4E0D;&#x5747;&#x8861;&#x7684;&#x65F6;&#x5019;&#x5E94;&#x8BE5;&#x600E;&#x4E48;&#x5904;&#x7406;&#x7684;&#x529E;&#x6CD5;, &#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x7528;<code>BackpressureStrategy.ERROR</code>&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;, &#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x4F1A;&#x5728;&#x51FA;&#x73B0;&#x4E0A;&#x4E0B;&#x6E38;&#x6D41;&#x901F;&#x4E0D;&#x5747;&#x8861;&#x7684;&#x65F6;&#x5019;&#x76F4;&#x63A5;&#x629B;&#x51FA;&#x4E00;&#x4E2A;&#x5F02;&#x5E38;,&#x8FD9;&#x4E2A;&#x5F02;&#x5E38;&#x5C31;&#x662F;&#x8457;&#x540D;&#x7684;<code>MissingBackpressureException</code>. &#x5176;&#x4F59;&#x7684;&#x7B56;&#x7565;&#x540E;&#x9762;&#x518D;&#x6765;&#x8BB2;&#x89E3;.</p>
+<p>&#x53E6;&#x5916;&#x7684;&#x4E00;&#x4E2A;&#x533A;&#x522B;&#x662F;&#x5728;&#x4E0B;&#x6E38;&#x7684;<code>onSubscribe</code>&#x65B9;&#x6CD5;&#x4E2D;&#x4F20;&#x7ED9;&#x6211;&#x4EEC;&#x7684;&#x4E0D;&#x518D;&#x662F;<code>Disposable</code>&#x4E86;, &#x800C;&#x662F;<code>Subscription</code>, &#x5B83;&#x4FE9;&#x6709;&#x4EC0;&#x4E48;&#x533A;&#x522B;&#x5462;, &#x9996;&#x5148;&#x5B83;&#x4EEC;&#x90FD;&#x662F;&#x4E0A;&#x4E0B;&#x6E38;&#x4E2D;&#x95F4;&#x7684;&#x4E00;&#x4E2A;&#x5F00;&#x5173;, &#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x8BF4;&#x8C03;&#x7528;<code>Disposable.dispose()</code>&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5207;&#x65AD;&#x6C34;&#x7BA1;, &#x540C;&#x6837;&#x7684;&#x8C03;&#x7528;<code>Subscription.cancel()</code>&#x4E5F;&#x53EF;&#x4EE5;&#x5207;&#x65AD;&#x6C34;&#x7BA1;, &#x4E0D;&#x540C;&#x7684;&#x5730;&#x65B9;&#x5728;&#x4E8E;<code>Subscription</code>&#x589E;&#x52A0;&#x4E86;&#x4E00;&#x4E2A;<code>void request(long n)</code>&#x65B9;&#x6CD5;, &#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x6709;&#x4EC0;&#x4E48;&#x7528;&#x5462;, &#x5728;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#x4E2D;&#x4E5F;&#x6709;&#x8FD9;&#x4E48;&#x4E00;&#x53E5;&#x4EE3;&#x7801;:</p>
+<pre><code> s.request(Long.MAX_VALUE);
+</code></pre><p>&#x8FD9;&#x662F;&#x56E0;&#x4E3A;<code>Flowable</code>&#x5728;&#x8BBE;&#x8BA1;&#x7684;&#x65F6;&#x5019;&#x91C7;&#x7528;&#x4E86;&#x4E00;&#x79CD;&#x65B0;&#x7684;&#x601D;&#x8DEF;&#x4E5F;&#x5C31;&#x662F;<code>&#x54CD;&#x5E94;&#x5F0F;&#x62C9;&#x53D6;</code>&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x66F4;&#x597D;&#x7684;&#x89E3;&#x51B3;&#x4E0A;&#x4E0B;&#x6E38;&#x6D41;&#x901F;&#x4E0D;&#x5747;&#x8861;&#x7684;&#x95EE;&#x9898;, &#x4E0E;&#x6211;&#x4EEC;&#x4E4B;&#x524D;&#x6240;&#x8BB2;&#x7684;<code>&#x63A7;&#x5236;&#x6570;&#x91CF;</code>&#x548C;<code>&#x63A7;&#x5236;&#x901F;&#x5EA6;</code>&#x4E0D;&#x592A;&#x4E00;&#x6837;, &#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x7528;&#x901A;&#x4FD7;&#x6613;&#x61C2;&#x7684;&#x8BDD;&#x6765;&#x8BF4;&#x5C31;&#x597D;&#x6BD4;&#x662F;<code>&#x53F6;&#x95EE;&#x6253;&#x9B3C;&#x5B50;</code>, &#x6211;&#x4EEC;&#x628A;<code>&#x4E0A;&#x6E38;</code>&#x770B;&#x6210;<code>&#x5C0F;&#x65E5;&#x672C;</code>, &#x628A;<code>&#x4E0B;&#x6E38;</code>&#x5F53;&#x4F5C;<code>&#x53F6;&#x95EE;</code>, &#x5F53;&#x8C03;&#x7528;<code>Subscription.request(1)</code>&#x65F6;, <code>&#x53F6;&#x95EE;</code>&#x5C31;&#x8BF4;<code>&#x6211;&#x8981;&#x6253;&#x4E00;&#x4E2A;!</code> &#x7136;&#x540E;<code>&#x5C0F;&#x65E5;&#x672C;</code>&#x5C31;&#x62FF;&#x51FA;<code>&#x4E00;&#x4E2A;&#x9B3C;&#x5B50;</code>&#x7ED9;&#x53F6;&#x95EE;, &#x8BA9;&#x4ED6;&#x6253;, &#x7B49;&#x53F6;&#x95EE;&#x6253;&#x6B7B;&#x8FD9;&#x4E2A;&#x9B3C;&#x5B50;&#x4E4B;&#x540E;, &#x518D;&#x6B21;&#x8C03;&#x7528;<code>request(10)</code>, &#x53F6;&#x95EE;&#x5C31;&#x53C8;&#x8BF4;<code>&#x6211;&#x8981;&#x6253;&#x5341;&#x4E2A;!</code> &#x7136;&#x540E;&#x5C0F;&#x65E5;&#x672C;&#x53C8;&#x6D3E;&#x51FA;<code>&#x5341;&#x4E2A;&#x9B3C;&#x5B50;</code>&#x7ED9;&#x53F6;&#x95EE;, &#x7136;&#x540E;&#x5C31;&#x5728;&#x8FB9;&#x4E0A;&#x770B;&#x70ED;&#x95F9;, &#x770B;&#x53F6;&#x95EE;&#x80FD;&#x4E0D;&#x80FD;&#x6253;&#x6B7B;&#x5341;&#x4E2A;&#x9B3C;&#x5B50;, &#x7B49;&#x53F6;&#x95EE;&#x6253;&#x6B7B;&#x5341;&#x4E2A;&#x9B3C;&#x5B50;&#x540E;&#x518D;&#x7EE7;&#x7EED;&#x8981;&#x9B3C;&#x5B50;&#x63A5;&#x7740;&#x6253;...</p>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x628A;request&#x5F53;&#x505A;&#x662F;&#x4E00;&#x79CD;&#x80FD;&#x529B;, &#x5F53;&#x6210;<code>&#x4E0B;&#x6E38;&#x5904;&#x7406;&#x4E8B;&#x4EF6;</code>&#x7684;&#x80FD;&#x529B;, &#x4E0B;&#x6E38;&#x80FD;&#x5904;&#x7406;&#x51E0;&#x4E2A;&#x5C31;&#x544A;&#x8BC9;&#x4E0A;&#x6E38;&#x6211;&#x8981;&#x51E0;&#x4E2A;, &#x8FD9;&#x6837;&#x53EA;&#x8981;&#x4E0A;&#x6E38;&#x6839;&#x636E;&#x4E0B;&#x6E38;&#x7684;&#x5904;&#x7406;&#x80FD;&#x529B;&#x6765;&#x51B3;&#x5B9A;&#x53D1;&#x9001;&#x591A;&#x5C11;&#x4E8B;&#x4EF6;, &#x5C31;&#x4E0D;&#x4F1A;&#x9020;&#x6210;&#x4E00;&#x7A9D;&#x8702;&#x7684;&#x53D1;&#x51FA;&#x4E00;&#x5806;&#x4E8B;&#x4EF6;&#x6765;, &#x4ECE;&#x800C;&#x5BFC;&#x81F4;OOM. &#x8FD9;&#x4E5F;&#x5C31;&#x5B8C;&#x7F8E;&#x7684;&#x89E3;&#x51B3;&#x4E4B;&#x524D;&#x6211;&#x4EEC;&#x6240;&#x5B66;&#x5230;&#x7684;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;&#x7684;&#x7F3A;&#x9677;, &#x8FC7;&#x6EE4;&#x4E8B;&#x4EF6;&#x4F1A;&#x5BFC;&#x81F4;&#x4E8B;&#x4EF6;&#x4E22;&#x5931;, &#x51CF;&#x901F;&#x53C8;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x6027;&#x80FD;&#x635F;&#x5931;. &#x800C;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x65E2;&#x89E3;&#x51B3;&#x4E86;&#x4E8B;&#x4EF6;&#x4E22;&#x5931;&#x7684;&#x95EE;&#x9898;, &#x53C8;&#x89E3;&#x51B3;&#x4E86;&#x901F;&#x5EA6;&#x7684;&#x95EE;&#x9898;, &#x5B8C;&#x7F8E; !</p>
+<h1 id="&#x540C;&#x6B65;&#x60C5;&#x51B5;">&#x540C;&#x6B65;&#x60C5;&#x51B5;</h1>
+<pre><code class="lang-java">Observable.create(<span class="hljs-keyword">new</span> ObservableOnSubscribe&lt;Integer&gt;() {                         
+    <span class="hljs-meta">@Override</span>                                                                    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">subscribe</span><span class="hljs-params">(ObservableEmitter&lt;Integer&gt; emitter)</span> <span class="hljs-keyword">throws</span> Exception </span>{ 
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; ; i++) {   <span class="hljs-comment">//&#x65E0;&#x9650;&#x5FAA;&#x73AF;&#x53D1;&#x4E8B;&#x4EF6;                                              </span>
+            emitter.onNext(i);                                                   
+        }                                                                        
+    }                                                                            
+}).subscribe(<span class="hljs-keyword">new</span> Consumer&lt;Integer&gt;() {                                           
+    <span class="hljs-meta">@Override</span>                                                                    
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">(Integer integer)</span> <span class="hljs-keyword">throws</span> Exception </span>{                       
+        Thread.sleep(<span class="hljs-number">2000</span>);                                                      
+        Log.d(TAG, <span class="hljs-string">&quot;&quot;</span> + integer);                                                
+    }                                                                            
+});
+</code></pre>
+<p>&#x5F53;&#x4E0A;&#x4E0B;&#x6E38;&#x5DE5;&#x4F5C;&#x5728;<code>&#x540C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;</code>&#x4E2D;&#x65F6;, &#x8FD9;&#x65F6;&#x5019;&#x662F;&#x4E00;&#x4E2A;<code>&#x540C;&#x6B65;</code>&#x7684;&#x8BA2;&#x9605;&#x5173;&#x7CFB;, &#x4E5F;&#x5C31;&#x662F;&#x8BF4;<code>&#x4E0A;&#x6E38;</code>&#x6BCF;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;<code>&#x5FC5;&#x987B;</code>&#x7B49;&#x5230;<code>&#x4E0B;&#x6E38;</code>&#x63A5;&#x6536;&#x5904;&#x7406;&#x5B8C;&#x4E86;&#x4EE5;&#x540E;&#x624D;&#x80FD;&#x63A5;&#x7740;&#x53D1;&#x9001;&#x4E0B;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;.</p>
+<p>&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#x7684;&#x533A;&#x522B;&#x5C31;&#x5728;&#x4E8E;&#x6709;&#x6CA1;&#x6709;&#x7F13;&#x5B58;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x7684;&#x7F13;&#x51B2;&#x533A;&#x3002;</p>
+<h1 id="&#x5F02;&#x6B65;&#x60C5;&#x51B5;">&#x5F02;&#x6B65;&#x60C5;&#x51B5;</h1>
+<p>&#x901A;&#x8FC7;subscribeOn&#x548C;observeOn&#x6765;&#x786E;&#x5B9A;&#x5BF9;&#x5E94;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x8FBE;&#x5230;&#x5F02;&#x6B65;&#x7684;&#x6548;&#x679C;&#xFF0C;&#x5F02;&#x6B65;&#x65F6;&#x4F1A;&#x6709;&#x4E00;&#x4E2A;&#x5BF9;&#x5E94;&#x7684;&#x7F13;&#x5B58;&#x533A;&#x6765;&#x6362;&#x4ECE;&#x4ECE;&#x4E0A;&#x6E38;&#x53D1;&#x9001;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> BackpressureStrategy {
+    <span class="hljs-comment">/**
+     * OnNext events are written without any buffering or dropping.
+     * Downstream has to deal with any overflow.
+     * &lt;p&gt;Useful when one applies one of the custom-parameter onBackpressureXXX operators.
+     */</span>
+    MISSING,
+    <span class="hljs-comment">/**
+     * Signals a MissingBackpressureException in case the downstream can&apos;t keep up.
+     */</span>
+    ERROR,
+    <span class="hljs-comment">/**
+     * Buffers &lt;em&gt;all&lt;/em&gt; onNext values until the downstream consumes it.
+     */</span>
+    BUFFER,
+    <span class="hljs-comment">/**
+     * Drops the most recent onNext value if the downstream can&apos;t keep up.
+     */</span>
+    DROP,
+    <span class="hljs-comment">/**
+     * Keeps only the latest onNext value, overwriting any previous value if the
+     * downstream can&apos;t keep up.
+     */</span>
+    LATEST
+}
+</code></pre>
+<p>&#x80CC;&#x538B;&#x7B56;&#x7565;&#xFF1A;</p>
+<ol>
+<li>error&#xFF0C; &#x7F13;&#x51B2;&#x533A;&#x5927;&#x6982;&#x5728;128</li>
+<li>buffer&#xFF0C; &#x7F13;&#x51B2;&#x533A;&#x5728;1000&#x5DE6;&#x53F3;</li>
+<li>drop&#xFF0C; &#x628A;&#x5B58;&#x4E0D;&#x4E0B;&#x7684;&#x4E8B;&#x4EF6;&#x4E22;&#x5F03;</li>
+<li>latest&#xFF0C; &#x53EA;&#x4FDD;&#x7559;&#x6700;&#x65B0;&#x7684;</li>
+<li>missing, &#x7F3A;&#x7701;&#x8BBE;&#x7F6E;&#xFF0C;&#x4E0D;&#x505A;&#x4EFB;&#x4F55;&#x64CD;&#x4F5C;</li>
+</ol>
+<p>&#x4E0A;&#x6E38;&#x4ECE;&#x54EA;&#x91CC;&#x5F97;&#x77E5;&#x4E0B;&#x6E38;&#x7684;&#x5904;&#x7406;&#x80FD;&#x529B;&#x5462;&#xFF1F;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x4E0A;&#x6E38;&#x6700;&#x91CD;&#x8981;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x80AF;&#x5B9A;&#x5C31;&#x662F;<code>FlowableEmitter</code>&#x4E86;&#x554A;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x662F;&#x901A;&#x8FC7;&#x5B83;&#x6765;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x7684;&#x554A;&#xFF0C;&#x6765;&#x770B;&#x770B;&#x5B83;&#x7684;&#x6E90;&#x7801;&#x5427;(&#x522B;&#x7D27;&#x5F20;&#xFF0C;&#x5B83;&#x7684;&#x4EE3;&#x7801;&#x7070;&#x5E38;&#x7B80;&#x5355;)&#xFF1A;</p>
+<pre><code>public interface FlowableEmitter&lt;T&gt; extends Emitter&lt;T&gt; {
+    void setDisposable(Disposable s);
+    void setCancellable(Cancellable c);
+
+    /**
+     * The current outstanding request amount.
+     * &lt;p&gt;This method is thread-safe.
+     * @return the current outstanding request amount
+     */
+    long requested();
+
+    boolean isCancelled();
+    FlowableEmitter&lt;T&gt; serialize();
+}
+</code></pre><p>FlowableEmitter&#x662F;&#x4E2A;&#x63A5;&#x53E3;&#xFF0C;&#x7EE7;&#x627F;Emitter&#xFF0C;Emitter&#x91CC;&#x9762;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x7684;onNext(),onComplete()&#x548C;onError()&#x4E09;&#x4E2A;&#x65B9;&#x6CD5;&#x3002;&#x6211;&#x4EEC;&#x770B;&#x5230;FlowableEmitter&#x4E2D;&#x6709;&#x8FD9;&#x4E48;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<pre><code>long requested();
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/1008453-0b408cf6d2360677.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240" alt=""></p>
+<p>&#x540C;&#x6B65;request.png</p>
+<p>&#x8FD9;&#x5F20;&#x56FE;&#x7684;&#x610F;&#x601D;&#x5C31;&#x662F;&#x5F53;&#x4E0A;&#x4E0B;&#x6E38;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5728;<code>&#x4E0B;&#x6E38;</code>&#x8C03;&#x7528;request(n)&#x5C31;&#x4F1A;&#x76F4;&#x63A5;&#x6539;&#x53D8;<code>&#x4E0A;&#x6E38;</code>&#x4E2D;&#x7684;requested&#x7684;&#x503C;&#xFF0C;&#x591A;&#x6B21;&#x8C03;&#x7528;&#x4FBF;&#x4F1A;&#x53E0;&#x52A0;&#x8FD9;&#x4E2A;&#x503C;&#xFF0C;&#x800C;&#x4E0A;&#x6E38;&#x6BCF;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x4E4B;&#x540E;&#x4FBF;&#x4F1A;&#x53BB;&#x51CF;&#x5C11;&#x8FD9;&#x4E2A;&#x503C;&#xFF0C;&#x5F53;&#x8FD9;&#x4E2A;&#x503C;&#x51CF;&#x5C11;&#x81F3;0&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x7EE7;&#x7EED;&#x53D1;&#x9001;&#x4E8B;&#x4EF6;&#x4FBF;&#x4F1A;&#x629B;&#x5F02;&#x5E38;&#x4E86;&#x3002;</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1008453-6ae614d9cb3927cb.png?imageMogr2/auto-orient/strip|imageView2/2/w/1240" alt=""></p>
+<p>&#x5F02;&#x6B65;request.png</p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5F53;&#x4E0A;&#x4E0B;&#x6E38;&#x5DE5;&#x4F5C;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x7EBF;&#x7A0B;&#x91CC;&#x65F6;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x91CC;&#x90FD;&#x6709;&#x4E00;&#x4E2A;requested&#xFF0C;&#x800C;&#x6211;&#x4EEC;&#x8C03;&#x7528;request&#xFF08;1000&#xFF09;&#x65F6;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x6539;&#x53D8;&#x7684;&#x662F;&#x4E0B;&#x6E38;&#x4E3B;&#x7EBF;&#x7A0B;&#x4E2D;&#x7684;requested&#xFF0C;&#x800C;&#x4E0A;&#x6E38;&#x4E2D;&#x7684;requested&#x7684;&#x503C;&#x662F;&#x7531;RxJava&#x5185;&#x90E8;&#x8C03;&#x7528;request(n)&#x53BB;&#x8BBE;&#x7F6E;&#x7684;&#xFF0C;&#x8FD9;&#x4E2A;&#x8C03;&#x7528;&#x4F1A;&#x5728;&#x5408;&#x9002;&#x7684;&#x65F6;&#x5019;&#x81EA;&#x52A8;&#x89E6;&#x53D1;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="RxJava.html" class="navigation navigation-prev " aria-label="Previous page: RxJava">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../OKHttp/OkHttp的实现原理.html" class="navigation navigation-next " aria-label="Next page: OkHttp">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"RxJava的背压问题","level":"3.4.1","depth":2,"next":{"title":"OkHttp","level":"3.5","depth":1,"path":"开源框架/OKHttp/OkHttp的实现原理.md","ref":"开源框架/OKHttp/OkHttp的实现原理.md","articles":[{"title":"Dispatcher","level":"3.5.1","depth":2,"path":"开源框架/OKHttp/Dispatcher.md","ref":"开源框架/OKHttp/Dispatcher.md","articles":[]},{"title":"ConnectionPool","level":"3.5.2","depth":2,"path":"开源框架/OKHttp/ConnectionPool.md","ref":"开源框架/OKHttp/ConnectionPool.md","articles":[]}]},"previous":{"title":"RxJava","level":"3.4","depth":1,"path":"开源框架/RxJava/RxJava.md","ref":"开源框架/RxJava/RxJava.md","articles":[{"title":"RxJava的背压问题","level":"3.4.1","depth":2,"path":"开源框架/RxJava/背压问题.md","ref":"开源框架/RxJava/背压问题.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"开源框架/RxJava/背压问题.md","mtime":"2018-10-14T15:59:37.596Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-14T16:00:24.685Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

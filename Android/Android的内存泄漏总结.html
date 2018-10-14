@@ -1,0 +1,1893 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Android的内存泄漏总结 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="如何解决WebView的内存泄漏.html" />
+    
+    
+    <link rel="prev" href="Broadcast.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">前言</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Android部分</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="零碎知识点.html">
+            
+                <a href="零碎知识点.html">
+            
+                    
+                    零碎知识点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="Activity的生命周期.html">
+            
+                <a href="Activity的生命周期.html">
+            
+                    
+                    Activity的生命周期和启动模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="Fragment的生命周期.html">
+            
+                <a href="Fragment的生命周期.html">
+            
+                    
+                    Fragment的生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="Service的生命周期.html">
+            
+                <a href="Service的生命周期.html">
+            
+                    
+                    Service的生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="Broadcast.html">
+            
+                <a href="Broadcast.html">
+            
+                    
+                    Broadcast
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.6" data-path="Android的内存泄漏总结.html">
+            
+                <a href="Android的内存泄漏总结.html">
+            
+                    
+                    Android的内存泄漏总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="如何解决WebView的内存泄漏.html">
+            
+                <a href="如何解决WebView的内存泄漏.html">
+            
+                    
+                    如何解决WebView的内存泄漏
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="Android的性能优化.html">
+            
+                <a href="Android的性能优化.html">
+            
+                    
+                    Android性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="IPC进程间通信/IPC机制.html">
+            
+                <a href="IPC进程间通信/IPC机制.html">
+            
+                    
+                    IPC通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.9.1" data-path="IPC进程间通信/概述.html">
+            
+                <a href="IPC进程间通信/概述.html">
+            
+                    
+                    概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.2" data-path="IPC进程间通信/Binder.html">
+            
+                <a href="IPC进程间通信/Binder.html">
+            
+                    
+                    Binder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.3" data-path="IPC进程间通信/序列化.html">
+            
+                <a href="IPC进程间通信/序列化.html">
+            
+                    
+                    序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.4" data-path="IPC进程间通信/使用Bundle.html">
+            
+                <a href="IPC进程间通信/使用Bundle.html">
+            
+                    
+                    使用Bundle
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.5" data-path="IPC进程间通信/使用文件.html">
+            
+                <a href="IPC进程间通信/使用文件.html">
+            
+                    
+                    使用文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.6" data-path="IPC进程间通信/使用Messenger.html">
+            
+                <a href="IPC进程间通信/使用Messenger.html">
+            
+                    
+                    使用Messenger
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.7" data-path="IPC进程间通信/使用Aidl.html">
+            
+                <a href="IPC进程间通信/使用Aidl.html">
+            
+                    
+                    使用AIDL
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="ListView和RecycleView.html">
+            
+                <a href="ListView和RecycleView.html">
+            
+                    
+                    ListView和RecyclerView
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="View的事件分发机制/事件分发机制.html">
+            
+                <a href="View的事件分发机制/事件分发机制.html">
+            
+                    
+                    View事件分发
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.11.1" data-path="View的事件分发机制/View的滑动.html">
+            
+                <a href="View的事件分发机制/View的滑动.html">
+            
+                    
+                    View的滑动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11.2" data-path="View的事件分发机制/View的弹性滑动.html">
+            
+                <a href="View的事件分发机制/View的弹性滑动.html">
+            
+                    
+                    View的弹性滑动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11.3" data-path="View的事件分发机制/View的事件分发.html">
+            
+                <a href="View的事件分发机制/View的事件分发.html">
+            
+                    
+                    View的事件分发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11.4" data-path="View的事件分发机制/View的滑动冲突.html">
+            
+                <a href="View的事件分发机制/View的滑动冲突.html">
+            
+                    
+                    View的滑动冲突
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="View的工作原理.html">
+            
+                <a href="View的工作原理.html">
+            
+                    
+                    View工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="Android消息机制/Android消息机制.html">
+            
+                <a href="Android消息机制/Android消息机制.html">
+            
+                    
+                    Android的消息机制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.13.1" data-path="Android消息机制/ThreadLocal.html">
+            
+                <a href="Android消息机制/ThreadLocal.html">
+            
+                    
+                    ThreadLocal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13.2" data-path="Android消息机制/消息队列的工作原理.html">
+            
+                <a href="Android消息机制/消息队列的工作原理.html">
+            
+                    
+                    消息队列的工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13.3" data-path="Android消息机制/Looper的工作原理.html">
+            
+                <a href="Android消息机制/Looper的工作原理.html">
+            
+                    
+                    Looper的工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13.4" data-path="Android消息机制/Handler的工作原理.html">
+            
+                <a href="Android消息机制/Handler的工作原理.html">
+            
+                    
+                    Handler的工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="RemoteView.html">
+            
+                <a href="RemoteView.html">
+            
+                    
+                    RemoteView
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="Android中的线程模型/IntentService.html">
+            
+                <a href="Android中的线程模型/IntentService.html">
+            
+                    
+                    线程模型
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.15.1" data-path="Android中的线程模型/AsyncTask详解.html">
+            
+                <a href="Android中的线程模型/AsyncTask详解.html">
+            
+                    
+                    AsyncTask详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15.2" data-path="Android中的线程模型/线程池.html">
+            
+                <a href="Android中的线程模型/线程池.html">
+            
+                    
+                    线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15.3" data-path="Android中的线程模型/HandlerThread.html">
+            
+                <a href="Android中的线程模型/HandlerThread.html">
+            
+                    
+                    HandlerThread
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.16" data-path="APK的安全性/如何攻击.html">
+            
+                <a href="APK的安全性/如何攻击.html">
+            
+                    
+                    APK的安全性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.16.1" data-path="APK的安全性/如何防御.html">
+            
+                <a href="APK的安全性/如何防御.html">
+            
+                    
+                    如何防御
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">开源框架</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../开源框架/响应式编程.html">
+            
+                <a href="../开源框架/响应式编程.html">
+            
+                    
+                    响应式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../开源框架/图片加载库原理.html">
+            
+                <a href="../开源框架/图片加载库原理.html">
+            
+                    
+                    图片加载库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../开源框架/热修复.html">
+            
+                <a href="../开源框架/热修复.html">
+            
+                    
+                    热修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="../开源框架/RxJava/RxJava.html">
+            
+                <a href="../开源框架/RxJava/RxJava.html">
+            
+                    
+                    RxJava
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.4.1" data-path="../开源框架/RxJava/背压问题.html">
+            
+                <a href="../开源框架/RxJava/背压问题.html">
+            
+                    
+                    RxJava的背压问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="../开源框架/OKHttp/OkHttp的实现原理.html">
+            
+                <a href="../开源框架/OKHttp/OkHttp的实现原理.html">
+            
+                    
+                    OkHttp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.5.1" data-path="../开源框架/OKHttp/Dispatcher.html">
+            
+                <a href="../开源框架/OKHttp/Dispatcher.html">
+            
+                    
+                    Dispatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.2" data-path="../开源框架/OKHttp/ConnectionPool.html">
+            
+                <a href="../开源框架/OKHttp/ConnectionPool.html">
+            
+                    
+                    ConnectionPool
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="../开源框架/插件化.html">
+            
+                <a href="../开源框架/插件化.html">
+            
+                    
+                    插件化技术
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Java部分</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../Java/final、finally、finalize的区别.html">
+            
+                <a href="../Java/final、finally、finalize的区别.html">
+            
+                    
+                    Java基础知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../Java/垃圾回收机制/垃圾回收机制.html">
+            
+                <a href="../Java/垃圾回收机制/垃圾回收机制.html">
+            
+                    
+                    垃圾回收机制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../Java/垃圾回收机制/对象已死吗.html">
+            
+                <a href="../Java/垃圾回收机制/对象已死吗.html">
+            
+                    
+                    对象已死吗？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../Java/垃圾回收机制/HotSpot的算法实现.html">
+            
+                <a href="../Java/垃圾回收机制/HotSpot的算法实现.html">
+            
+                    
+                    HotSpot的算法实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.3" data-path="../Java/垃圾回收机制/内存分配与回收策略.html">
+            
+                <a href="../Java/垃圾回收机制/内存分配与回收策略.html">
+            
+                    
+                    内存分配与回收策略
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="../Java/抽象类和接口.html">
+            
+                <a href="../Java/抽象类和接口.html">
+            
+                    
+                    抽象类和接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="../Java/Servlet.html">
+            
+                <a href="../Java/Servlet.html">
+            
+                    
+                    Servlet（Server与Applet)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="../Java/Xml的解析.html">
+            
+                <a href="../Java/Xml的解析.html">
+            
+                    
+                    XML解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="../Java/集合/集合.html">
+            
+                <a href="../Java/集合/集合.html">
+            
+                    
+                    集合
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.6.1" data-path="../Java/集合/HashMap的详解.html">
+            
+                <a href="../Java/集合/HashMap的详解.html">
+            
+                    
+                    HashMap详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="../Java/类加载机制.html">
+            
+                <a href="../Java/类加载机制.html">
+            
+                    
+                    类加载机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="../Java/线程池.html">
+            
+                <a href="../Java/线程池.html">
+            
+                    
+                    线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.9" data-path="../Java/线程部分.html">
+            
+                <a href="../Java/线程部分.html">
+            
+                    
+                    线程部分
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.10" data-path="../Java/Java中的内存模型与线程.html">
+            
+                <a href="../Java/Java中的内存模型与线程.html">
+            
+                    
+                    内存模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">操作系统</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../操作系统/线程调度.html">
+            
+                <a href="../操作系统/线程调度.html">
+            
+                    
+                    线程与进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">设计模式</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../设计模式/MVC与MVP.html">
+            
+                <a href="../设计模式/MVC与MVP.html">
+            
+                    
+                    MVC与MVP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../设计模式/面向对象六大原则.html">
+            
+                <a href="../设计模式/面向对象六大原则.html">
+            
+                    
+                    面向对象六大原则
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="../设计模式/单例模式.html">
+            
+                <a href="../设计模式/单例模式.html">
+            
+                    
+                    单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="../设计模式/Builder模式.html">
+            
+                <a href="../设计模式/Builder模式.html">
+            
+                    
+                    Builder模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="../设计模式/代理模式.html">
+            
+                <a href="../设计模式/代理模式.html">
+            
+                    
+                    代理模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="../设计模式/原型模式.html">
+            
+                <a href="../设计模式/原型模式.html">
+            
+                    
+                    原型模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="../设计模式/外观模式.html">
+            
+                <a href="../设计模式/外观模式.html">
+            
+                    
+                    外观模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.8" data-path="../设计模式/策略模式.html">
+            
+                <a href="../设计模式/策略模式.html">
+            
+                    
+                    策略模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.9" data-path="../设计模式/简单工厂模式.html">
+            
+                <a href="../设计模式/简单工厂模式.html">
+            
+                    
+                    简单工厂
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.10" data-path="../设计模式/观察者模式.html">
+            
+                <a href="../设计模式/观察者模式.html">
+            
+                    
+                    观察者模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.11" data-path="../设计模式/职责链模式.html">
+            
+                <a href="../设计模式/职责链模式.html">
+            
+                    
+                    职责链模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.12" data-path="../设计模式/适配器模式.html">
+            
+                <a href="../设计模式/适配器模式.html">
+            
+                    
+                    适配器模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">计算机网络</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../计算机网络/基本知识.html">
+            
+                <a href="../计算机网络/基本知识.html">
+            
+                    
+                    网络基础知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../计算机网络/TCP-IP协议分层.html">
+            
+                <a href="../计算机网络/TCP-IP协议分层.html">
+            
+                    
+                    网络协议分层
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="../计算机网络/TCP的三次握手四次挥手.html">
+            
+                <a href="../计算机网络/TCP的三次握手四次挥手.html">
+            
+                    
+                    三次握手四次挥手
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="../计算机网络/Http/Http1.0.html">
+            
+                <a href="../计算机网络/Http/Http1.0.html">
+            
+                    
+                    HTTP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="../计算机网络/Http/Https.html">
+            
+                <a href="../计算机网络/Http/Https.html">
+            
+                    
+                    HTTPS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="../计算机网络/TCP.html">
+            
+                <a href="../计算机网络/TCP.html">
+            
+                    
+                    TCP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">算法</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../算法/排序算法/排序算法总结.html">
+            
+                <a href="../算法/排序算法/排序算法总结.html">
+            
+                    
+                    排序算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../算法/排序算法/插入排序.html">
+            
+                <a href="../算法/排序算法/插入排序.html">
+            
+                    
+                    插入排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" data-path="../算法/排序算法/冒泡排序.html">
+            
+                <a href="../算法/排序算法/冒泡排序.html">
+            
+                    
+                    冒泡排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" data-path="../算法/排序算法/快速排序.html">
+            
+                <a href="../算法/排序算法/快速排序.html">
+            
+                    
+                    快速排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4" data-path="../算法/排序算法/选择排序.html">
+            
+                <a href="../算法/排序算法/选择排序.html">
+            
+                    
+                    选择排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.5" data-path="../算法/排序算法/堆排序.html">
+            
+                <a href="../算法/排序算法/堆排序.html">
+            
+                    
+                    堆排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.6" data-path="../算法/排序算法/归并排序.html">
+            
+                <a href="../算法/排序算法/归并排序.html">
+            
+                    
+                    归并排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.7" data-path="../算法/排序算法/计数排序.html">
+            
+                <a href="../算法/排序算法/计数排序.html">
+            
+                    
+                    计数排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.8" data-path="../算法/排序算法/基数排序.html">
+            
+                <a href="../算法/排序算法/基数排序.html">
+            
+                    
+                    基数排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.9" data-path="../算法/排序算法/木桶排序.html">
+            
+                <a href="../算法/排序算法/木桶排序.html">
+            
+                    
+                    木桶排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../算法/字符串压缩算法.html">
+            
+                <a href="../算法/字符串压缩算法.html">
+            
+                    
+                    字符串压缩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../算法/LeetCode 日常刷题（1）.html">
+            
+                <a href="../算法/LeetCode 日常刷题（1）.html">
+            
+                    
+                    LeetCode日常刷题1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="../算法/LeetCode日常刷题（2）.html">
+            
+                <a href="../算法/LeetCode日常刷题（2）.html">
+            
+                    
+                    LeetCode日常刷题2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">数据结构</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../数据结构/各种树.html">
+            
+                <a href="../数据结构/各种树.html">
+            
+                    
+                    数据结构各种树
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">面经</li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" data-path="../面经/牛客秋招android面经9月%28至9.16号%29合集.md">
+            
+                <span>
+            
+                    
+                    牛客网面经
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Android的内存泄漏总结</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="android-&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x603B;&#x7ED3;">Android &#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x603B;&#x7ED3;</h1>
+<p>&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x7684;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x8BA9;&#x6211;&#x4EEC;&#x5728;&#x5F00;&#x53D1;&#x4E2D;&#x600E;&#x4E48;&#x6709;&#x6548;&#x7684;&#x907F;&#x514D;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x51FA;&#x73B0;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x95EE;&#x9898;&#x3002;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x5927;&#x5BB6;&#x90FD;&#x4E0D;&#x964C;&#x751F;&#x4E86;&#xFF0C;&#x7B80;&#x5355;&#x7C97;&#x4FD7;&#x7684;&#x8BB2;&#xFF0C;&#x5C31;&#x662F;&#x8BE5;&#x88AB;&#x91CA;&#x653E;&#x7684;&#x5BF9;&#x8C61;&#x6CA1;&#x6709;&#x91CA;&#x653E;&#xFF0C;&#x4E00;&#x76F4;&#x88AB;&#x67D0;&#x4E2A;&#x6216;&#x67D0;&#x4E9B;&#x5B9E;&#x4F8B;&#x6240;&#x6301;&#x6709;&#x5374;&#x4E0D;&#x518D;&#x88AB;&#x4F7F;&#x7528;&#x5BFC;&#x81F4; GC &#x4E0D;&#x80FD;&#x56DE;&#x6536;&#x3002;&#x6700;&#x8FD1;&#x81EA;&#x5DF1;&#x9605;&#x8BFB;&#x4E86;&#x5927;&#x91CF;&#x76F8;&#x5173;&#x7684;&#x6587;&#x6863;&#x8D44;&#x6599;&#xFF0C;&#x6253;&#x7B97;&#x505A;&#x4E2A; &#x603B;&#x7ED3; &#x6C89;&#x6DC0;&#x4E0B;&#x6765;&#x8DDF;&#x5927;&#x5BB6;&#x4E00;&#x8D77;&#x5206;&#x4EAB;&#x548C;&#x5B66;&#x4E60;&#xFF0C;&#x4E5F;&#x7ED9;&#x81EA;&#x5DF1;&#x4E00;&#x4E2A;&#x8B66;&#x793A;&#xFF0C;&#x4EE5;&#x540E; coding &#x65F6;&#x600E;&#x4E48;&#x907F;&#x514D;&#x8FD9;&#x4E9B;&#x60C5;&#x51B5;&#xFF0C;&#x63D0;&#x9AD8;&#x5E94;&#x7528;&#x7684;&#x4F53;&#x9A8C;&#x548C;&#x8D28;&#x91CF;&#x3002;</p>
+<p>&#x6211;&#x4F1A;&#x4ECE; java &#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x57FA;&#x7840;&#x77E5;&#x8BC6;&#x5F00;&#x59CB;&#xFF0C;&#x5E76;&#x901A;&#x8FC7;&#x5177;&#x4F53;&#x4F8B;&#x5B50;&#x6765;&#x8BF4;&#x660E; Android &#x5F15;&#x8D77;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x5404;&#x79CD;&#x539F;&#x56E0;&#xFF0C;&#x4EE5;&#x53CA;&#x5982;&#x4F55;&#x5229;&#x7528;&#x5DE5;&#x5177;&#x6765;&#x5206;&#x6790;&#x5E94;&#x7528;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;&#x6700;&#x540E;&#x518D;&#x505A;&#x603B;&#x7ED3;&#x3002;</p>
+<h2 id="java-&#x5185;&#x5B58;&#x5206;&#x914D;&#x7B56;&#x7565;">Java &#x5185;&#x5B58;&#x5206;&#x914D;&#x7B56;&#x7565;</h2>
+<p>Java &#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x5185;&#x5B58;&#x5206;&#x914D;&#x7B56;&#x7565;&#x6709;&#x4E09;&#x79CD;,&#x5206;&#x522B;&#x662F;&#x9759;&#x6001;&#x5206;&#x914D;,&#x6808;&#x5F0F;&#x5206;&#x914D;,&#x548C;&#x5806;&#x5F0F;&#x5206;&#x914D;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#xFF0C;&#x4E09;&#x79CD;&#x5B58;&#x50A8;&#x7B56;&#x7565;&#x4F7F;&#x7528;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x4E3B;&#x8981;&#x5206;&#x522B;&#x662F;&#x9759;&#x6001;&#x5B58;&#x50A8;&#x533A;&#xFF08;&#x4E5F;&#x79F0;&#x65B9;&#x6CD5;&#x533A;&#xFF09;&#x3001;&#x6808;&#x533A;&#x548C;&#x5806;&#x533A;&#x3002;</p>
+<ul>
+<li><p><strong>&#x9759;&#x6001;&#x5B58;&#x50A8;&#x533A;&#xFF08;&#x65B9;&#x6CD5;&#x533A;&#xFF09;&#xFF1A;&#x4E3B;&#x8981;&#x5B58;&#x653E;&#x9759;&#x6001;&#x6570;&#x636E;&#x3001;&#x5168;&#x5C40; static &#x6570;&#x636E;&#x548C;&#x5E38;&#x91CF;&#x3002;</strong>&#x8FD9;&#x5757;&#x5185;&#x5B58;&#x5728;&#x7A0B;&#x5E8F;&#x7F16;&#x8BD1;&#x65F6;&#x5C31;&#x5DF2;&#x7ECF;&#x5206;&#x914D;&#x597D;&#xFF0C;&#x5E76;&#x4E14;&#x5728;&#x7A0B;&#x5E8F;&#x6574;&#x4E2A;&#x8FD0;&#x884C;&#x671F;&#x95F4;&#x90FD;&#x5B58;&#x5728;&#x3002;</p>
+</li>
+<li><p><strong>&#x6808;&#x533A; &#xFF1A;&#x5F53;&#x65B9;&#x6CD5;&#x88AB;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x65B9;&#x6CD5;&#x4F53;&#x5185;&#x7684;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#xFF08;&#x5176;&#x4E2D;&#x5305;&#x62EC;&#x57FA;&#x7840;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x3001;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#xFF09;&#x90FD;&#x5728;&#x6808;&#x4E0A;&#x521B;&#x5EFA;</strong>&#xFF0C;&#x5E76;&#x5728;&#x65B9;&#x6CD5;&#x6267;&#x884C;&#x7ED3;&#x675F;&#x65F6;&#x8FD9;&#x4E9B;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x6240;&#x6301;&#x6709;&#x7684;&#x5185;&#x5B58;&#x5C06;&#x4F1A;&#x81EA;&#x52A8;&#x88AB;&#x91CA;&#x653E;&#x3002;&#x56E0;&#x4E3A;&#x6808;&#x5185;&#x5B58;&#x5206;&#x914D;&#x8FD0;&#x7B97;&#x5185;&#x7F6E;&#x4E8E;&#x5904;&#x7406;&#x5668;&#x7684;&#x6307;&#x4EE4;&#x96C6;&#x4E2D;&#xFF0C;&#x6548;&#x7387;&#x5F88;&#x9AD8;&#xFF0C;&#x4F46;&#x662F;&#x5206;&#x914D;&#x7684;&#x5185;&#x5B58;&#x5BB9;&#x91CF;&#x6709;&#x9650;&#x3002;</p>
+</li>
+<li><p><strong>&#x5806;&#x533A; &#xFF1A; &#x53C8;&#x79F0;&#x52A8;&#x6001;&#x5185;&#x5B58;&#x5206;&#x914D;&#xFF0C;&#x901A;&#x5E38;&#x5C31;&#x662F;&#x6307;&#x5728;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x65F6;&#x76F4;&#x63A5; new &#x51FA;&#x6765;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5BF9;&#x8C61;&#x7684;&#x5B9E;&#x4F8B;&#x3002;</strong>&#x8FD9;&#x90E8;&#x5206;&#x5185;&#x5B58;&#x5728;&#x4E0D;&#x4F7F;&#x7528;&#x65F6;&#x5C06;&#x4F1A;&#x7531; Java &#x5783;&#x573E;&#x56DE;&#x6536;&#x5668;&#x6765;&#x8D1F;&#x8D23;&#x56DE;&#x6536;&#x3002;</p>
+</li>
+</ul>
+<h2 id="&#x6808;&#x4E0E;&#x5806;&#x7684;&#x533A;&#x522B;&#xFF1A;">&#x6808;&#x4E0E;&#x5806;&#x7684;&#x533A;&#x522B;&#xFF1A;</h2>
+<p>&#x5728;&#x65B9;&#x6CD5;&#x4F53;&#x5185;&#x5B9A;&#x4E49;&#x7684;&#xFF08;&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#xFF09;&#x4E00;&#x4E9B;&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x7684;&#x53D8;&#x91CF;&#x548C;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x90FD;&#x662F;&#x5728;&#x65B9;&#x6CD5;&#x7684;&#x6808;&#x5185;&#x5B58;&#x4E2D;&#x5206;&#x914D;&#x7684;&#x3002;&#x5F53;&#x5728;&#x4E00;&#x6BB5;&#x65B9;&#x6CD5;&#x5757;&#x4E2D;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x65F6;&#xFF0C;Java &#x5C31;&#x4F1A;&#x5728;&#x6808;&#x4E2D;&#x4E3A;&#x8BE5;&#x53D8;&#x91CF;&#x5206;&#x914D;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x5F53;&#x8D85;&#x8FC7;&#x8BE5;&#x53D8;&#x91CF;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x540E;&#xFF0C;&#x8BE5;&#x53D8;&#x91CF;&#x4E5F;&#x5C31;&#x65E0;&#x6548;&#x4E86;&#xFF0C;&#x5206;&#x914D;&#x7ED9;&#x5B83;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x4E5F;&#x5C06;&#x88AB;&#x91CA;&#x653E;&#x6389;&#xFF0C;&#x8BE5;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x53EF;&#x4EE5;&#x88AB;&#x91CD;&#x65B0;&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x5806;&#x5185;&#x5B58;&#x7528;&#x6765;&#x5B58;&#x653E;&#x6240;&#x6709;&#x7531; new &#x521B;&#x5EFA;&#x7684;&#x5BF9;&#x8C61;&#xFF08;&#x5305;&#x62EC;&#x8BE5;&#x5BF9;&#x8C61;&#x5176;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF09;&#x548C;&#x6570;&#x7EC4;&#x3002;&#x5728;&#x5806;&#x4E2D;&#x5206;&#x914D;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x5C06;&#x7531; Java &#x5783;&#x573E;&#x56DE;&#x6536;&#x5668;&#x6765;&#x81EA;&#x52A8;&#x7BA1;&#x7406;&#x3002;&#x5728;&#x5806;&#x4E2D;&#x4EA7;&#x751F;&#x4E86;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x6216;&#x8005;&#x5BF9;&#x8C61;&#x540E;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x5728;&#x6808;&#x4E2D;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x7684;&#x53D6;&#x503C;&#x7B49;&#x4E8E;&#x6570;&#x7EC4;&#x6216;&#x8005;&#x5BF9;&#x8C61;&#x5728;&#x5806;&#x5185;&#x5B58;&#x4E2D;&#x7684;&#x9996;&#x5730;&#x5740;&#xFF0C;&#x8FD9;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x53D8;&#x91CF;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x4E0A;&#x9762;&#x8BF4;&#x7684;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x3002;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<strong>&#x8FD9;&#x4E2A;&#x5F15;&#x7528;&#x53D8;&#x91CF;&#x6765;&#x8BBF;&#x95EE;&#x5806;&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x6570;&#x7EC4;</strong>&#x3002;</p>
+<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;:</p>
+<pre><code>public class Sample {
+    int s1 = 0;
+    Sample mSample1 = new Sample();
+
+    public void method() {
+        int s2 = 1;
+        Sample mSample2 = new Sample();
+    }
+}
+
+Sample mSample3 = new Sample();
+</code></pre><p>Sample &#x7C7B;&#x7684;&#x5C40;&#x90E8;&#x53D8;&#x91CF; s2 &#x548C;&#x5F15;&#x7528;&#x53D8;&#x91CF; mSample2 &#x90FD;&#x662F;&#x5B58;&#x5728;&#x4E8E;&#x6808;&#x4E2D;&#xFF0C;&#x4F46; mSample2 &#x6307;&#x5411;&#x7684;&#x5BF9;&#x8C61;&#x662F;&#x5B58;&#x5728;&#x4E8E;&#x5806;&#x4E0A;&#x7684;&#x3002; mSample3 &#x6307;&#x5411;&#x7684;&#x5BF9;&#x8C61;&#x5B9E;&#x4F53;&#x5B58;&#x653E;&#x5728;&#x5806;&#x4E0A;&#xFF0C;&#x5305;&#x62EC;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x6240;&#x6709;&#x6210;&#x5458;&#x53D8;&#x91CF; s1 &#x548C; mSample1&#xFF0C;&#x800C;&#x5B83;&#x81EA;&#x5DF1;&#x5B58;&#x5728;&#x4E8E;&#x6808;&#x4E2D;&#x3002;</p>
+<p>&#x7ED3;&#x8BBA;&#xFF1A;</p>
+<p><strong>&#x5C40;&#x90E8;&#x53D8;&#x91CF;&#x7684;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x548C;&#x5F15;&#x7528;&#x5B58;&#x50A8;&#x4E8E;&#x6808;&#x4E2D;&#xFF0C;&#x5F15;&#x7528;&#x7684;&#x5BF9;&#x8C61;&#x5B9E;&#x4F53;&#x5B58;&#x50A8;&#x4E8E;&#x5806;&#x4E2D;&#x3002;&#x2014;&#x2014; &#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x5C5E;&#x4E8E;&#x65B9;&#x6CD5;&#x4E2D;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x751F;&#x547D;&#x5468;&#x671F;&#x968F;&#x65B9;&#x6CD5;&#x800C;&#x7ED3;&#x675F;&#x3002;</strong></p>
+<p><strong>&#x6210;&#x5458;&#x53D8;&#x91CF;&#x5168;&#x90E8;&#x5B58;&#x50A8;&#x4E0E;&#x5806;&#x4E2D;&#xFF08;&#x5305;&#x62EC;&#x57FA;&#x672C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF0C;&#x5F15;&#x7528;&#x548C;&#x5F15;&#x7528;&#x7684;&#x5BF9;&#x8C61;&#x5B9E;&#x4F53;&#xFF09;&#x2014;&#x2014; &#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x5C5E;&#x4E8E;&#x7C7B;&#xFF0C;&#x7C7B;&#x5BF9;&#x8C61;&#x7EC8;&#x7A76;&#x662F;&#x8981;&#x88AB;new&#x51FA;&#x6765;&#x4F7F;&#x7528;&#x7684;&#x3002;</strong></p>
+<h2 id="java&#x662F;&#x5982;&#x4F55;&#x7BA1;&#x7406;&#x5185;&#x5B58;">Java&#x662F;&#x5982;&#x4F55;&#x7BA1;&#x7406;&#x5185;&#x5B58;</h2>
+<p>Java&#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x5C31;&#x662F;&#x5BF9;&#x8C61;&#x7684;&#x5206;&#x914D;&#x548C;&#x91CA;&#x653E;&#x95EE;&#x9898;&#x3002;&#x5728; Java &#x4E2D;&#xFF0C;&#x7A0B;&#x5E8F;&#x5458;&#x9700;&#x8981;&#x901A;&#x8FC7;&#x5173;&#x952E;&#x5B57; new &#x4E3A;&#x6BCF;&#x4E2A;&#x5BF9;&#x8C61;&#x7533;&#x8BF7;&#x5185;&#x5B58;&#x7A7A;&#x95F4; (&#x57FA;&#x672C;&#x7C7B;&#x578B;&#x9664;&#x5916;)&#xFF0C;&#x6240;&#x6709;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x5728;&#x5806; (Heap)&#x4E2D;&#x5206;&#x914D;&#x7A7A;&#x95F4;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x5BF9;&#x8C61;&#x7684;&#x91CA;&#x653E;&#x662F;&#x7531; GC &#x51B3;&#x5B9A;&#x548C;&#x6267;&#x884C;&#x7684;&#x3002;&#x5728; Java &#x4E2D;&#xFF0C;&#x5185;&#x5B58;&#x7684;&#x5206;&#x914D;&#x662F;&#x7531;&#x7A0B;&#x5E8F;&#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x800C;&#x5185;&#x5B58;&#x7684;&#x91CA;&#x653E;&#x662F;&#x7531; GC &#x5B8C;&#x6210;&#x7684;&#xFF0C;&#x8FD9;&#x79CD;&#x6536;&#x652F;&#x4E24;&#x6761;&#x7EBF;&#x7684;&#x65B9;&#x6CD5;&#x786E;&#x5B9E;&#x7B80;&#x5316;&#x4E86;&#x7A0B;&#x5E8F;&#x5458;&#x7684;&#x5DE5;&#x4F5C;&#x3002;&#x4F46;&#x540C;&#x65F6;&#xFF0C;&#x5B83;&#x4E5F;&#x52A0;&#x91CD;&#x4E86;JVM&#x7684;&#x5DE5;&#x4F5C;&#x3002;&#x8FD9;&#x4E5F;&#x662F; Java &#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x901F;&#x5EA6;&#x8F83;&#x6162;&#x7684;&#x539F;&#x56E0;&#x4E4B;&#x4E00;&#x3002;&#x56E0;&#x4E3A;&#xFF0C;GC &#x4E3A;&#x4E86;&#x80FD;&#x591F;&#x6B63;&#x786E;&#x91CA;&#x653E;&#x5BF9;&#x8C61;&#xFF0C;GC &#x5FC5;&#x987B;&#x76D1;&#x63A7;&#x6BCF;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x8FD0;&#x884C;&#x72B6;&#x6001;&#xFF0C;&#x5305;&#x62EC;&#x5BF9;&#x8C61;&#x7684;&#x7533;&#x8BF7;&#x3001;&#x5F15;&#x7528;&#x3001;&#x88AB;&#x5F15;&#x7528;&#x3001;&#x8D4B;&#x503C;&#x7B49;&#xFF0C;GC &#x90FD;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x76D1;&#x63A7;&#x3002;</p>
+<p><strong>&#x76D1;&#x89C6;&#x5BF9;&#x8C61;&#x72B6;&#x6001;&#x662F;&#x4E3A;&#x4E86;&#x66F4;&#x52A0;&#x51C6;&#x786E;&#x5730;&#x3001;&#x53CA;&#x65F6;&#x5730;&#x91CA;&#x653E;&#x5BF9;&#x8C61;&#xFF0C;&#x800C;&#x91CA;&#x653E;&#x5BF9;&#x8C61;&#x7684;&#x6839;&#x672C;&#x539F;&#x5219;&#x5C31;&#x662F;&#x8BE5;&#x5BF9;&#x8C61;&#x4E0D;&#x518D;&#x88AB;&#x5F15;&#x7528;&#x3002;</strong></p>
+<p>&#x4E3A;&#x4E86;&#x66F4;&#x597D;&#x7406;&#x89E3; GC &#x7684;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5C06;&#x5BF9;&#x8C61;&#x8003;&#x8651;&#x4E3A;&#x6709;&#x5411;&#x56FE;&#x7684;&#x9876;&#x70B9;&#xFF0C;&#x5C06;&#x5F15;&#x7528;&#x5173;&#x7CFB;&#x8003;&#x8651;&#x4E3A;&#x56FE;&#x7684;&#x6709;&#x5411;&#x8FB9;&#xFF0C;&#x6709;&#x5411;&#x8FB9;&#x4ECE;&#x5F15;&#x7528;&#x8005;&#x6307;&#x5411;&#x88AB;&#x5F15;&#x5BF9;&#x8C61;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x56FE;&#x7684;&#x8D77;&#x59CB;&#x9876;&#x70B9;&#xFF0C;&#x4F8B;&#x5982;&#x5927;&#x591A;&#x7A0B;&#x5E8F;&#x4ECE; main &#x8FDB;&#x7A0B;&#x5F00;&#x59CB;&#x6267;&#x884C;&#xFF0C;&#x90A3;&#x4E48;&#x8BE5;&#x56FE;&#x5C31;&#x662F;&#x4EE5; main &#x8FDB;&#x7A0B;&#x9876;&#x70B9;&#x5F00;&#x59CB;&#x7684;&#x4E00;&#x68F5;&#x6839;&#x6811;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x6709;&#x5411;&#x56FE;&#x4E2D;&#xFF0C;&#x6839;&#x9876;&#x70B9;&#x53EF;&#x8FBE;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x662F;&#x6709;&#x6548;&#x5BF9;&#x8C61;&#xFF0C;GC&#x5C06;&#x4E0D;&#x56DE;&#x6536;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x3002;&#x5982;&#x679C;&#x67D0;&#x4E2A;&#x5BF9;&#x8C61; (&#x8FDE;&#x901A;&#x5B50;&#x56FE;)&#x4E0E;&#x8FD9;&#x4E2A;&#x6839;&#x9876;&#x70B9;&#x4E0D;&#x53EF;&#x8FBE;(&#x6CE8;&#x610F;&#xFF0C;&#x8BE5;&#x56FE;&#x4E3A;&#x6709;&#x5411;&#x56FE;)&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x8BA4;&#x4E3A;&#x8FD9;&#x4E2A;(&#x8FD9;&#x4E9B;)&#x5BF9;&#x8C61;&#x4E0D;&#x518D;&#x88AB;&#x5F15;&#x7528;&#xFF0C;&#x53EF;&#x4EE5;&#x88AB; GC &#x56DE;&#x6536;&#x3002; &#x4EE5;&#x4E0B;&#xFF0C;&#x6211;&#x4EEC;&#x4E3E;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#x8BF4;&#x660E;&#x5982;&#x4F55;&#x7528;&#x6709;&#x5411;&#x56FE;&#x8868;&#x793A;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x3002;&#x5BF9;&#x4E8E;&#x7A0B;&#x5E8F;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x65F6;&#x523B;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x6709;&#x5411;&#x56FE;&#x8868;&#x793A;JVM&#x7684;&#x5185;&#x5B58;&#x5206;&#x914D;&#x60C5;&#x51B5;&#x3002;&#x4EE5;&#x4E0B;&#x53F3;&#x56FE;&#xFF0C;&#x5C31;&#x662F;&#x5DE6;&#x8FB9;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x5230;&#x7B2C;6&#x884C;&#x7684;&#x793A;&#x610F;&#x56FE;&#x3002;</p>
+<p><a href="https://camo.githubusercontent.com/ba01b8ae9af4a5e588251316c826bf3e0e695f35/687474703a2f2f7777772e69626d2e636f6d2f646576656c6f706572776f726b732f636e2f6a6176612f6c2d4a6176614d656d6f72794c65616b2f312e676966" target="_blank"><img src="https://camo.githubusercontent.com/ba01b8ae9af4a5e588251316c826bf3e0e695f35/687474703a2f2f7777772e69626d2e636f6d2f646576656c6f706572776f726b732f636e2f6a6176612f6c2d4a6176614d656d6f72794c65616b2f312e676966" alt=""></a></p>
+<p>Java&#x4F7F;&#x7528;<strong>&#x6709;&#x5411;&#x56FE;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#xFF0C;&#x53EF;&#x4EE5;&#x6D88;&#x9664;&#x5F15;&#x7528;&#x5FAA;&#x73AF;&#x7684;&#x95EE;&#x9898;</strong>&#xFF0C;&#x4F8B;&#x5982;&#x6709;&#x4E09;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x76F8;&#x4E92;&#x5F15;&#x7528;&#xFF0C;&#x53EA;&#x8981;&#x5B83;&#x4EEC;&#x548C;&#x6839;&#x8FDB;&#x7A0B;&#x4E0D;&#x53EF;&#x8FBE;&#x7684;&#xFF0C;&#x90A3;&#x4E48;GC&#x4E5F;&#x662F;&#x53EF;&#x4EE5;&#x56DE;&#x6536;&#x5B83;&#x4EEC;&#x7684;&#x3002;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x7684;&#x4F18;&#x70B9;&#x662F;&#x7BA1;&#x7406;&#x5185;&#x5B58;&#x7684;&#x7CBE;&#x5EA6;&#x5F88;&#x9AD8;&#xFF0C;&#x4F46;&#x662F;&#x6548;&#x7387;&#x8F83;&#x4F4E;&#x3002;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x5E38;&#x7528;&#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x6280;&#x672F;&#x662F;&#x4F7F;&#x7528;&#x8BA1;&#x6570;&#x5668;&#xFF0C;&#x4F8B;&#x5982;COM&#x6A21;&#x578B;&#x91C7;&#x7528;&#x8BA1;&#x6570;&#x5668;&#x65B9;&#x5F0F;&#x7BA1;&#x7406;&#x6784;&#x4EF6;&#xFF0C;&#x5B83;&#x4E0E;&#x6709;&#x5411;&#x56FE;&#x76F8;&#x6BD4;&#xFF0C;&#x7CBE;&#x5EA6;&#x6027;&#x4F4E;(&#x5F88;&#x96BE;&#x5904;&#x7406;&#x5FAA;&#x73AF;&#x5F15;&#x7528;&#x7684;&#x95EE;&#x9898;)&#xFF0C;&#x4F46;&#x6267;&#x884C;&#x6548;&#x7387;&#x5F88;&#x9AD8;&#x3002;</p>
+<h2 id="&#x4EC0;&#x4E48;&#x662F;java&#x4E2D;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x9732;">&#x4EC0;&#x4E48;&#x662F;Java&#x4E2D;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x9732;</h2>
+<p>&#x5728;Java&#x4E2D;&#xFF0C;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x5C31;&#x662F;&#x5B58;&#x5728;&#x4E00;&#x4E9B;&#x88AB;&#x5206;&#x914D;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x6709;&#x4E0B;&#x9762;&#x4E24;&#x4E2A;&#x7279;&#x70B9;&#xFF0C;&#x9996;&#x5148;&#xFF0C;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x662F;&#x53EF;&#x8FBE;&#x7684;&#xFF0C;&#x5373;&#x5728;&#x6709;&#x5411;&#x56FE;&#x4E2D;&#xFF0C;&#x5B58;&#x5728;&#x901A;&#x8DEF;&#x53EF;&#x4EE5;&#x4E0E;&#x5176;&#x76F8;&#x8FDE;&#xFF1B;&#x5176;&#x6B21;&#xFF0C;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x662F;&#x65E0;&#x7528;&#x7684;&#xFF0C;&#x5373;&#x7A0B;&#x5E8F;&#x4EE5;&#x540E;&#x4E0D;&#x4F1A;&#x518D;&#x4F7F;&#x7528;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x3002;&#x5982;&#x679C;&#x5BF9;&#x8C61;&#x6EE1;&#x8DB3;&#x8FD9;&#x4E24;&#x4E2A;&#x6761;&#x4EF6;&#xFF0C;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x5C31;&#x53EF;&#x4EE5;&#x5224;&#x5B9A;&#x4E3A;Java&#x4E2D;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x4E0D;&#x4F1A;&#x88AB;GC&#x6240;&#x56DE;&#x6536;&#xFF0C;&#x7136;&#x800C;&#x5B83;&#x5374;&#x5360;&#x7528;&#x5185;&#x5B58;&#x3002;</p>
+<p>&#x5728;C++&#x4E2D;&#xFF0C;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x8303;&#x56F4;&#x66F4;&#x5927;&#x4E00;&#x4E9B;&#x3002;&#x6709;&#x4E9B;&#x5BF9;&#x8C61;&#x88AB;&#x5206;&#x914D;&#x4E86;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x7136;&#x540E;&#x5374;&#x4E0D;&#x53EF;&#x8FBE;&#xFF0C;&#x7531;&#x4E8E;C++&#x4E2D;&#x6CA1;&#x6709;GC&#xFF0C;&#x8FD9;&#x4E9B;&#x5185;&#x5B58;&#x5C06;&#x6C38;&#x8FDC;&#x6536;&#x4E0D;&#x56DE;&#x6765;&#x3002;&#x5728;Java&#x4E2D;&#xFF0C;&#x8FD9;&#x4E9B;&#x4E0D;&#x53EF;&#x8FBE;&#x7684;&#x5BF9;&#x8C61;&#x90FD;&#x7531;GC&#x8D1F;&#x8D23;&#x56DE;&#x6536;&#xFF0C;&#x56E0;&#x6B64;&#x7A0B;&#x5E8F;&#x5458;&#x4E0D;&#x9700;&#x8981;&#x8003;&#x8651;&#x8FD9;&#x90E8;&#x5206;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x3002;</p>
+<p>&#x901A;&#x8FC7;&#x5206;&#x6790;&#xFF0C;&#x6211;&#x4EEC;&#x5F97;&#x77E5;&#xFF0C;&#x5BF9;&#x4E8E;C++&#xFF0C;&#x7A0B;&#x5E8F;&#x5458;&#x9700;&#x8981;&#x81EA;&#x5DF1;&#x7BA1;&#x7406;&#x8FB9;&#x548C;&#x9876;&#x70B9;&#xFF0C;&#x800C;&#x5BF9;&#x4E8E;Java&#x7A0B;&#x5E8F;&#x5458;&#x53EA;&#x9700;&#x8981;&#x7BA1;&#x7406;&#x8FB9;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;(&#x4E0D;&#x9700;&#x8981;&#x7BA1;&#x7406;&#x9876;&#x70B9;&#x7684;&#x91CA;&#x653E;)&#x3002;&#x901A;&#x8FC7;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;Java&#x63D0;&#x9AD8;&#x4E86;&#x7F16;&#x7A0B;&#x7684;&#x6548;&#x7387;&#x3002;</p>
+<p><a href="https://camo.githubusercontent.com/4845ffe2ed44807b01b7bb93647dbff85de6300f/687474703a2f2f7777772e69626d2e636f6d2f646576656c6f706572776f726b732f636e2f6a6176612f6c2d4a6176614d656d6f72794c65616b2f322e676966" target="_blank"><img src="https://camo.githubusercontent.com/4845ffe2ed44807b01b7bb93647dbff85de6300f/687474703a2f2f7777772e69626d2e636f6d2f646576656c6f706572776f726b732f636e2f6a6176612f6c2d4a6176614d656d6f72794c65616b2f322e676966" alt=""></a></p>
+<p>&#x56E0;&#x6B64;&#xFF0C;&#x901A;&#x8FC7;&#x4EE5;&#x4E0A;&#x5206;&#x6790;&#xFF0C;&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x5728;Java&#x4E2D;&#x4E5F;&#x6709;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;&#x4F46;&#x8303;&#x56F4;&#x6BD4;C++&#x8981;&#x5C0F;&#x4E00;&#x4E9B;&#x3002;&#x56E0;&#x4E3A;Java&#x4ECE;&#x8BED;&#x8A00;&#x4E0A;&#x4FDD;&#x8BC1;&#xFF0C;&#x4EFB;&#x4F55;&#x5BF9;&#x8C61;&#x90FD;&#x662F;&#x53EF;&#x8FBE;&#x7684;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x4E0D;&#x53EF;&#x8FBE;&#x5BF9;&#x8C61;&#x90FD;&#x7531;GC&#x7BA1;&#x7406;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x7A0B;&#x5E8F;&#x5458;&#x6765;&#x8BF4;&#xFF0C;GC&#x57FA;&#x672C;&#x662F;&#x900F;&#x660E;&#x7684;&#xFF0C;&#x4E0D;&#x53EF;&#x89C1;&#x7684;&#x3002;&#x867D;&#x7136;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x6709;&#x51E0;&#x4E2A;&#x51FD;&#x6570;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;GC&#xFF0C;&#x4F8B;&#x5982;&#x8FD0;&#x884C;GC&#x7684;&#x51FD;&#x6570;System.gc()&#xFF0C;&#x4F46;&#x662F;&#x6839;&#x636E;Java&#x8BED;&#x8A00;&#x89C4;&#x8303;&#x5B9A;&#x4E49;&#xFF0C; &#x8BE5;&#x51FD;&#x6570;&#x4E0D;&#x4FDD;&#x8BC1;JVM&#x7684;&#x5783;&#x573E;&#x6536;&#x96C6;&#x5668;&#x4E00;&#x5B9A;&#x4F1A;&#x6267;&#x884C;&#x3002;&#x56E0;&#x4E3A;&#xFF0C;&#x4E0D;&#x540C;&#x7684;JVM&#x5B9E;&#x73B0;&#x8005;&#x53EF;&#x80FD;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x7B97;&#x6CD5;&#x7BA1;&#x7406;GC&#x3002;&#x901A;&#x5E38;&#xFF0C;GC&#x7684;&#x7EBF;&#x7A0B;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x522B;&#x8F83;&#x4F4E;&#x3002;<strong>JVM&#x8C03;&#x7528;GC&#x7684;&#x7B56;&#x7565;&#x4E5F;&#x6709;&#x5F88;&#x591A;&#x79CD;&#xFF0C;&#x6709;&#x7684;&#x662F;&#x5185;&#x5B58;&#x4F7F;&#x7528;&#x5230;&#x8FBE;&#x4E00;&#x5B9A;&#x7A0B;&#x5EA6;&#x65F6;&#xFF0C;GC&#x624D;&#x5F00;&#x59CB;&#x5DE5;&#x4F5C;&#xFF0C;&#x4E5F;&#x6709;&#x5B9A;&#x65F6;&#x6267;&#x884C;&#x7684;&#xFF0C;&#x6709;&#x7684;&#x662F;&#x5E73;&#x7F13;&#x6267;&#x884C;GC&#xFF0C;&#x6709;&#x7684;&#x662F;&#x4E2D;&#x65AD;&#x5F0F;&#x6267;&#x884C;GC&#x3002;</strong>&#x4F46;&#x901A;&#x5E38;&#x6765;&#x8BF4;&#xFF0C;&#x6211;&#x4EEC;&#x4E0D;&#x9700;&#x8981;&#x5173;&#x5FC3;&#x8FD9;&#x4E9B;&#x3002;&#x9664;&#x975E;&#x5728;&#x4E00;&#x4E9B;&#x7279;&#x5B9A;&#x7684;&#x573A;&#x5408;&#xFF0C;GC&#x7684;&#x6267;&#x884C;&#x5F71;&#x54CD;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x6027;&#x80FD;&#xFF0C;&#x4F8B;&#x5982;&#x5BF9;&#x4E8E;&#x57FA;&#x4E8E;Web&#x7684;&#x5B9E;&#x65F6;&#x7CFB;&#x7EDF;&#xFF0C;&#x5982;&#x7F51;&#x7EDC;&#x6E38;&#x620F;&#x7B49;&#xFF0C;&#x7528;&#x6237;&#x4E0D;&#x5E0C;&#x671B;GC&#x7A81;&#x7136;&#x4E2D;&#x65AD;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x800C;&#x8FDB;&#x884C;&#x5783;&#x573E;&#x56DE;&#x6536;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8C03;&#x6574;GC&#x7684;&#x53C2;&#x6570;&#xFF0C;&#x8BA9;GC&#x80FD;&#x591F;&#x901A;&#x8FC7;&#x5E73;&#x7F13;&#x7684;&#x65B9;&#x5F0F;&#x91CA;&#x653E;&#x5185;&#x5B58;&#xFF0C;&#x4F8B;&#x5982;&#x5C06;&#x5783;&#x573E;&#x56DE;&#x6536;&#x5206;&#x89E3;&#x4E3A;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x5C0F;&#x6B65;&#x9AA4;&#x6267;&#x884C;&#xFF0C;Sun&#x63D0;&#x4F9B;&#x7684;HotSpot JVM&#x5C31;&#x652F;&#x6301;&#x8FD9;&#x4E00;&#x7279;&#x6027;&#x3002;</p>
+<p>&#x540C;&#x6837;&#x7ED9;&#x51FA;&#x4E00;&#x4E2A; Java &#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x5178;&#x578B;&#x4F8B;&#x5B50;</p>
+<pre><code>Vector v = new Vector(10);
+for (int i = 1; i &lt;100; i++) {
+    Object o = new Object();
+    v.add(o);
+    o = null;   
+}
+</code></pre><p>&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x5FAA;&#x73AF;&#x7533;&#x8BF7;Object&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x5C06;&#x6240;&#x7533;&#x8BF7;&#x7684;&#x5BF9;&#x8C61;&#x653E;&#x5165;&#x4E00;&#x4E2A; Vector &#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x4EC5;&#x4EC5;&#x91CA;&#x653E;&#x5F15;&#x7528;&#x672C;&#x8EAB;&#xFF0C;&#x90A3;&#x4E48; Vector &#x4ECD;&#x7136;&#x5F15;&#x7528;&#x8BE5;&#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5BF9; GC &#x6765;&#x8BF4;&#x662F;&#x4E0D;&#x53EF;&#x56DE;&#x6536;&#x7684;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x8C61;&#x52A0;&#x5165;&#x5230;Vector &#x540E;&#xFF0C;&#x8FD8;&#x5FC5;&#x987B;&#x4ECE; Vector &#x4E2D;&#x5220;&#x9664;&#xFF0C;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x5C06; Vector &#x5BF9;&#x8C61;&#x8BBE;&#x7F6E;&#x4E3A; null&#x3002;</p>
+<p><strong>&#x8BE6;&#x7EC6;Java&#x4E2D;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</strong></p>
+<p><strong>1.Java&#x5185;&#x5B58;&#x56DE;&#x6536;&#x673A;&#x5236;</strong></p>
+<p>&#x4E0D;&#x8BBA;&#x54EA;&#x79CD;&#x8BED;&#x8A00;&#x7684;&#x5185;&#x5B58;&#x5206;&#x914D;&#x65B9;&#x5F0F;&#xFF0C;&#x90FD;&#x9700;&#x8981;&#x8FD4;&#x56DE;&#x6240;&#x5206;&#x914D;&#x5185;&#x5B58;&#x7684;&#x771F;&#x5B9E;&#x5730;&#x5740;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x6307;&#x9488;&#x5230;&#x5185;&#x5B58;&#x5757;&#x7684;&#x9996;&#x5730;&#x5740;&#x3002;Java&#x4E2D;&#x5BF9;&#x8C61;&#x662F;&#x91C7;&#x7528;new&#x6216;&#x8005;&#x53CD;&#x5C04;&#x7684;&#x65B9;&#x6CD5;&#x521B;&#x5EFA;&#x7684;&#xFF0C;&#x8FD9;&#x4E9B;&#x5BF9;&#x8C61;&#x7684;&#x521B;&#x5EFA;&#x90FD;&#x662F;&#x5728;&#x5806;&#xFF08;Heap&#xFF09;&#x4E2D;&#x5206;&#x914D;&#x7684;&#xFF0C;&#x6240;&#x6709;&#x5BF9;&#x8C61;&#x7684;&#x56DE;&#x6536;&#x90FD;&#x662F;&#x7531;Java&#x865A;&#x62DF;&#x673A;&#x901A;&#x8FC7;&#x5783;&#x573E;&#x56DE;&#x6536;&#x673A;&#x5236;&#x5B8C;&#x6210;&#x7684;&#x3002;GC&#x4E3A;&#x4E86;&#x80FD;&#x591F;&#x6B63;&#x786E;&#x91CA;&#x653E;&#x5BF9;&#x8C61;&#xFF0C;&#x4F1A;&#x76D1;&#x63A7;&#x6BCF;&#x4E2A;&#x5BF9;&#x8C61;&#x7684;&#x8FD0;&#x884C;&#x72B6;&#x51B5;&#xFF0C;&#x5BF9;&#x4ED6;&#x4EEC;&#x7684;&#x7533;&#x8BF7;&#x3001;&#x5F15;&#x7528;&#x3001;&#x88AB;&#x5F15;&#x7528;&#x3001;&#x8D4B;&#x503C;&#x7B49;&#x72B6;&#x51B5;&#x8FDB;&#x884C;&#x76D1;&#x63A7;&#xFF0C;Java&#x4F1A;&#x4F7F;&#x7528;&#x6709;&#x5411;&#x56FE;&#x7684;&#x65B9;&#x6CD5;&#x8FDB;&#x884C;&#x7BA1;&#x7406;&#x5185;&#x5B58;&#xFF0C;&#x5B9E;&#x65F6;&#x76D1;&#x63A7;&#x5BF9;&#x8C61;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x8FBE;&#x5230;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x53EF;&#x5230;&#x8FBE;&#xFF0C;&#x5219;&#x5C31;&#x5C06;&#x5176;&#x56DE;&#x6536;&#xFF0C;&#x8FD9;&#x6837;&#x4E5F;&#x53EF;&#x4EE5;&#x6D88;&#x9664;&#x5F15;&#x7528;&#x5FAA;&#x73AF;&#x7684;&#x95EE;&#x9898;&#x3002;&#x5728;Java&#x8BED;&#x8A00;&#x4E2D;&#xFF0C;&#x5224;&#x65AD;&#x4E00;&#x4E2A;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x662F;&#x5426;&#x7B26;&#x5408;&#x5783;&#x573E;&#x6536;&#x96C6;&#x6807;&#x51C6;&#x6709;&#x4E24;&#x4E2A;&#xFF1A;&#x4E00;&#x4E2A;&#x662F;&#x7ED9;&#x5BF9;&#x8C61;&#x8D4B;&#x4E88;&#x4E86;&#x7A7A;&#x503C;null&#xFF0C;&#x4EE5;&#x4E0B;&#x518D;&#x6CA1;&#x6709;&#x8C03;&#x7528;&#x8FC7;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x662F;&#x7ED9;&#x5BF9;&#x8C61;&#x8D4B;&#x4E88;&#x4E86;&#x65B0;&#x503C;&#xFF0C;&#x8FD9;&#x6837;&#x91CD;&#x65B0;&#x5206;&#x914D;&#x4E86;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x3002;</p>
+<p><strong>2.Java&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x5F15;&#x8D77;&#x7684;&#x539F;&#x56E0;</strong></p>
+<p>&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x662F;&#x6307;&#x65E0;&#x7528;&#x5BF9;&#x8C61;&#xFF08;&#x4E0D;&#x518D;&#x4F7F;&#x7528;&#x7684;&#x5BF9;&#x8C61;&#xFF09;&#x6301;&#x7EED;&#x5360;&#x6709;&#x5185;&#x5B58;&#x6216;&#x65E0;&#x7528;&#x5BF9;&#x8C61;&#x7684;&#x5185;&#x5B58;&#x5F97;&#x4E0D;&#x5230;&#x53CA;&#x65F6;&#x91CA;&#x653E;&#xFF0C;&#x4ECE;&#x800C;&#x9020;&#x6210;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x7684;&#x6D6A;&#x8D39;&#x79F0;&#x4E3A;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#x6709;&#x65F6;&#x4E0D;&#x4E25;&#x91CD;&#x4E14;&#x4E0D;&#x6613;&#x5BDF;&#x89C9;&#xFF0C;&#x8FD9;&#x6837;&#x5F00;&#x53D1;&#x8005;&#x5C31;&#x4E0D;&#x77E5;&#x9053;&#x5B58;&#x5728;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#xFF0C;&#x4F46;&#x6709;&#x65F6;&#x4E5F;&#x4F1A;&#x5F88;&#x4E25;&#x91CD;&#xFF0C;&#x4F1A;&#x63D0;&#x793A;&#x4F60;Out of memory&#x3002;j</p>
+<p><strong>Java&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x6839;&#x672C;&#x539F;&#x56E0;&#x662F;&#x4EC0;&#x4E48;&#x5462;&#xFF1F;&#x957F;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x5BF9;&#x8C61;&#x6301;&#x6709;&#x77ED;&#x751F;&#x547D;&#x5468;&#x671F;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#x5C31;&#x5F88;&#x53EF;&#x80FD;&#x53D1;&#x751F;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;&#x5C3D;&#x7BA1;&#x77ED;&#x751F;&#x547D;&#x5468;&#x671F;&#x5BF9;&#x8C61;&#x5DF2;&#x7ECF;&#x4E0D;&#x518D;&#x9700;&#x8981;&#xFF0C;&#x4F46;&#x662F;&#x56E0;&#x4E3A;&#x957F;&#x751F;&#x547D;&#x5468;&#x671F;&#x6301;&#x6709;&#x5B83;&#x7684;&#x5F15;&#x7528;&#x800C;&#x5BFC;&#x81F4;&#x4E0D;&#x80FD;&#x88AB;&#x56DE;&#x6536;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;Java&#x4E2D;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x53D1;&#x751F;&#x573A;&#x666F;&#x3002;</strong></p>
+<p>&#x5177;&#x4F53;&#x4E3B;&#x8981;&#x6709;&#x5982;&#x4E0B;&#x51E0;&#x5927;&#x7C7B;&#xFF1A;</p>
+<p><strong>1&#x3001;&#x9759;&#x6001;&#x96C6;&#x5408;&#x7C7B;&#x5F15;&#x8D77;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF1A;</strong></p>
+<p>&#x50CF;HashMap&#x3001;Vector&#x7B49;&#x7684;&#x4F7F;&#x7528;&#x6700;&#x5BB9;&#x6613;&#x51FA;&#x73B0;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#xFF0C;&#x8FD9;&#x4E9B;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x548C;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E00;&#x81F4;&#xFF0C;&#x4ED6;&#x4EEC;&#x6240;&#x5F15;&#x7528;&#x7684;&#x6240;&#x6709;&#x7684;&#x5BF9;&#x8C61;Object&#x4E5F;&#x4E0D;&#x80FD;&#x88AB;&#x91CA;&#x653E;&#xFF0C;&#x56E0;&#x4E3A;&#x4ED6;&#x4EEC;&#x4E5F;&#x5C06;&#x4E00;&#x76F4;&#x88AB;Vector&#x7B49;&#x5F15;&#x7528;&#x7740;&#x3002;</p>
+<p>&#x4F8B;&#x5982;</p>
+<pre><code>Static Vector v = new Vector(10);
+for (int i = 1; i&lt;100; i++){
+    Object o = new Object();
+    v.add(o);
+    o = null;
+}
+</code></pre><p>&#x5728;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D;&#xFF0C;&#x5FAA;&#x73AF;&#x7533;&#x8BF7;Object &#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x5C06;&#x6240;&#x7533;&#x8BF7;&#x7684;&#x5BF9;&#x8C61;&#x653E;&#x5165;&#x4E00;&#x4E2A;Vector &#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x4EC5;&#x4EC5;&#x91CA;&#x653E;&#x5F15;&#x7528;&#x672C;&#x8EAB;&#xFF08;o=null&#xFF09;&#xFF0C;&#x90A3;&#x4E48;Vector &#x4ECD;&#x7136;&#x5F15;&#x7528;&#x8BE5;&#x5BF9;&#x8C61;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5BF9;GC &#x6765;&#x8BF4;&#x662F;&#x4E0D;&#x53EF;&#x56DE;&#x6536;&#x7684;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5982;&#x679C;&#x5BF9;&#x8C61;&#x52A0;&#x5165;&#x5230;Vector &#x540E;&#xFF0C;&#x8FD8;&#x5FC5;&#x987B;&#x4ECE;Vector &#x4E2D;&#x5220;&#x9664;&#xFF0C;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x6CD5;&#x5C31;&#x662F;&#x5C06;Vector&#x5BF9;&#x8C61;&#x8BBE;&#x7F6E;&#x4E3A;null&#x3002;</p>
+<p><strong>2&#x3001;&#x5F53;&#x96C6;&#x5408;&#x91CC;&#x9762;&#x7684;&#x5BF9;&#x8C61;&#x5C5E;&#x6027;&#x88AB;&#x4FEE;&#x6539;&#x540E;&#xFF0C;&#x518D;&#x8C03;&#x7528;remove()&#x65B9;&#x6CD5;&#x65F6;&#x4E0D;&#x8D77;&#x4F5C;&#x7528;&#xFF1A;</strong></p>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<pre><code>public static void main(String[] args){
+ Set&lt;Person&gt; set = new HashSet&lt;Person&gt;();
+ Person p1 = new Person(&quot;&#x5510;&#x50E7;&quot;,&quot;pwd1&quot;,25);
+ Person p2 = new Person(&quot;&#x5B59;&#x609F;&#x7A7A;&quot;,&quot;pwd2&quot;,26);
+ Person p3 = new Person(&quot;&#x732A;&#x516B;&#x6212;&quot;,&quot;pwd3&quot;,27);
+ set.add(p1);
+ set.add(p2);
+ set.add(p3);
+ System.out.println(&quot;&#x603B;&#x5171;&#x6709;:&quot;+set.size()+&quot; &#x4E2A;&#x5143;&#x7D20;!&quot;); //&#x7ED3;&#x679C;&#xFF1A;&#x603B;&#x5171;&#x6709;:3 &#x4E2A;&#x5143;&#x7D20;!
+ p3.setAge(2); //&#x4FEE;&#x6539;p3&#x7684;&#x5E74;&#x9F84;,&#x6B64;&#x65F6;p3&#x5143;&#x7D20;&#x5BF9;&#x5E94;&#x7684;hashcode&#x503C;&#x53D1;&#x751F;&#x6539;&#x53D8;
+ set.remove(p3); //&#x6B64;&#x65F6;remove&#x4E0D;&#x6389;&#xFF0C;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;
+ set.add(p3); //&#x91CD;&#x65B0;&#x6DFB;&#x52A0;&#xFF0C;&#x5C45;&#x7136;&#x6DFB;&#x52A0;&#x6210;&#x529F;
+ System.out.println(&quot;&#x603B;&#x5171;&#x6709;:&quot;+set.size()+&quot; &#x4E2A;&#x5143;&#x7D20;!&quot;); //&#x7ED3;&#x679C;&#xFF1A;&#x603B;&#x5171;&#x6709;:4 &#x4E2A;&#x5143;&#x7D20;!
+ for (Person person : set){
+  System.out.println(person);
+  }
+}
+</code></pre><p><strong>3&#x3001;&#x76D1;&#x542C;&#x5668;</strong></p>
+<p>&#x5728;java &#x7F16;&#x7A0B;&#x4E2D;&#xFF0C;&#x6211;&#x4EEC;&#x90FD;&#x9700;&#x8981;&#x548C;&#x76D1;&#x542C;&#x5668;&#x6253;&#x4EA4;&#x9053;&#xFF0C;&#x901A;&#x5E38;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x5F53;&#x4E2D;&#x4F1A;&#x7528;&#x5230;&#x5F88;&#x591A;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x6211;&#x4EEC;&#x4F1A;&#x8C03;&#x7528;&#x4E00;&#x4E2A;&#x63A7;&#x4EF6;&#x7684;&#x8BF8;&#x5982;addXXXListener()&#x7B49;&#x65B9;&#x6CD5;&#x6765;&#x589E;&#x52A0;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x4F46;&#x5F80;&#x5F80;&#x5728;&#x91CA;&#x653E;&#x5BF9;&#x8C61;&#x7684;&#x65F6;&#x5019;&#x5374;&#x6CA1;&#x6709;&#x8BB0;&#x4F4F;&#x53BB;&#x5220;&#x9664;&#x8FD9;&#x4E9B;&#x76D1;&#x542C;&#x5668;&#xFF0C;&#x4ECE;&#x800C;&#x589E;&#x52A0;&#x4E86;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x673A;&#x4F1A;&#x3002;</p>
+<p><strong>4&#x3001;&#x5404;&#x79CD;&#x8FDE;&#x63A5;</strong></p>
+<p><strong>&#x6BD4;&#x5982;&#x6570;&#x636E;&#x5E93;&#x8FDE;&#x63A5;&#xFF08;dataSourse.getConnection()&#xFF09;&#xFF0C;&#x7F51;&#x7EDC;&#x8FDE;&#x63A5;(socket)&#x548C;io&#x8FDE;&#x63A5;&#xFF0C;&#x9664;&#x975E;&#x5176;&#x663E;&#x5F0F;&#x7684;&#x8C03;&#x7528;&#x4E86;&#x5176;close&#xFF08;&#xFF09;&#x65B9;&#x6CD5;&#x5C06;&#x5176;&#x8FDE;&#x63A5;&#x5173;&#x95ED;&#xFF0C;&#x5426;&#x5219;&#x662F;&#x4E0D;&#x4F1A;&#x81EA;&#x52A8;&#x88AB;GC &#x56DE;&#x6536;&#x7684;&#x3002;</strong>&#x5BF9;&#x4E8E;Resultset &#x548C;Statement &#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x4E0D;&#x8FDB;&#x884C;&#x663E;&#x5F0F;&#x56DE;&#x6536;&#xFF0C;&#x4F46;Connection &#x4E00;&#x5B9A;&#x8981;&#x663E;&#x5F0F;&#x56DE;&#x6536;&#xFF0C;&#x56E0;&#x4E3A;Connection &#x5728;&#x4EFB;&#x4F55;&#x65F6;&#x5019;&#x90FD;&#x65E0;&#x6CD5;&#x81EA;&#x52A8;&#x56DE;&#x6536;&#xFF0C;&#x800C;Connection&#x4E00;&#x65E6;&#x56DE;&#x6536;&#xFF0C;Resultset &#x548C;Statement &#x5BF9;&#x8C61;&#x5C31;&#x4F1A;&#x7ACB;&#x5373;&#x4E3A;NULL&#x3002;&#x4F46;&#x662F;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x8FDE;&#x63A5;&#x6C60;&#xFF0C;&#x60C5;&#x51B5;&#x5C31;&#x4E0D;&#x4E00;&#x6837;&#x4E86;&#xFF0C;&#x9664;&#x4E86;&#x8981;&#x663E;&#x5F0F;&#x5730;&#x5173;&#x95ED;&#x8FDE;&#x63A5;&#xFF0C;&#x8FD8;&#x5FC5;&#x987B;&#x663E;&#x5F0F;&#x5730;&#x5173;&#x95ED;Resultset Statement &#x5BF9;&#x8C61;&#xFF08;&#x5173;&#x95ED;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#xFF0C;&#x53E6;&#x5916;&#x4E00;&#x4E2A;&#x4E5F;&#x4F1A;&#x5173;&#x95ED;&#xFF09;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x4F1A;&#x9020;&#x6210;&#x5927;&#x91CF;&#x7684;Statement &#x5BF9;&#x8C61;&#x65E0;&#x6CD5;&#x91CA;&#x653E;&#xFF0C;&#x4ECE;&#x800C;&#x5F15;&#x8D77;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#x4E00;&#x822C;&#x90FD;&#x4F1A;&#x5728;try&#x91CC;&#x9762;&#x53BB;&#x7684;&#x8FDE;&#x63A5;&#xFF0C;&#x5728;finally&#x91CC;&#x9762;&#x91CA;&#x653E;&#x8FDE;&#x63A5;&#x3002;</p>
+<p><strong>5&#x3001;&#x5185;&#x90E8;&#x7C7B;&#x548C;&#x5916;&#x90E8;&#x6A21;&#x5757;&#x7684;&#x5F15;&#x7528;</strong></p>
+<p>&#x5185;&#x90E8;&#x7C7B;&#x7684;&#x5F15;&#x7528;&#x662F;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x9057;&#x5FD8;&#x7684;&#x4E00;&#x79CD;&#xFF0C;&#x800C;&#x4E14;&#x4E00;&#x65E6;&#x6CA1;&#x91CA;&#x653E;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x540E;&#x7EE7;&#x7C7B;&#x5BF9;&#x8C61;&#x6CA1;&#x6709;&#x91CA;&#x653E;&#x3002;&#x6B64;&#x5916;&#x7A0B;&#x5E8F;&#x5458;&#x8FD8;&#x8981;&#x5C0F;&#x5FC3;&#x5916;&#x90E8;&#x6A21;&#x5757;&#x4E0D;&#x7ECF;&#x610F;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x4F8B;&#x5982;&#x7A0B;&#x5E8F;&#x5458;A &#x8D1F;&#x8D23;A &#x6A21;&#x5757;&#xFF0C;&#x8C03;&#x7528;&#x4E86;B &#x6A21;&#x5757;&#x7684;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x5982;&#xFF1A; public void registerMsg(Object b); &#x8FD9;&#x79CD;&#x8C03;&#x7528;&#x5C31;&#x8981;&#x975E;&#x5E38;&#x5C0F;&#x5FC3;&#x4E86;&#xFF0C;&#x4F20;&#x5165;&#x4E86;&#x4E00;&#x4E2A;&#x5BF9;&#x8C61;&#xFF0C;&#x5F88;&#x53EF;&#x80FD;&#x6A21;&#x5757;B&#x5C31;&#x4FDD;&#x6301;&#x4E86;&#x5BF9;&#x8BE5;&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x5C31;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x6A21;&#x5757;B &#x662F;&#x5426;&#x63D0;&#x4F9B;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x53BB;&#x9664;&#x5F15;&#x7528;&#x3002;</p>
+<p><strong>6&#x3001;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;</strong></p>
+<p>&#x4E0D;&#x6B63;&#x786E;&#x4F7F;&#x7528;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#x662F;&#x5F15;&#x8D77;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x7684;&#x4E00;&#x4E2A;&#x5E38;&#x89C1;&#x95EE;&#x9898;&#xFF0C;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x5728;&#x521D;&#x59CB;&#x5316;&#x540E;&#x5C06;&#x5728;JVM&#x7684;&#x6574;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E2D;&#x5B58;&#x5728;&#xFF08;&#x4EE5;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x7684;&#x65B9;&#x5F0F;&#xFF09;&#xFF0C;&#x5982;&#x679C;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x6301;&#x6709;&#x5916;&#x90E8;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x4E2A;&#x5BF9;&#x8C61;&#x5C06;&#x4E0D;&#x80FD;&#x88AB;JVM&#x6B63;&#x5E38;&#x56DE;&#x6536;&#xFF0C;&#x5BFC;&#x81F4;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;&#x8003;&#x8651;&#x4E0B;&#x9762;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code>class A{
+    public A(){
+        B.getInstance().setA(this);
+    }
+    ....
+}
+//B&#x7C7B;&#x91C7;&#x7528;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;
+class B{
+    private A a;
+    private static B instance=new B();
+    public B(){}
+    public static B getInstance(){
+        return instance;
+    }
+    public void setA(A a){
+        this.a=a;
+    }
+    //getter...
+}
+</code></pre><p>&#x663E;&#x7136;B&#x91C7;&#x7528;singleton&#x6A21;&#x5F0F;&#xFF0C;&#x5B83;&#x6301;&#x6709;&#x4E00;&#x4E2A;A&#x5BF9;&#x8C61;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x800C;&#x8FD9;&#x4E2A;A&#x7C7B;&#x7684;&#x5BF9;&#x8C61;&#x5C06;&#x4E0D;&#x80FD;&#x88AB;&#x56DE;&#x6536;&#x3002;&#x60F3;&#x8C61;&#x4E0B;&#x5982;&#x679C;A&#x662F;&#x4E2A;&#x6BD4;&#x8F83;&#x590D;&#x6742;&#x7684;&#x5BF9;&#x8C61;&#x6216;&#x8005;&#x96C6;&#x5408;&#x7C7B;&#x578B;&#x4F1A;&#x53D1;&#x751F;&#x4EC0;&#x4E48;&#x60C5;&#x51B5;</p>
+<h2 id="android&#x4E2D;&#x5E38;&#x89C1;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x6C47;&#x603B;">Android&#x4E2D;&#x5E38;&#x89C1;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x6C47;&#x603B;</h2>
+<h3 id="&#x96C6;&#x5408;&#x7C7B;&#x6CC4;&#x6F0F;">&#x96C6;&#x5408;&#x7C7B;&#x6CC4;&#x6F0F;</h3>
+<p>&#x96C6;&#x5408;&#x7C7B;&#x5982;&#x679C;&#x4EC5;&#x4EC5;&#x6709;&#x6DFB;&#x52A0;&#x5143;&#x7D20;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x800C;&#x6CA1;&#x6709;&#x76F8;&#x5E94;&#x7684;&#x5220;&#x9664;&#x673A;&#x5236;&#xFF0C;&#x5BFC;&#x81F4;&#x5185;&#x5B58;&#x88AB;&#x5360;&#x7528;&#x3002;&#x5982;&#x679C;&#x8FD9;&#x4E2A;&#x96C6;&#x5408;&#x7C7B;&#x662F;&#x5168;&#x5C40;&#x6027;&#x7684;&#x53D8;&#x91CF; (&#x6BD4;&#x5982;&#x7C7B;&#x4E2D;&#x7684;&#x9759;&#x6001;&#x5C5E;&#x6027;&#xFF0C;&#x5168;&#x5C40;&#x6027;&#x7684; map &#x7B49;&#x5373;&#x6709;&#x9759;&#x6001;&#x5F15;&#x7528;&#x6216; final &#x4E00;&#x76F4;&#x6307;&#x5411;&#x5B83;)&#xFF0C;&#x90A3;&#x4E48;&#x6CA1;&#x6709;&#x76F8;&#x5E94;&#x7684;&#x5220;&#x9664;&#x673A;&#x5236;&#xFF0C;&#x5F88;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x96C6;&#x5408;&#x6240;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#x53EA;&#x589E;&#x4E0D;&#x51CF;&#x3002;&#x6BD4;&#x5982;&#x4E0A;&#x9762;&#x7684;&#x5178;&#x578B;&#x4F8B;&#x5B50;&#x5C31;&#x662F;&#x5176;&#x4E2D;&#x4E00;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x5F53;&#x7136;&#x5B9E;&#x9645;&#x4E0A;&#x6211;&#x4EEC;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x80AF;&#x5B9A;&#x4E0D;&#x4F1A;&#x5199;&#x8FD9;&#x4E48; 2B &#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x4F46;&#x7A0D;&#x4E0D;&#x6CE8;&#x610F;&#x8FD8;&#x662F;&#x5F88;&#x5BB9;&#x6613;&#x51FA;&#x73B0;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x6BD4;&#x5982;&#x6211;&#x4EEC;&#x90FD;&#x559C;&#x6B22;&#x901A;&#x8FC7; HashMap &#x505A;&#x4E00;&#x4E9B;&#x7F13;&#x5B58;&#x4E4B;&#x7C7B;&#x7684;&#x4E8B;&#xFF0C;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x5C31;&#x8981;&#x591A;&#x7559;&#x4E00;&#x4E9B;&#x5FC3;&#x773C;&#x3002;</p>
+<h3 id="&#x5355;&#x4F8B;&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;">&#x5355;&#x4F8B;&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</h3>
+<p>&#x7531;&#x4E8E;&#x5355;&#x4F8B;&#x7684;&#x9759;&#x6001;&#x7279;&#x6027;&#x4F7F;&#x5F97;&#x5176;&#x751F;&#x547D;&#x5468;&#x671F;&#x8DDF;&#x5E94;&#x7528;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E00;&#x6837;&#x957F;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E0D;&#x6070;&#x5F53;&#x7684;&#x8BDD;&#xFF0C;&#x5F88;&#x5BB9;&#x6613;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;&#x6BD4;&#x5982;&#x4E0B;&#x9762;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x4F8B;&#x5B50;</p>
+<pre><code>public class AppManager {
+    private static AppManager instance;
+    private Context context;
+    private AppManager(Context context) {
+        this.context = context;
+    }
+    public static AppManager getInstance(Context context) {
+        if (instance == null) {
+            instance = new AppManager(context);
+        }
+        return instance;
+    }
+}
+</code></pre><p>&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x7684;&#x5355;&#x4F8B;&#x6A21;&#x5F0F;&#xFF0C;&#x5F53;&#x521B;&#x5EFA;&#x8FD9;&#x4E2A;&#x5355;&#x4F8B;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x7531;&#x4E8E;&#x9700;&#x8981;&#x4F20;&#x5165;&#x4E00;&#x4E2A;Context&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;Context&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x957F;&#x77ED;&#x81F3;&#x5173;&#x91CD;&#x8981;&#xFF1A;</p>
+<p>1&#x3001;&#x5982;&#x679C;&#x6B64;&#x65F6;&#x4F20;&#x5165;&#x7684;&#x662F; Application &#x7684; Context&#xFF0C;&#x56E0;&#x4E3A; Application &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x5C31;&#x662F;&#x6574;&#x4E2A;&#x5E94;&#x7528;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x5C06;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x95EE;&#x9898;&#x3002;</p>
+<p>2&#x3001;&#x5982;&#x679C;&#x6B64;&#x65F6;&#x4F20;&#x5165;&#x7684;&#x662F; Activity &#x7684; Context&#xFF0C;&#x5F53;&#x8FD9;&#x4E2A; Context &#x6240;&#x5BF9;&#x5E94;&#x7684; Activity &#x9000;&#x51FA;&#x65F6;&#xFF0C;<strong>&#x7531;&#x4E8E;&#x8BE5; Context &#x7684;&#x5F15;&#x7528;&#x88AB;&#x5355;&#x4F8B;&#x5BF9;&#x8C61;&#x6240;&#x6301;&#x6709;&#xFF0C;&#x5176;&#x751F;&#x547D;&#x5468;&#x671F;&#x7B49;&#x4E8E;&#x6574;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#xFF0C;&#x6240;&#x4EE5;&#x5F53;&#x524D; Activity &#x9000;&#x51FA;&#x65F6;&#x5B83;&#x7684;&#x5185;&#x5B58;&#x5E76;&#x4E0D;&#x4F1A;&#x88AB;&#x56DE;&#x6536;&#xFF0C;&#x8FD9;&#x5C31;&#x9020;&#x6210;&#x6CC4;&#x6F0F;&#x4E86;&#x3002;</strong></p>
+<p>&#x6B63;&#x786E;&#x7684;&#x65B9;&#x5F0F;&#x5E94;&#x8BE5;&#x6539;&#x4E3A;&#x4E0B;&#x9762;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#xFF1A;</p>
+<pre><code>public class AppManager {
+    private static AppManager instance;
+    private Context context;
+    private AppManager(Context context) {
+        this.context = context.getApplicationContext();// &#x4F7F;&#x7528;Application &#x7684;context
+    }
+    public static AppManager getInstance(Context context) {
+        if (instance == null) {
+            instance = new AppManager(context);
+        }
+        return instance;
+    }
+}
+</code></pre><p>&#x6216;&#x8005;&#x8FD9;&#x6837;&#x5199;&#xFF0C;&#x8FDE; Context &#x90FD;&#x4E0D;&#x7528;&#x4F20;&#x8FDB;&#x6765;&#x4E86;&#xFF1A;</p>
+<pre><code>&#x5728;&#x4F60;&#x7684; Application &#x4E2D;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x65B9;&#x6CD5;&#xFF0C;getContext() &#x8FD4;&#x56DE; Application &#x7684; context&#xFF0C;
+
+...
+
+context = getApplicationContext();
+
+...
+   /**
+     * &#x83B7;&#x53D6;&#x5168;&#x5C40;&#x7684;context
+     * @return &#x8FD4;&#x56DE;&#x5168;&#x5C40;context&#x5BF9;&#x8C61;
+     */
+    public static Context getContext(){
+        return context;
+    }
+
+public class AppManager {
+    private static AppManager instance;
+    private Context context;
+    private AppManager() {
+        this.context = MyApplication.getContext();// &#x4F7F;&#x7528;Application &#x7684;context
+    }
+    public static AppManager getInstance() {
+        if (instance == null) {
+            instance = new AppManager();
+        }
+        return instance;
+    }
+}
+</code></pre><h3 id="&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x975E;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x548C;&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;">&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;/&#x975E;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x548C;&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;</h3>
+<p>&#x975E;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x521B;&#x5EFA;&#x9759;&#x6001;&#x5B9E;&#x4F8B;&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</p>
+<p>&#x6709;&#x7684;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x53EF;&#x80FD;&#x4F1A;&#x5728;&#x542F;&#x52A8;&#x9891;&#x7E41;&#x7684;Activity&#x4E2D;&#xFF0C;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x91CD;&#x590D;&#x521B;&#x5EFA;&#x76F8;&#x540C;&#x7684;&#x6570;&#x636E;&#x8D44;&#x6E90;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x51FA;&#x73B0;&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#xFF1A;</p>
+<pre><code>public class MainActivity extends AppCompatActivity {
+    private static TestResource mResource = null;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        if(mManager == null){
+            mManager = new TestResource();
+        }
+        //...
+    }
+    class TestResource {
+        //...
+    }
+}
+</code></pre><p>&#x8FD9;&#x6837;&#x5C31;&#x5728;Activity&#x5185;&#x90E8;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x975E;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x7684;&#x5355;&#x4F8B;&#xFF0C;&#x6BCF;&#x6B21;&#x542F;&#x52A8;Activity&#x65F6;&#x90FD;&#x4F1A;&#x4F7F;&#x7528;&#x8BE5;&#x5355;&#x4F8B;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x8FD9;&#x6837;&#x867D;&#x7136;&#x907F;&#x514D;&#x4E86;&#x8D44;&#x6E90;&#x7684;&#x91CD;&#x590D;&#x521B;&#x5EFA;&#xFF0C;&#x4E0D;&#x8FC7;&#x8FD9;&#x79CD;&#x5199;&#x6CD5;&#x5374;&#x4F1A;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;&#x56E0;&#x4E3A;&#x975E;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x9ED8;&#x8BA4;&#x4F1A;&#x6301;&#x6709;&#x5916;&#x90E8;&#x7C7B;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x800C;&#x8BE5;&#x975E;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x53C8;&#x521B;&#x5EFA;&#x4E86;&#x4E00;&#x4E2A;&#x9759;&#x6001;&#x7684;&#x5B9E;&#x4F8B;&#xFF0C;&#x8BE5;&#x5B9E;&#x4F8B;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x548C;&#x5E94;&#x7528;&#x7684;&#x4E00;&#x6837;&#x957F;&#xFF0C;&#x8FD9;&#x5C31;&#x5BFC;&#x81F4;&#x4E86;<strong>&#x8BE5;&#x9759;&#x6001;&#x5B9E;&#x4F8B;&#x4E00;&#x76F4;&#x4F1A;&#x6301;&#x6709;&#x8BE5;Activity&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x5BFC;&#x81F4;Activity&#x7684;&#x5185;&#x5B58;&#x8D44;&#x6E90;&#x4E0D;&#x80FD;&#x6B63;&#x5E38;&#x56DE;&#x6536;&#x3002;</strong>&#x6B63;&#x786E;&#x7684;&#x505A;&#x6CD5;&#x4E3A;&#xFF1A;</p>
+<p><strong>&#x5C06;&#x8BE5;&#x5185;&#x90E8;&#x7C7B;&#x8BBE;&#x4E3A;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x6216;&#x5C06;&#x8BE5;&#x5185;&#x90E8;&#x7C7B;&#x62BD;&#x53D6;&#x51FA;&#x6765;&#x5C01;&#x88C5;&#x6210;&#x4E00;&#x4E2A;&#x5355;&#x4F8B;</strong>&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x4F7F;&#x7528;Context&#xFF0C;&#x8BF7;&#x6309;&#x7167;&#x4E0A;&#x9762;&#x63A8;&#x8350;&#x7684;&#x4F7F;&#x7528;Application &#x7684; Context&#x3002;&#x5F53;&#x7136;&#xFF0C;Application &#x7684; context &#x4E0D;&#x662F;&#x4E07;&#x80FD;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x4E5F;&#x4E0D;&#x80FD;&#x968F;&#x4FBF;&#x4E71;&#x7528;&#xFF0C;&#x5BF9;&#x4E8E;&#x6709;&#x4E9B;&#x5730;&#x65B9;&#x5219;&#x5FC5;&#x987B;&#x4F7F;&#x7528; Activity &#x7684; Context&#xFF0C;&#x5BF9;&#x4E8E;Application&#xFF0C;Service&#xFF0C;Activity&#x4E09;&#x8005;&#x7684;Context&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><a href="https://camo.githubusercontent.com/dee4aecb8a80c4e73337b56ee01cbffa2a8049dd/687474703a2f2f696d672e626c6f672e6373646e2e6e65742f32303135313132333134343232363334393f73706d3d353137362e3130303233392e626c6f67636f6e742e392e437455316334" target="_blank"><img src="https://camo.githubusercontent.com/dee4aecb8a80c4e73337b56ee01cbffa2a8049dd/687474703a2f2f696d672e626c6f672e6373646e2e6e65742f32303135313132333134343232363334393f73706d3d353137362e3130303233392e626c6f67636f6e742e392e437455316334" alt=""></a></p>
+<p>&#x5176;&#x4E2D;&#xFF1A; NO1&#x8868;&#x793A; Application &#x548C; Service &#x53EF;&#x4EE5;&#x542F;&#x52A8;&#x4E00;&#x4E2A; Activity&#xFF0C;&#x4E0D;&#x8FC7;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684; task &#x4EFB;&#x52A1;&#x961F;&#x5217;&#x3002;&#x800C;&#x5BF9;&#x4E8E; Dialog &#x800C;&#x8A00;&#xFF0C;&#x53EA;&#x6709;&#x5728; Activity &#x4E2D;&#x624D;&#x80FD;&#x521B;&#x5EFA;&#x3002;</p>
+<h3 id="&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;">&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;</h3>
+<p>android&#x5F00;&#x53D1;&#x7ECF;&#x5E38;&#x4F1A;&#x7EE7;&#x627F;&#x5B9E;&#x73B0;Activity/Fragment/View&#xFF0C;&#x6B64;&#x65F6;&#x5982;&#x679C;&#x4F60;&#x4F7F;&#x7528;&#x4E86;&#x533F;&#x540D;&#x7C7B;&#xFF0C;&#x5E76;&#x88AB;&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;&#x6301;&#x6709;&#x4E86;&#xFF0C;&#x90A3;&#x8981;&#x5C0F;&#x5FC3;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x4EFB;&#x4F55;&#x63AA;&#x65BD;&#x8FD9;&#x6837;&#x4E00;&#x5B9A;&#x4F1A;&#x5BFC;&#x81F4;&#x6CC4;&#x9732;</p>
+<pre><code>public class MainActivity extends Activity {
+    ...
+    Runnable ref1 = new MyRunable();
+    Runnable ref2 = new Runnable() {
+        @Override
+        public void run() {
+
+        }
+    };
+    ...
+}
+</code></pre><p>ref1&#x548C;ref2&#x7684;&#x533A;&#x522B;&#x662F;&#xFF0C;ref2&#x4F7F;&#x7528;&#x4E86;&#x533F;&#x540D;&#x5185;&#x90E8;&#x7C7B;&#x3002;&#x6211;&#x4EEC;&#x6765;&#x770B;&#x770B;&#x8FD0;&#x884C;&#x65F6;&#x8FD9;&#x4E24;&#x4E2A;&#x5F15;&#x7528;&#x7684;&#x5185;&#x5B58;&#xFF1A;</p>
+<p><a href="https://camo.githubusercontent.com/2b1a52551d828d9640f23ee7c2802476b02ccec3/687474703a2f2f696d67322e746263646e2e636e2f4c312f3436312f312f666230356666366432653638663330396239346464383433353263383161636665306165383339653f73706d3d353137362e3130303233392e626c6f67636f6e742e31302e437455316334" target="_blank"><img src="https://camo.githubusercontent.com/2b1a52551d828d9640f23ee7c2802476b02ccec3/687474703a2f2f696d67322e746263646e2e636e2f4c312f3436312f312f666230356666366432653638663330396239346464383433353263383161636665306165383339653f73706d3d353137362e3130303233392e626c6f67636f6e742e31302e437455316334" alt=""></a></p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;ref1&#x6CA1;&#x4EC0;&#x4E48;&#x7279;&#x522B;&#x7684;&#x3002;</p>
+<p>&#x4F46;ref2&#x8FD9;&#x4E2A;&#x533F;&#x540D;&#x7C7B;&#x7684;&#x5B9E;&#x73B0;&#x5BF9;&#x8C61;&#x91CC;&#x9762;&#x591A;&#x4E86;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#xFF1A;</p>
+<p>this$0&#x8FD9;&#x4E2A;&#x5F15;&#x7528;&#x6307;&#x5411;MainActivity.this&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5F53;&#x524D;&#x7684;MainActivity&#x5B9E;&#x4F8B;&#x4F1A;&#x88AB;ref2&#x6301;&#x6709;&#xFF0C;<strong>&#x5982;&#x679C;&#x5C06;&#x8FD9;&#x4E2A;&#x5F15;&#x7528;&#x518D;&#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x5F02;&#x6B65;&#x7EBF;&#x7A0B;&#xFF0C;&#x6B64;&#x7EBF;&#x7A0B;&#x548C;&#x6B64;Acitivity&#x751F;&#x547D;&#x5468;&#x671F;&#x4E0D;&#x4E00;&#x81F4;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x9020;&#x6210;&#x4E86;Activity&#x7684;&#x6CC4;&#x9732;&#x3002;</strong></p>
+<h3 id="handler-&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;">Handler &#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</h3>
+<p>Handler &#x7684;&#x4F7F;&#x7528;&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x95EE;&#x9898;&#x5E94;&#x8BE5;&#x8BF4;&#x662F;&#x6700;&#x4E3A;&#x5E38;&#x89C1;&#x4E86;&#xFF0C;&#x5F88;&#x591A;&#x65F6;&#x5019;&#x6211;&#x4EEC;&#x4E3A;&#x4E86;&#x907F;&#x514D; ANR &#x800C;&#x4E0D;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x8FDB;&#x884C;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#xFF0C;&#x5728;&#x5904;&#x7406;&#x7F51;&#x7EDC;&#x4EFB;&#x52A1;&#x6216;&#x8005;&#x5C01;&#x88C5;&#x4E00;&#x4E9B;&#x8BF7;&#x6C42;&#x56DE;&#x8C03;&#x7B49;api&#x90FD;&#x501F;&#x52A9;Handler&#x6765;&#x5904;&#x7406;&#xFF0C;&#x4F46; Handler &#x4E0D;&#x662F;&#x4E07;&#x80FD;&#x7684;&#xFF0C;&#x5BF9;&#x4E8E; Handler &#x7684;&#x4F7F;&#x7528;&#x4EE3;&#x7801;&#x7F16;&#x5199;&#x4E00;&#x4E0D;&#x89C4;&#x8303;&#x5373;&#x6709;&#x53EF;&#x80FD;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;&#x53E6;&#x5916;&#xFF0C;&#x6211;&#x4EEC;&#x77E5;&#x9053; Handler&#x3001;Message &#x548C; MessageQueue &#x90FD;&#x662F;&#x76F8;&#x4E92;&#x5173;&#x8054;&#x5728;&#x4E00;&#x8D77;&#x7684;&#xFF0C;&#x4E07;&#x4E00; Handler &#x53D1;&#x9001;&#x7684; Message &#x5C1A;&#x672A;&#x88AB;&#x5904;&#x7406;&#xFF0C;&#x5219;&#x8BE5; Message &#x53CA;&#x53D1;&#x9001;&#x5B83;&#x7684; Handler &#x5BF9;&#x8C61;&#x5C06;&#x88AB;&#x7EBF;&#x7A0B; MessageQueue &#x4E00;&#x76F4;&#x6301;&#x6709;&#x3002;</p>
+<p><strong>&#x7531;&#x4E8E; Handler &#x5C5E;&#x4E8E; TLS(Thread Local Storage) &#x53D8;&#x91CF;, &#x751F;&#x547D;&#x5468;&#x671F;&#x548C; Activity &#x662F;&#x4E0D;&#x4E00;&#x81F4;&#x7684;&#x3002;&#x56E0;&#x6B64;&#x8FD9;&#x79CD;&#x5B9E;&#x73B0;&#x65B9;&#x5F0F;&#x4E00;&#x822C;&#x5F88;&#x96BE;&#x4FDD;&#x8BC1;&#x8DDF; View &#x6216;&#x8005; Activity &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4FDD;&#x6301;&#x4E00;&#x81F4;&#xFF0C;&#x6545;&#x5F88;&#x5BB9;&#x6613;&#x5BFC;&#x81F4;&#x65E0;&#x6CD5;&#x6B63;&#x786E;&#x91CA;&#x653E;&#x3002;</strong></p>
+<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;</p>
+<pre><code>public class SampleActivity extends Activity {
+
+    private final Handler mLeakyHandler = new Handler() {
+      @Override
+      public void handleMessage(Message msg) {
+        // ...
+      }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      // Post a message and delay its execution for 10 minutes.
+      mLeakyHandler.postDelayed(new Runnable() {
+      @Override
+      public void run() { /* ... */ }
+    }, 1000 * 60 * 10);
+
+    // Go back to the previous Activity.
+    finish();
+  }
+}
+</code></pre><p>&#x5728;&#x8BE5; SampleActivity &#x4E2D;&#x58F0;&#x660E;&#x4E86;&#x4E00;&#x4E2A;&#x5EF6;&#x8FDF;10&#x5206;&#x949F;&#x6267;&#x884C;&#x7684;&#x6D88;&#x606F; Message&#xFF0C;mLeakyHandler &#x5C06;&#x5176; push &#x8FDB;&#x4E86;&#x6D88;&#x606F;&#x961F;&#x5217; MessageQueue &#x91CC;&#x3002;&#x5F53;&#x8BE5; Activity &#x88AB; finish() &#x6389;&#x65F6;&#xFF0C;&#x5EF6;&#x8FDF;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x7684; Message &#x8FD8;&#x4F1A;&#x7EE7;&#x7EED;&#x5B58;&#x5728;&#x4E8E;&#x4E3B;&#x7EBF;&#x7A0B;&#x4E2D;&#xFF0C;&#x5B83;&#x6301;&#x6709;&#x8BE5; Activity &#x7684; Handler &#x5F15;&#x7528;&#xFF0C;&#x6240;&#x4EE5;&#x6B64;&#x65F6; finish() &#x6389;&#x7684; Activity &#x5C31;&#x4E0D;&#x4F1A;&#x88AB;&#x56DE;&#x6536;&#x4E86;&#x4ECE;&#x800C;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF08;&#x56E0; Handler &#x4E3A;&#x975E;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#xFF0C;&#x5B83;&#x4F1A;&#x6301;&#x6709;&#x5916;&#x90E8;&#x7C7B;&#x7684;&#x5F15;&#x7528;&#xFF0C;&#x5728;&#x8FD9;&#x91CC;&#x5C31;&#x662F;&#x6307; SampleActivity&#xFF09;&#x3002;</p>
+<p>&#x4FEE;&#x590D;&#x65B9;&#x6CD5;&#xFF1A;<strong>&#x5728; Activity &#x4E2D;&#x907F;&#x514D;&#x4F7F;&#x7528;&#x975E;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;</strong>&#xFF0C;&#x6BD4;&#x5982;&#x4E0A;&#x9762;&#x6211;&#x4EEC;&#x5C06; Handler &#x58F0;&#x660E;&#x4E3A;&#x9759;&#x6001;&#x7684;&#xFF0C;<strong>&#x5219;&#x5176;&#x5B58;&#x6D3B;&#x671F;&#x8DDF; Activity &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x5C31;&#x65E0;&#x5173;&#x4E86;&#x3002;&#x540C;&#x65F6;&#x901A;&#x8FC7;&#x5F31;&#x5F15;&#x7528;&#x7684;&#x65B9;&#x5F0F;&#x5F15;&#x5165; Activity&#xFF0C;&#x907F;&#x514D;&#x76F4;&#x63A5;&#x5C06; Activity &#x4F5C;&#x4E3A; context &#x4F20;&#x8FDB;&#x53BB;</strong>&#xFF0C;&#x89C1;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code>public class SampleActivity extends Activity {
+
+  /**
+   * Instances of static inner classes do not hold an implicit
+   * reference to their outer class.
+   */
+  private static class MyHandler extends Handler {
+    private final WeakReference&lt;SampleActivity&gt; mActivity;
+
+    public MyHandler(SampleActivity activity) {
+      mActivity = new WeakReference&lt;SampleActivity&gt;(activity);
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+      SampleActivity activity = mActivity.get();
+      if (activity != null) {
+        // ...
+      }
+    }
+  }
+
+  private final MyHandler mHandler = new MyHandler(this);
+
+  /**
+   * Instances of anonymous classes do not hold an implicit
+   * reference to their outer class when they are &quot;static&quot;.
+   */
+  private static final Runnable sRunnable = new Runnable() {
+      @Override
+      public void run() { /* ... */ }
+  };
+
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    // Post a message and delay its execution for 10 minutes.
+    mHandler.postDelayed(sRunnable, 1000 * 60 * 10);
+
+    // Go back to the previous Activity.
+    finish();
+  }
+}
+</code></pre><p>&#x7EFC;&#x8FF0;&#xFF0C;&#x5373;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B; + WeakReference &#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x3002;&#x6BCF;&#x6B21;&#x4F7F;&#x7528;&#x524D;&#x6CE8;&#x610F;&#x5224;&#x7A7A;&#x3002;</p>
+<p>&#x524D;&#x9762;&#x63D0;&#x5230;&#x4E86; WeakReference&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x91CC;&#x5C31;&#x7B80;&#x5355;&#x7684;&#x8BF4;&#x4E00;&#x4E0B; Java &#x5BF9;&#x8C61;&#x7684;&#x51E0;&#x79CD;&#x5F15;&#x7528;&#x7C7B;&#x578B;&#x3002;</p>
+<p>Java&#x5BF9;&#x5F15;&#x7528;&#x7684;&#x5206;&#x7C7B;&#x6709; Strong reference, SoftReference, WeakReference, PhatomReference &#x56DB;&#x79CD;&#x3002;</p>
+<p><a href="https://camo.githubusercontent.com/068950c506eddc68677d6a84b5d7ffe1c03c6cf9/68747470733a2f2f67772e616c6963646e2e636f6d2f7470732f5442315536544e4c565858585863685846585858585858585858582d3634342d3534362e6a7067" target="_blank"><img src="https://camo.githubusercontent.com/068950c506eddc68677d6a84b5d7ffe1c03c6cf9/68747470733a2f2f67772e616c6963646e2e636f6d2f7470732f5442315536544e4c565858585863685846585858585858585858582d3634342d3534362e6a7067" alt=""></a></p>
+<p>&#x5728;Android&#x5E94;&#x7528;&#x7684;&#x5F00;&#x53D1;&#x4E2D;&#xFF0C;&#x4E3A;&#x4E86;&#x9632;&#x6B62;&#x5185;&#x5B58;&#x6EA2;&#x51FA;&#xFF0C;&#x5728;&#x5904;&#x7406;&#x4E00;&#x4E9B;&#x5360;&#x7528;&#x5185;&#x5B58;&#x5927;&#x800C;&#x4E14;&#x58F0;&#x660E;&#x5468;&#x671F;&#x8F83;&#x957F;&#x7684;&#x5BF9;&#x8C61;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x4EE5;&#x5C3D;&#x91CF;&#x5E94;&#x7528;&#x8F6F;&#x5F15;&#x7528;&#x548C;&#x5F31;&#x5F15;&#x7528;&#x6280;&#x672F;&#x3002;</p>
+<p>&#x8F6F;/&#x5F31;&#x5F15;&#x7528;&#x53EF;&#x4EE5;&#x548C;&#x4E00;&#x4E2A;&#x5F15;&#x7528;&#x961F;&#x5217;&#xFF08;ReferenceQueue&#xFF09;&#x8054;&#x5408;&#x4F7F;&#x7528;&#xFF0C;&#x5982;&#x679C;&#x8F6F;&#x5F15;&#x7528;&#x6240;&#x5F15;&#x7528;&#x7684;&#x5BF9;&#x8C61;&#x88AB;&#x5783;&#x573E;&#x56DE;&#x6536;&#x5668;&#x56DE;&#x6536;&#xFF0C;Java&#x865A;&#x62DF;&#x673A;&#x5C31;&#x4F1A;&#x628A;&#x8FD9;&#x4E2A;&#x8F6F;&#x5F15;&#x7528;&#x52A0;&#x5165;&#x5230;&#x4E0E;&#x4E4B;&#x5173;&#x8054;&#x7684;&#x5F15;&#x7528;&#x961F;&#x5217;&#x4E2D;&#x3002;&#x5229;&#x7528;&#x8FD9;&#x4E2A;&#x961F;&#x5217;&#x53EF;&#x4EE5;&#x5F97;&#x77E5;&#x88AB;&#x56DE;&#x6536;&#x7684;&#x8F6F;/&#x5F31;&#x5F15;&#x7528;&#x7684;&#x5BF9;&#x8C61;&#x5217;&#x8868;&#xFF0C;&#x4ECE;&#x800C;&#x4E3A;&#x7F13;&#x51B2;&#x5668;&#x6E05;&#x9664;&#x5DF2;&#x5931;&#x6548;&#x7684;&#x8F6F;/&#x5F31;&#x5F15;&#x7528;&#x3002;</p>
+<p>&#x5047;&#x8BBE;&#x6211;&#x4EEC;&#x7684;&#x5E94;&#x7528;&#x4F1A;&#x7528;&#x5230;&#x5927;&#x91CF;&#x7684;&#x9ED8;&#x8BA4;&#x56FE;&#x7247;&#xFF0C;&#x6BD4;&#x5982;&#x5E94;&#x7528;&#x4E2D;&#x6709;&#x9ED8;&#x8BA4;&#x7684;&#x5934;&#x50CF;&#xFF0C;&#x9ED8;&#x8BA4;&#x6E38;&#x620F;&#x56FE;&#x6807;&#x7B49;&#x7B49;&#xFF0C;&#x8FD9;&#x4E9B;&#x56FE;&#x7247;&#x5F88;&#x591A;&#x5730;&#x65B9;&#x4F1A;&#x7528;&#x5230;&#x3002;&#x5982;&#x679C;&#x6BCF;&#x6B21;&#x90FD;&#x53BB;&#x8BFB;&#x53D6;&#x56FE;&#x7247;&#xFF0C;&#x7531;&#x4E8E;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x9700;&#x8981;&#x786C;&#x4EF6;&#x64CD;&#x4F5C;&#xFF0C;&#x901F;&#x5EA6;&#x8F83;&#x6162;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x6027;&#x80FD;&#x8F83;&#x4F4E;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x8003;&#x8651;&#x5C06;&#x56FE;&#x7247;&#x7F13;&#x5B58;&#x8D77;&#x6765;&#xFF0C;&#x9700;&#x8981;&#x7684;&#x65F6;&#x5019;&#x76F4;&#x63A5;&#x4ECE;&#x5185;&#x5B58;&#x4E2D;&#x8BFB;&#x53D6;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x7531;&#x4E8E;&#x56FE;&#x7247;&#x5360;&#x7528;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x6BD4;&#x8F83;&#x5927;&#xFF0C;&#x7F13;&#x5B58;&#x5F88;&#x591A;&#x56FE;&#x7247;&#x9700;&#x8981;&#x5F88;&#x591A;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x5C31;&#x53EF;&#x80FD;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x53D1;&#x751F;OutOfMemory&#x5F02;&#x5E38;&#x3002;&#x8FD9;&#x65F6;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8003;&#x8651;&#x4F7F;&#x7528;&#x8F6F;/&#x5F31;&#x5F15;&#x7528;&#x6280;&#x672F;&#x6765;&#x907F;&#x514D;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x53D1;&#x751F;&#x3002;&#x4EE5;&#x4E0B;&#x5C31;&#x662F;&#x9AD8;&#x901F;&#x7F13;&#x51B2;&#x5668;&#x7684;&#x96CF;&#x5F62;&#xFF1A;</p>
+<p>&#x9996;&#x5148;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;HashMap&#xFF0C;&#x4FDD;&#x5B58;&#x8F6F;&#x5F15;&#x7528;&#x5BF9;&#x8C61;&#x3002;</p>
+<pre><code>private Map &lt;String, SoftReference&lt;Bitmap&gt;&gt;imageCache = new HashMap &lt;String, SoftReference&lt;Bitmap&gt;&gt;();
+</code></pre><p>&#x518D;&#x6765;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x4FDD;&#x5B58;Bitmap&#x7684;&#x8F6F;&#x5F15;&#x7528;&#x5230;HashMap&#x3002;</p>
+<p><a href="https://camo.githubusercontent.com/35124988ec96dde280418c48dea872829b96fca8/68747470733a2f2f67772e616c6963646e2e636f6d2f7470732f5442316f575f464c565858585858756158585858585858585858582d3637392d3731372e6a7067" target="_blank"><img src="https://camo.githubusercontent.com/35124988ec96dde280418c48dea872829b96fca8/68747470733a2f2f67772e616c6963646e2e636f6d2f7470732f5442316f575f464c565858585858756158585858585858585858582d3637392d3731372e6a7067" alt=""></a></p>
+<p>&#x4F7F;&#x7528;&#x8F6F;&#x5F15;&#x7528;&#x4EE5;&#x540E;&#xFF0C;&#x5728;OutOfMemory&#x5F02;&#x5E38;&#x53D1;&#x751F;&#x4E4B;&#x524D;&#xFF0C;&#x8FD9;&#x4E9B;&#x7F13;&#x5B58;&#x7684;&#x56FE;&#x7247;&#x8D44;&#x6E90;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#x53EF;&#x4EE5;&#x88AB;&#x91CA;&#x653E;&#x6389;&#x7684;&#xFF0C;&#x4ECE;&#x800C;&#x907F;&#x514D;&#x5185;&#x5B58;&#x8FBE;&#x5230;&#x4E0A;&#x9650;&#xFF0C;&#x907F;&#x514D;Crash&#x53D1;&#x751F;&#x3002;</p>
+<p><strong>&#x5982;&#x679C;&#x53EA;&#x662F;&#x60F3;&#x907F;&#x514D;OutOfMemory&#x5F02;&#x5E38;&#x7684;&#x53D1;&#x751F;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8F6F;&#x5F15;&#x7528;&#x3002;&#x5982;&#x679C;&#x5BF9;&#x4E8E;&#x5E94;&#x7528;&#x7684;&#x6027;&#x80FD;&#x66F4;&#x5728;&#x610F;&#xFF0C;&#x60F3;&#x5C3D;&#x5FEB;&#x56DE;&#x6536;&#x4E00;&#x4E9B;&#x5360;&#x7528;&#x5185;&#x5B58;&#x6BD4;&#x8F83;&#x5927;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5F31;&#x5F15;&#x7528;&#x3002;</strong></p>
+<p><strong>&#x53E6;&#x5916;&#x53EF;&#x4EE5;&#x6839;&#x636E;&#x5BF9;&#x8C61;&#x662F;&#x5426;&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x6765;&#x5224;&#x65AD;&#x9009;&#x62E9;&#x8F6F;&#x5F15;&#x7528;&#x8FD8;&#x662F;&#x5F31;&#x5F15;&#x7528;&#x3002;&#x5982;&#x679C;&#x8BE5;&#x5BF9;&#x8C61;&#x53EF;&#x80FD;&#x4F1A;&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x5C31;&#x5C3D;&#x91CF;&#x7528;&#x8F6F;&#x5F15;&#x7528;&#x3002;&#x5982;&#x679C;&#x8BE5;&#x5BF9;&#x8C61;&#x4E0D;&#x88AB;&#x4F7F;&#x7528;&#x7684;&#x53EF;&#x80FD;&#x6027;&#x66F4;&#x5927;&#x4E9B;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x7528;&#x5F31;&#x5F15;&#x7528;&#x3002;</strong></p>
+<p>ok&#xFF0C;&#x7EE7;&#x7EED;&#x56DE;&#x5230;&#x4E3B;&#x9898;&#x3002;&#x524D;&#x9762;&#x6240;&#x8BF4;&#x7684;&#xFF0C;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x9759;&#x6001;Handler&#x5185;&#x90E8;&#x7C7B;&#xFF0C;&#x7136;&#x540E;&#x5BF9; Handler &#x6301;&#x6709;&#x7684;&#x5BF9;&#x8C61;&#x4F7F;&#x7528;&#x5F31;&#x5F15;&#x7528;&#xFF0C;&#x8FD9;&#x6837;&#x5728;&#x56DE;&#x6536;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x56DE;&#x6536; Handler &#x6301;&#x6709;&#x7684;&#x5BF9;&#x8C61;&#xFF0C;&#x4F46;&#x662F;&#x8FD9;&#x6837;&#x505A;&#x867D;&#x7136;&#x907F;&#x514D;&#x4E86; Activity &#x6CC4;&#x6F0F;&#xFF0C;&#x4E0D;&#x8FC7; Looper &#x7EBF;&#x7A0B;&#x7684;&#x6D88;&#x606F;&#x961F;&#x5217;&#x4E2D;&#x8FD8;&#x662F;&#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x5F85;&#x5904;&#x7406;&#x7684;&#x6D88;&#x606F;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5728; Activity &#x7684; Destroy &#x65F6;&#x6216;&#x8005; Stop &#x65F6;&#x5E94;&#x8BE5;&#x79FB;&#x9664;&#x6D88;&#x606F;&#x961F;&#x5217; MessageQueue &#x4E2D;&#x7684;&#x6D88;&#x606F;&#x3002;</p>
+<p>&#x4E0B;&#x9762;&#x51E0;&#x4E2A;&#x65B9;&#x6CD5;&#x90FD;&#x53EF;&#x4EE5;&#x79FB;&#x9664; Message&#xFF1A;</p>
+<pre><code>public final void removeCallbacks(Runnable r);
+
+public final void removeCallbacks(Runnable r, Object token);
+
+public final void removeCallbacksAndMessages(Object token);
+
+public final void removeMessages(int what);
+
+public final void removeMessages(int what, Object object);
+</code></pre><h3 id="&#x5C3D;&#x91CF;&#x907F;&#x514D;&#x4F7F;&#x7528;-static-&#x6210;&#x5458;&#x53D8;&#x91CF;">&#x5C3D;&#x91CF;&#x907F;&#x514D;&#x4F7F;&#x7528; static &#x6210;&#x5458;&#x53D8;&#x91CF;</h3>
+<p>&#x5982;&#x679C;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x88AB;&#x58F0;&#x660E;&#x4E3A; static&#xFF0C;&#x90A3;&#x6211;&#x4EEC;&#x90FD;&#x77E5;&#x9053;&#x5176;&#x751F;&#x547D;&#x5468;&#x671F;&#x5C06;&#x4E0E;&#x6574;&#x4E2A;app&#x8FDB;&#x7A0B;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E00;&#x6837;&#x3002;</p>
+<p>&#x8FD9;&#x4F1A;&#x5BFC;&#x81F4;&#x4E00;&#x7CFB;&#x5217;&#x95EE;&#x9898;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x7684;app&#x8FDB;&#x7A0B;&#x8BBE;&#x8BA1;&#x4E0A;&#x662F;&#x957F;&#x9A7B;&#x5185;&#x5B58;&#x7684;&#xFF0C;&#x90A3;&#x5373;&#x4F7F;app&#x5207;&#x5230;&#x540E;&#x53F0;&#xFF0C;&#x8FD9;&#x90E8;&#x5206;&#x5185;&#x5B58;&#x4E5F;&#x4E0D;&#x4F1A;&#x88AB;&#x91CA;&#x653E;&#x3002;&#x6309;&#x7167;&#x73B0;&#x5728;&#x624B;&#x673A;app&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x673A;&#x5236;&#xFF0C;&#x5360;&#x5185;&#x5B58;&#x8F83;&#x5927;&#x7684;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x5C06;&#x4F18;&#x5148;&#x56DE;&#x6536;&#xFF0C;&#x56E0;&#x4E3A;&#x5982;&#x679C;&#x6B64;app&#x505A;&#x8FC7;&#x8FDB;&#x7A0B;&#x4E92;&#x4FDD;&#x4FDD;&#x6D3B;&#xFF0C;&#x90A3;&#x4F1A;&#x9020;&#x6210;app&#x5728;&#x540E;&#x53F0;&#x9891;&#x7E41;&#x91CD;&#x542F;&#x3002;&#x5F53;&#x624B;&#x673A;&#x5B89;&#x88C5;&#x4E86;&#x4F60;&#x53C2;&#x4E0E;&#x5F00;&#x53D1;&#x7684;app&#x4EE5;&#x540E;&#x4E00;&#x591C;&#x65F6;&#x95F4;&#x624B;&#x673A;&#x88AB;&#x6D88;&#x8017;&#x7A7A;&#x4E86;&#x7535;&#x91CF;&#x3001;&#x6D41;&#x91CF;&#xFF0C;&#x4F60;&#x7684;app&#x4E0D;&#x5F97;&#x4E0D;&#x88AB;&#x7528;&#x6237;&#x5378;&#x8F7D;&#x6216;&#x8005;&#x9759;&#x9ED8;&#x3002;</p>
+<p>&#x8FD9;&#x91CC;&#x4FEE;&#x590D;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#xFF1A;</p>
+<p>&#x4E0D;&#x8981;&#x5728;&#x7C7B;&#x521D;&#x59CB;&#x65F6;&#x521D;&#x59CB;&#x5316;&#x9759;&#x6001;&#x6210;&#x5458;&#x3002;&#x53EF;&#x4EE5;&#x8003;&#x8651;lazy&#x521D;&#x59CB;&#x5316;&#x3002; &#x67B6;&#x6784;&#x8BBE;&#x8BA1;&#x4E0A;&#x8981;&#x601D;&#x8003;&#x662F;&#x5426;&#x771F;&#x7684;&#x6709;&#x5FC5;&#x8981;&#x8FD9;&#x6837;&#x505A;&#xFF0C;&#x5C3D;&#x91CF;&#x907F;&#x514D;&#x3002;&#x5982;&#x679C;&#x67B6;&#x6784;&#x9700;&#x8981;&#x8FD9;&#x4E48;&#x8BBE;&#x8BA1;&#xFF0C;&#x90A3;&#x4E48;&#x6B64;&#x5BF9;&#x8C61;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4F60;&#x6709;&#x8D23;&#x4EFB;&#x7BA1;&#x7406;&#x8D77;&#x6765;&#x3002;</p>
+<h3 id="&#x907F;&#x514D;-override-finalize">&#x907F;&#x514D; override finalize()</h3>
+<p>1&#x3001;finalize &#x65B9;&#x6CD5;&#x88AB;&#x6267;&#x884C;&#x7684;&#x65F6;&#x95F4;&#x4E0D;&#x786E;&#x5B9A;&#xFF0C;&#x4E0D;&#x80FD;&#x4F9D;&#x8D56;&#x4E0E;&#x5B83;&#x6765;&#x91CA;&#x653E;&#x7D27;&#x7F3A;&#x7684;&#x8D44;&#x6E90;&#x3002;&#x65F6;&#x95F4;&#x4E0D;&#x786E;&#x5B9A;&#x7684;&#x539F;&#x56E0;&#x662F;&#xFF1A; &#x865A;&#x62DF;&#x673A;&#x8C03;&#x7528;GC&#x7684;&#x65F6;&#x95F4;&#x4E0D;&#x786E;&#x5B9A; Finalize daemon&#x7EBF;&#x7A0B;&#x88AB;&#x8C03;&#x5EA6;&#x5230;&#x7684;&#x65F6;&#x95F4;&#x4E0D;&#x786E;&#x5B9A;</p>
+<p>2&#x3001;finalize &#x65B9;&#x6CD5;&#x53EA;&#x4F1A;&#x88AB;&#x6267;&#x884C;&#x4E00;&#x6B21;&#xFF0C;<strong>&#x5373;&#x4F7F;&#x5BF9;&#x8C61;&#x88AB;&#x590D;&#x6D3B;&#xFF0C;&#x5982;&#x679C;&#x5DF2;&#x7ECF;&#x6267;&#x884C;&#x8FC7;&#x4E86; finalize &#x65B9;&#x6CD5;&#xFF0C;&#x518D;&#x6B21;&#x88AB; GC &#x65F6;&#x4E5F;&#x4E0D;&#x4F1A;&#x518D;&#x6267;&#x884C;&#x4E86;&#xFF0C;&#x539F;&#x56E0;&#x662F;&#xFF1A;</strong></p>
+<p>&#x542B;&#x6709; finalize &#x65B9;&#x6CD5;&#x7684; object &#x662F;&#x5728; new &#x7684;&#x65F6;&#x5019;&#x7531;&#x865A;&#x62DF;&#x673A;&#x751F;&#x6210;&#x4E86;&#x4E00;&#x4E2A; finalize reference &#x5728;&#x6765;&#x5F15;&#x7528;&#x5230;&#x8BE5;Object&#x7684;&#xFF0C;&#x800C;&#x5728; finalize &#x65B9;&#x6CD5;&#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8BE5; object &#x6240;&#x5BF9;&#x5E94;&#x7684; finalize Reference &#x4F1A;&#x88AB;&#x91CA;&#x653E;&#x6389;&#xFF0C;&#x5373;&#x4F7F;&#x5728;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x628A;&#x8BE5; object &#x590D;&#x6D3B;(&#x5373;&#x7528;&#x5F3A;&#x5F15;&#x7528;&#x5F15;&#x7528;&#x4F4F;&#x8BE5; object )&#xFF0C;&#x518D;&#x7B2C;&#x4E8C;&#x6B21;&#x88AB; GC &#x7684;&#x65F6;&#x5019;&#x7531;&#x4E8E;&#x6CA1;&#x6709;&#x4E86; finalize reference &#x4E0E;&#x4E4B;&#x5BF9;&#x5E94;&#xFF0C;&#x6240;&#x4EE5; finalize &#x65B9;&#x6CD5;&#x4E0D;&#x4F1A;&#x518D;&#x6267;&#x884C;&#x3002;</p>
+<p>3&#x3001;&#x542B;&#x6709;Finalize&#x65B9;&#x6CD5;&#x7684;object&#x9700;&#x8981;&#x81F3;&#x5C11;&#x7ECF;&#x8FC7;&#x4E24;&#x8F6E;GC&#x624D;&#x6709;&#x53EF;&#x80FD;&#x88AB;&#x91CA;&#x653E;&#x3002;</p>
+<h3 id="&#x8D44;&#x6E90;&#x672A;&#x5173;&#x95ED;&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;">&#x8D44;&#x6E90;&#x672A;&#x5173;&#x95ED;&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;</h3>
+<p>&#x5BF9;&#x4E8E;&#x4F7F;&#x7528;&#x4E86;BraodcastReceiver&#xFF0C;ContentObserver&#xFF0C;File&#xFF0C;&#x6E38;&#x6807; Cursor&#xFF0C;Stream&#xFF0C;Bitmap&#x7B49;&#x8D44;&#x6E90;&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x5E94;&#x8BE5;&#x5728;Activity&#x9500;&#x6BC1;&#x65F6;&#x53CA;&#x65F6;&#x5173;&#x95ED;&#x6216;&#x8005;&#x6CE8;&#x9500;&#xFF0C;&#x5426;&#x5219;&#x8FD9;&#x4E9B;&#x8D44;&#x6E90;&#x5C06;&#x4E0D;&#x4F1A;&#x88AB;&#x56DE;&#x6536;&#xFF0C;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#x3002;</p>
+<h3 id="&#x4E00;&#x4E9B;&#x4E0D;&#x826F;&#x4EE3;&#x7801;&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x538B;&#x529B;">&#x4E00;&#x4E9B;&#x4E0D;&#x826F;&#x4EE3;&#x7801;&#x9020;&#x6210;&#x7684;&#x5185;&#x5B58;&#x538B;&#x529B;</h3>
+<p>&#x6709;&#x4E9B;&#x4EE3;&#x7801;&#x5E76;&#x4E0D;&#x9020;&#x6210;&#x5185;&#x5B58;&#x6CC4;&#x9732;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x4EEC;&#xFF0C;&#x6216;&#x662F;&#x5BF9;&#x6CA1;&#x4F7F;&#x7528;&#x7684;&#x5185;&#x5B58;&#x6CA1;&#x8FDB;&#x884C;&#x6709;&#x6548;&#x53CA;&#x65F6;&#x7684;&#x91CA;&#x653E;&#xFF0C;&#x6216;&#x662F;&#x6CA1;&#x6709;&#x6709;&#x6548;&#x7684;&#x5229;&#x7528;&#x5DF2;&#x6709;&#x7684;&#x5BF9;&#x8C61;&#x800C;&#x662F;&#x9891;&#x7E41;&#x7684;&#x7533;&#x8BF7;&#x65B0;&#x5185;&#x5B58;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#xFF1A; <strong>Bitmap &#x6CA1;&#x8C03;&#x7528; recycle()&#x65B9;&#x6CD5;&#xFF0C;&#x5BF9;&#x4E8E; Bitmap &#x5BF9;&#x8C61;&#x5728;&#x4E0D;&#x4F7F;&#x7528;&#x65F6;,&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5148;&#x8C03;&#x7528; recycle() &#x91CA;&#x653E;&#x5185;&#x5B58;&#xFF0C;&#x7136;&#x540E;&#x624D;&#x5B83;&#x8BBE;&#x7F6E;&#x4E3A; null. &#x56E0;&#x4E3A;&#x52A0;&#x8F7D; Bitmap &#x5BF9;&#x8C61;&#x7684;&#x5185;&#x5B58;&#x7A7A;&#x95F4;&#xFF0C;&#x4E00;&#x90E8;&#x5206;&#x662F; java &#x7684;&#xFF0C;&#x4E00;&#x90E8;&#x5206; C &#x7684;&#xFF08;&#x56E0;&#x4E3A; Bitmap &#x5206;&#x914D;&#x7684;&#x5E95;&#x5C42;&#x662F;&#x901A;&#x8FC7; JNI &#x8C03;&#x7528;&#x7684; )&#x3002;</strong> &#x800C;&#x8FD9;&#x4E2A; recyle() &#x5C31;&#x662F;&#x9488;&#x5BF9; C &#x90E8;&#x5206;&#x7684;&#x5185;&#x5B58;&#x91CA;&#x653E;&#x3002; &#x6784;&#x9020; Adapter &#x65F6;&#xFF0C;&#x6CA1;&#x6709;&#x4F7F;&#x7528;&#x7F13;&#x5B58;&#x7684; convertView ,&#x6BCF;&#x6B21;&#x90FD;&#x5728;&#x521B;&#x5EFA;&#x65B0;&#x7684; converView&#x3002;&#x8FD9;&#x91CC;&#x63A8;&#x8350;&#x4F7F;&#x7528; ViewHolder&#x3002;</p>
+<h2 id="&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</h2>
+<p>&#x5BF9; Activity &#x7B49;&#x7EC4;&#x4EF6;&#x7684;&#x5F15;&#x7528;&#x5E94;&#x8BE5;&#x63A7;&#x5236;&#x5728; Activity &#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x4E4B;&#x5185;&#xFF1B; &#x5982;&#x679C;&#x4E0D;&#x80FD;&#x5C31;&#x8003;&#x8651;&#x4F7F;&#x7528; getApplicationContext &#x6216;&#x8005; getApplication&#xFF0C;&#x4EE5;&#x907F;&#x514D; Activity &#x88AB;&#x5916;&#x90E8;&#x957F;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x5BF9;&#x8C61;&#x5F15;&#x7528;&#x800C;&#x6CC4;&#x9732;&#x3002;</p>
+<p>&#x5C3D;&#x91CF;&#x4E0D;&#x8981;&#x5728;&#x9759;&#x6001;&#x53D8;&#x91CF;&#x6216;&#x8005;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x4E2D;&#x4F7F;&#x7528;&#x975E;&#x9759;&#x6001;&#x5916;&#x90E8;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF08;&#x5305;&#x62EC;context )&#xFF0C;&#x5373;&#x4F7F;&#x8981;&#x4F7F;&#x7528;&#xFF0C;&#x4E5F;&#x8981;&#x8003;&#x8651;&#x9002;&#x65F6;&#x628A;&#x5916;&#x90E8;&#x6210;&#x5458;&#x53D8;&#x91CF;&#x7F6E;&#x7A7A;&#xFF1B;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x5185;&#x90E8;&#x7C7B;&#x4E2D;&#x4F7F;&#x7528;&#x5F31;&#x5F15;&#x7528;&#x6765;&#x5F15;&#x7528;&#x5916;&#x90E8;&#x7C7B;&#x7684;&#x53D8;&#x91CF;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x751F;&#x547D;&#x5468;&#x671F;&#x6BD4;Activity&#x957F;&#x7684;&#x5185;&#x90E8;&#x7C7B;&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x4E14;&#x5185;&#x90E8;&#x7C7B;&#x4E2D;&#x4F7F;&#x7528;&#x4E86;&#x5916;&#x90E8;&#x7C7B;&#x7684;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF0C;&#x53EF;&#x4EE5;&#x8FD9;&#x6837;&#x505A;&#x907F;&#x514D;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF1A;</p>
+<pre><code>&#x5C06;&#x5185;&#x90E8;&#x7C7B;&#x6539;&#x4E3A;&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;
+&#x9759;&#x6001;&#x5185;&#x90E8;&#x7C7B;&#x4E2D;&#x4F7F;&#x7528;&#x5F31;&#x5F15;&#x7528;&#x6765;&#x5F15;&#x7528;&#x5916;&#x90E8;&#x7C7B;&#x7684;&#x6210;&#x5458;&#x53D8;&#x91CF;
+</code></pre><p>Handler &#x7684;&#x6301;&#x6709;&#x7684;&#x5F15;&#x7528;&#x5BF9;&#x8C61;&#x6700;&#x597D;&#x4F7F;&#x7528;&#x5F31;&#x5F15;&#x7528;&#xFF0C;&#x8D44;&#x6E90;&#x91CA;&#x653E;&#x65F6;&#x4E5F;&#x53EF;&#x4EE5;&#x6E05;&#x7A7A; Handler &#x91CC;&#x9762;&#x7684;&#x6D88;&#x606F;&#x3002;&#x6BD4;&#x5982;&#x5728; Activity onStop &#x6216;&#x8005; onDestroy &#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53D6;&#x6D88;&#x6389;&#x8BE5; Handler &#x5BF9;&#x8C61;&#x7684; Message&#x548C; Runnable.</p>
+<p>&#x5728; Java &#x7684;&#x5B9E;&#x73B0;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4E5F;&#x8981;&#x8003;&#x8651;&#x5176;&#x5BF9;&#x8C61;&#x91CA;&#x653E;&#xFF0C;&#x6700;&#x597D;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x5728;&#x4E0D;&#x4F7F;&#x7528;&#x67D0;&#x5BF9;&#x8C61;&#x65F6;&#xFF0C;&#x663E;&#x5F0F;&#x5730;&#x5C06;&#x6B64;&#x5BF9;&#x8C61;&#x8D4B;&#x503C;&#x4E3A; null&#xFF0C;&#x6BD4;&#x5982;&#x4F7F;&#x7528;&#x5B8C;Bitmap &#x540E;&#x5148;&#x8C03;&#x7528; recycle()&#xFF0C;&#x518D;&#x8D4B;&#x4E3A;null,&#x6E05;&#x7A7A;&#x5BF9;&#x56FE;&#x7247;&#x7B49;&#x8D44;&#x6E90;&#x6709;&#x76F4;&#x63A5;&#x5F15;&#x7528;&#x6216;&#x8005;&#x95F4;&#x63A5;&#x5F15;&#x7528;&#x7684;&#x6570;&#x7EC4;&#xFF08;&#x4F7F;&#x7528; array.clear() ; array = null&#xFF09;&#x7B49;&#xFF0C;&#x6700;&#x597D;&#x9075;&#x5FAA;&#x8C01;&#x521B;&#x5EFA;&#x8C01;&#x91CA;&#x653E;&#x7684;&#x539F;&#x5219;&#x3002;</p>
+<p>&#x6B63;&#x786E;&#x5173;&#x95ED;&#x8D44;&#x6E90;&#xFF0C;&#x5BF9;&#x4E8E;&#x4F7F;&#x7528;&#x4E86;BraodcastReceiver&#xFF0C;ContentObserver&#xFF0C;File&#xFF0C;&#x6E38;&#x6807; Cursor&#xFF0C;Stream&#xFF0C;Bitmap&#x7B49;&#x8D44;&#x6E90;&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x5E94;&#x8BE5;&#x5728;Activity&#x9500;&#x6BC1;&#x65F6;&#x53CA;&#x65F6;&#x5173;&#x95ED;&#x6216;&#x8005;&#x6CE8;&#x9500;&#x3002;</p>
+<p>&#x4FDD;&#x6301;&#x5BF9;&#x5BF9;&#x8C61;&#x751F;&#x547D;&#x5468;&#x671F;&#x7684;&#x654F;&#x611F;&#xFF0C;&#x7279;&#x522B;&#x6CE8;&#x610F;&#x5355;&#x4F8B;&#x3001;&#x9759;&#x6001;&#x5BF9;&#x8C61;&#x3001;&#x5168;&#x5C40;&#x6027;&#x96C6;&#x5408;&#x7B49;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="Broadcast.html" class="navigation navigation-prev " aria-label="Previous page: Broadcast">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="如何解决WebView的内存泄漏.html" class="navigation navigation-next " aria-label="Next page: 如何解决WebView的内存泄漏">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Android的内存泄漏总结","level":"2.6","depth":1,"next":{"title":"如何解决WebView的内存泄漏","level":"2.7","depth":1,"path":"Android/如何解决WebView的内存泄漏.md","ref":"Android/如何解决WebView的内存泄漏.md","articles":[]},"previous":{"title":"Broadcast","level":"2.5","depth":1,"path":"Android/Broadcast.md","ref":"Android/Broadcast.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Android/Android的内存泄漏总结.md","mtime":"2018-10-14T15:59:37.545Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-14T16:00:24.685Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

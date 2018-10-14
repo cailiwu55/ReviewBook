@@ -1,0 +1,1799 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>AsyncTask详解 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="线程池.html" />
+    
+    
+    <link rel="prev" href="IntentService.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        <li class="header">前言</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Android部分</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../零碎知识点.html">
+            
+                <a href="../零碎知识点.html">
+            
+                    
+                    零碎知识点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../Activity的生命周期.html">
+            
+                <a href="../Activity的生命周期.html">
+            
+                    
+                    Activity的生命周期和启动模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../Fragment的生命周期.html">
+            
+                <a href="../Fragment的生命周期.html">
+            
+                    
+                    Fragment的生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.4" data-path="../Service的生命周期.html">
+            
+                <a href="../Service的生命周期.html">
+            
+                    
+                    Service的生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.5" data-path="../Broadcast.html">
+            
+                <a href="../Broadcast.html">
+            
+                    
+                    Broadcast
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.6" data-path="../Android的内存泄漏总结.html">
+            
+                <a href="../Android的内存泄漏总结.html">
+            
+                    
+                    Android的内存泄漏总结
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.7" data-path="../如何解决WebView的内存泄漏.html">
+            
+                <a href="../如何解决WebView的内存泄漏.html">
+            
+                    
+                    如何解决WebView的内存泄漏
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.8" data-path="../Android的性能优化.html">
+            
+                <a href="../Android的性能优化.html">
+            
+                    
+                    Android性能优化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9" data-path="../IPC进程间通信/IPC机制.html">
+            
+                <a href="../IPC进程间通信/IPC机制.html">
+            
+                    
+                    IPC通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.9.1" data-path="../IPC进程间通信/概述.html">
+            
+                <a href="../IPC进程间通信/概述.html">
+            
+                    
+                    概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.2" data-path="../IPC进程间通信/Binder.html">
+            
+                <a href="../IPC进程间通信/Binder.html">
+            
+                    
+                    Binder
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.3" data-path="../IPC进程间通信/序列化.html">
+            
+                <a href="../IPC进程间通信/序列化.html">
+            
+                    
+                    序列化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.4" data-path="../IPC进程间通信/使用Bundle.html">
+            
+                <a href="../IPC进程间通信/使用Bundle.html">
+            
+                    
+                    使用Bundle
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.5" data-path="../IPC进程间通信/使用文件.html">
+            
+                <a href="../IPC进程间通信/使用文件.html">
+            
+                    
+                    使用文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.6" data-path="../IPC进程间通信/使用Messenger.html">
+            
+                <a href="../IPC进程间通信/使用Messenger.html">
+            
+                    
+                    使用Messenger
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.9.7" data-path="../IPC进程间通信/使用Aidl.html">
+            
+                <a href="../IPC进程间通信/使用Aidl.html">
+            
+                    
+                    使用AIDL
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.10" data-path="../ListView和RecycleView.html">
+            
+                <a href="../ListView和RecycleView.html">
+            
+                    
+                    ListView和RecyclerView
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11" data-path="../View的事件分发机制/事件分发机制.html">
+            
+                <a href="../View的事件分发机制/事件分发机制.html">
+            
+                    
+                    View事件分发
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.11.1" data-path="../View的事件分发机制/View的滑动.html">
+            
+                <a href="../View的事件分发机制/View的滑动.html">
+            
+                    
+                    View的滑动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11.2" data-path="../View的事件分发机制/View的弹性滑动.html">
+            
+                <a href="../View的事件分发机制/View的弹性滑动.html">
+            
+                    
+                    View的弹性滑动
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11.3" data-path="../View的事件分发机制/View的事件分发.html">
+            
+                <a href="../View的事件分发机制/View的事件分发.html">
+            
+                    
+                    View的事件分发
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.11.4" data-path="../View的事件分发机制/View的滑动冲突.html">
+            
+                <a href="../View的事件分发机制/View的滑动冲突.html">
+            
+                    
+                    View的滑动冲突
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.12" data-path="../View的工作原理.html">
+            
+                <a href="../View的工作原理.html">
+            
+                    
+                    View工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13" data-path="../Android消息机制/Android消息机制.html">
+            
+                <a href="../Android消息机制/Android消息机制.html">
+            
+                    
+                    Android的消息机制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.13.1" data-path="../Android消息机制/ThreadLocal.html">
+            
+                <a href="../Android消息机制/ThreadLocal.html">
+            
+                    
+                    ThreadLocal
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13.2" data-path="../Android消息机制/消息队列的工作原理.html">
+            
+                <a href="../Android消息机制/消息队列的工作原理.html">
+            
+                    
+                    消息队列的工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13.3" data-path="../Android消息机制/Looper的工作原理.html">
+            
+                <a href="../Android消息机制/Looper的工作原理.html">
+            
+                    
+                    Looper的工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.13.4" data-path="../Android消息机制/Handler的工作原理.html">
+            
+                <a href="../Android消息机制/Handler的工作原理.html">
+            
+                    
+                    Handler的工作原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.14" data-path="../RemoteView.html">
+            
+                <a href="../RemoteView.html">
+            
+                    
+                    RemoteView
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15" data-path="IntentService.html">
+            
+                <a href="IntentService.html">
+            
+                    
+                    线程模型
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="2.15.1" data-path="AsyncTask详解.html">
+            
+                <a href="AsyncTask详解.html">
+            
+                    
+                    AsyncTask详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15.2" data-path="线程池.html">
+            
+                <a href="线程池.html">
+            
+                    
+                    线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.15.3" data-path="HandlerThread.html">
+            
+                <a href="HandlerThread.html">
+            
+                    
+                    HandlerThread
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.16" data-path="../APK的安全性/如何攻击.html">
+            
+                <a href="../APK的安全性/如何攻击.html">
+            
+                    
+                    APK的安全性
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.16.1" data-path="../APK的安全性/如何防御.html">
+            
+                <a href="../APK的安全性/如何防御.html">
+            
+                    
+                    如何防御
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">开源框架</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../../开源框架/响应式编程.html">
+            
+                <a href="../../开源框架/响应式编程.html">
+            
+                    
+                    响应式编程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../../开源框架/图片加载库原理.html">
+            
+                <a href="../../开源框架/图片加载库原理.html">
+            
+                    
+                    图片加载库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../../开源框架/热修复.html">
+            
+                <a href="../../开源框架/热修复.html">
+            
+                    
+                    热修复
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.4" data-path="../../开源框架/RxJava/RxJava.html">
+            
+                <a href="../../开源框架/RxJava/RxJava.html">
+            
+                    
+                    RxJava
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.4.1" data-path="../../开源框架/RxJava/背压问题.html">
+            
+                <a href="../../开源框架/RxJava/背压问题.html">
+            
+                    
+                    RxJava的背压问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5" data-path="../../开源框架/OKHttp/OkHttp的实现原理.html">
+            
+                <a href="../../开源框架/OKHttp/OkHttp的实现原理.html">
+            
+                    
+                    OkHttp
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.5.1" data-path="../../开源框架/OKHttp/Dispatcher.html">
+            
+                <a href="../../开源框架/OKHttp/Dispatcher.html">
+            
+                    
+                    Dispatcher
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.5.2" data-path="../../开源框架/OKHttp/ConnectionPool.html">
+            
+                <a href="../../开源框架/OKHttp/ConnectionPool.html">
+            
+                    
+                    ConnectionPool
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.6" data-path="../../开源框架/插件化.html">
+            
+                <a href="../../开源框架/插件化.html">
+            
+                    
+                    插件化技术
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Java部分</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../../Java/final、finally、finalize的区别.html">
+            
+                <a href="../../Java/final、finally、finalize的区别.html">
+            
+                    
+                    Java基础知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../../Java/垃圾回收机制/垃圾回收机制.html">
+            
+                <a href="../../Java/垃圾回收机制/垃圾回收机制.html">
+            
+                    
+                    垃圾回收机制
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../../Java/垃圾回收机制/对象已死吗.html">
+            
+                <a href="../../Java/垃圾回收机制/对象已死吗.html">
+            
+                    
+                    对象已死吗？
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../../Java/垃圾回收机制/HotSpot的算法实现.html">
+            
+                <a href="../../Java/垃圾回收机制/HotSpot的算法实现.html">
+            
+                    
+                    HotSpot的算法实现
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.3" data-path="../../Java/垃圾回收机制/内存分配与回收策略.html">
+            
+                <a href="../../Java/垃圾回收机制/内存分配与回收策略.html">
+            
+                    
+                    内存分配与回收策略
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="../../Java/抽象类和接口.html">
+            
+                <a href="../../Java/抽象类和接口.html">
+            
+                    
+                    抽象类和接口
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="../../Java/Servlet.html">
+            
+                <a href="../../Java/Servlet.html">
+            
+                    
+                    Servlet（Server与Applet)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="../../Java/Xml的解析.html">
+            
+                <a href="../../Java/Xml的解析.html">
+            
+                    
+                    XML解析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="../../Java/集合/集合.html">
+            
+                <a href="../../Java/集合/集合.html">
+            
+                    
+                    集合
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.6.1" data-path="../../Java/集合/HashMap的详解.html">
+            
+                <a href="../../Java/集合/HashMap的详解.html">
+            
+                    
+                    HashMap详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="../../Java/类加载机制.html">
+            
+                <a href="../../Java/类加载机制.html">
+            
+                    
+                    类加载机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="../../Java/线程池.html">
+            
+                <a href="../../Java/线程池.html">
+            
+                    
+                    线程池
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.9" data-path="../../Java/线程部分.html">
+            
+                <a href="../../Java/线程部分.html">
+            
+                    
+                    线程部分
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.10" data-path="../../Java/Java中的内存模型与线程.html">
+            
+                <a href="../../Java/Java中的内存模型与线程.html">
+            
+                    
+                    内存模型
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">操作系统</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../../操作系统/线程调度.html">
+            
+                <a href="../../操作系统/线程调度.html">
+            
+                    
+                    线程与进程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">设计模式</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../../设计模式/MVC与MVP.html">
+            
+                <a href="../../设计模式/MVC与MVP.html">
+            
+                    
+                    MVC与MVP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../../设计模式/面向对象六大原则.html">
+            
+                <a href="../../设计模式/面向对象六大原则.html">
+            
+                    
+                    面向对象六大原则
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="../../设计模式/单例模式.html">
+            
+                <a href="../../设计模式/单例模式.html">
+            
+                    
+                    单例模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="../../设计模式/Builder模式.html">
+            
+                <a href="../../设计模式/Builder模式.html">
+            
+                    
+                    Builder模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="../../设计模式/代理模式.html">
+            
+                <a href="../../设计模式/代理模式.html">
+            
+                    
+                    代理模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="../../设计模式/原型模式.html">
+            
+                <a href="../../设计模式/原型模式.html">
+            
+                    
+                    原型模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="../../设计模式/外观模式.html">
+            
+                <a href="../../设计模式/外观模式.html">
+            
+                    
+                    外观模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.8" data-path="../../设计模式/策略模式.html">
+            
+                <a href="../../设计模式/策略模式.html">
+            
+                    
+                    策略模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.9" data-path="../../设计模式/简单工厂模式.html">
+            
+                <a href="../../设计模式/简单工厂模式.html">
+            
+                    
+                    简单工厂
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.10" data-path="../../设计模式/观察者模式.html">
+            
+                <a href="../../设计模式/观察者模式.html">
+            
+                    
+                    观察者模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.11" data-path="../../设计模式/职责链模式.html">
+            
+                <a href="../../设计模式/职责链模式.html">
+            
+                    
+                    职责链模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.12" data-path="../../设计模式/适配器模式.html">
+            
+                <a href="../../设计模式/适配器模式.html">
+            
+                    
+                    适配器模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">计算机网络</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../../计算机网络/基本知识.html">
+            
+                <a href="../../计算机网络/基本知识.html">
+            
+                    
+                    网络基础知识
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../../计算机网络/TCP-IP协议分层.html">
+            
+                <a href="../../计算机网络/TCP-IP协议分层.html">
+            
+                    
+                    网络协议分层
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="../../计算机网络/TCP的三次握手四次挥手.html">
+            
+                <a href="../../计算机网络/TCP的三次握手四次挥手.html">
+            
+                    
+                    三次握手四次挥手
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="../../计算机网络/Http/Http1.0.html">
+            
+                <a href="../../计算机网络/Http/Http1.0.html">
+            
+                    
+                    HTTP
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="../../计算机网络/Http/Https.html">
+            
+                <a href="../../计算机网络/Http/Https.html">
+            
+                    
+                    HTTPS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="../../计算机网络/TCP.html">
+            
+                <a href="../../计算机网络/TCP.html">
+            
+                    
+                    TCP
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">算法</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../../算法/排序算法/排序算法总结.html">
+            
+                <a href="../../算法/排序算法/排序算法总结.html">
+            
+                    
+                    排序算法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="8.1.1" data-path="../../算法/排序算法/插入排序.html">
+            
+                <a href="../../算法/排序算法/插入排序.html">
+            
+                    
+                    插入排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.2" data-path="../../算法/排序算法/冒泡排序.html">
+            
+                <a href="../../算法/排序算法/冒泡排序.html">
+            
+                    
+                    冒泡排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.3" data-path="../../算法/排序算法/快速排序.html">
+            
+                <a href="../../算法/排序算法/快速排序.html">
+            
+                    
+                    快速排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.4" data-path="../../算法/排序算法/选择排序.html">
+            
+                <a href="../../算法/排序算法/选择排序.html">
+            
+                    
+                    选择排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.5" data-path="../../算法/排序算法/堆排序.html">
+            
+                <a href="../../算法/排序算法/堆排序.html">
+            
+                    
+                    堆排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.6" data-path="../../算法/排序算法/归并排序.html">
+            
+                <a href="../../算法/排序算法/归并排序.html">
+            
+                    
+                    归并排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.7" data-path="../../算法/排序算法/计数排序.html">
+            
+                <a href="../../算法/排序算法/计数排序.html">
+            
+                    
+                    计数排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.8" data-path="../../算法/排序算法/基数排序.html">
+            
+                <a href="../../算法/排序算法/基数排序.html">
+            
+                    
+                    基数排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.1.9" data-path="../../算法/排序算法/木桶排序.html">
+            
+                <a href="../../算法/排序算法/木桶排序.html">
+            
+                    
+                    木桶排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../../算法/字符串压缩算法.html">
+            
+                <a href="../../算法/字符串压缩算法.html">
+            
+                    
+                    字符串压缩
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../../算法/LeetCode 日常刷题（1）.html">
+            
+                <a href="../../算法/LeetCode 日常刷题（1）.html">
+            
+                    
+                    LeetCode日常刷题1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="../../算法/LeetCode日常刷题（2）.html">
+            
+                <a href="../../算法/LeetCode日常刷题（2）.html">
+            
+                    
+                    LeetCode日常刷题2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">数据结构</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../../数据结构/各种树.html">
+            
+                <a href="../../数据结构/各种树.html">
+            
+                    
+                    数据结构各种树
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">面经</li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" data-path="../../面经/牛客秋招android面经9月%28至9.16号%29合集.md">
+            
+                <span>
+            
+                    
+                    牛客网面经
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >AsyncTask详解</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="asynctask&#x8BE6;&#x89E3;">AsyncTask&#x8BE6;&#x89E3;</h1>
+<h2 id="asynctask&#x7684;&#x4ECB;&#x7ECD;">AsyncTask&#x7684;&#x4ECB;&#x7ECD;</h2>
+<p><strong>&#x5B83;&#x4E0D;&#x8FC7;&#x662F;&#x5BF9;&#x7EBF;&#x7A0B;&#x6C60;&#x548C;Handler&#x7684;&#x5C01;&#x88C5;</strong> &#xFF1B;&#x7528;&#x7EBF;&#x7A0B;&#x6C60;&#x6765;&#x5904;&#x7406;&#x540E;&#x53F0;&#x4EFB;&#x52A1;&#xFF0C;&#x7528;Handler&#x6765;&#x5904;&#x7406;&#x4E0E;UI&#x7684;&#x4EA4;&#x4E92;&#x3002;</p>
+<p>AsyncTask&#x662F;Android&#x4E2D;&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x4E2A;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x6846;&#x67B6;&#xFF0C; &#x5728;Android&#x8FD8;&#x6709;Thread&#x548C;Handler&#x6765;&#x6267;&#x884C;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#xFF0C;AsyncTask&#x4E0E;&#x5B83;&#x4EEC;&#x7684;&#x533A;&#x522B;&#x662F;:AsyncTask&#x66F4;&#x9002;&#x5408;&#x6765;&#x505A;&#x8017;&#x65F6;&#x6BD4;&#x8F83;&#x5C0F;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x957F;&#x65F6;&#x95F4;&#x5728;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;Executor,ThreadPoolExecutor,FutureTask&#x3002;</p>
+<h2 id="asynctask&#x7684;&#x7528;&#x6CD5;">AsyncTask&#x7684;&#x7528;&#x6CD5;</h2>
+<h3 id="&#x6267;&#x884C;&#x4EFB;&#x52A1;">&#x6267;&#x884C;&#x4EFB;&#x52A1;</h3>
+<pre><code class="lang-java"><span class="hljs-comment">/**
+     * &#x4F7F;&#x7528;AsyncTask&#x7684;&#x65F6;&#x5019;&#x5FC5;&#x987B;&#x8981;&#x5B9E;&#x73B0;AsyncTask&lt;Params,Progress,Result&gt;&#x7684;&#x5B50;&#x7C7B;&#x3002;
+     * &#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x7528;&#x4E8E;&#x4F20;&#x5165;&#x5230;doInBackground&#x65B9;&#x6CD5;&#x4E2D;
+     * &#x7B2C;&#x4E8C;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x6307;&#x7684;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#x5728;&#x540E;&#x53F0;&#x6267;&#x884C;&#x7684;&#x8FDB;&#x5EA6;
+     * &#x7B2C;&#x4E09;&#x4E2A;&#x6307;&#x7684;&#x540E;&#x53F0;&#x64CD;&#x4F5C;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x8FD4;&#x56DE;&#x7684;&#x7ED3;&#x679C;
+     * &#x5982;&#x679C;&#x67D0;&#x4E2A;&#x7C7B;&#x578B;&#x4E0D;&#x7528;&#xFF0C;&#x5728;&#x7EE7;&#x627F;&#x7684;&#x65F6;&#x5019;&#x76F4;&#x63A5;&#x4F7F;&#x7528;Void&#x7C7B;&#x3002;
+     * &#x56DB;&#x4E2A;&#x8FC7;&#x7A0B;&#x5206;&#x522B;&#x4EE3;&#x8868;&#xFF1A;
+     * onPreExecute: &#x5F02;&#x6B65;&#x6267;&#x884C;&#x524D;&#x7684;&#x56DE;&#x8C03;&#xFF0C;&#x5728;UI&#x7EBF;&#x7A0B;&#x8C03;&#x7528;&#xFF0C;&#x901A;&#x5E38;&#x7528;&#x6765;&#x521D;&#x59CB;&#x5316;&#x3002;
+     * doInBackground: &#x5F02;&#x6B65;&#x6267;&#x884C;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x5728;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x8C03;&#x7528;&#x3002;&#x5728;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;publishProgress&#x53D1;&#x8D77;&#x66F4;&#x65B0;&#x56DE;&#x8C03;&#x3002;
+     * onProgressUpdate: &#x5F02;&#x6B65;&#x6267;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#x7684;&#x901A;&#x77E5;&#xFF0C;&#x5B83;&#x5C31;&#x662F;publishProgress&#x7684;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x3002;&#x5B83;&#x7684;&#x5185;&#x5BB9;&#x662F;&#x5728;UI&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#x3002;
+     * onPostExecute: &#x5F02;&#x6B65;&#x6267;&#x884C;&#x7ED3;&#x675F;&#x540E;&#x7684;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#xFF0C;&#x5B83;&#x5728;UI&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#x3002;
+     * &#x53EF;&#x4EE5;&#x770B;&#x5230;&#x9664;&#x4E86;doInBackground&#x65B9;&#x6CD5;&#x4E4B;&#x5916;&#x5176;&#x5B83;&#x7684;&#x56DE;&#x8C03;&#x90FD;&#x662F;&#x5728;UI&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#x7684;&#x3002;
+     */</span>
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyTask</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AsyncTask</span>&lt;<span class="hljs-title">String</span>,<span class="hljs-title">Void</span>,<span class="hljs-title">String</span>&gt;</span>{
+        <span class="hljs-comment">//&#x5728;UI&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#xFF0C;doInBackground()&#x65B9;&#x6CD5;&#x524D;&#x6267;&#x884C;&#xFF0C;&#x901A;&#x5E38;&#x7528;&#x6765;&#x521D;&#x59CB;&#x5316;</span>
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onPreExecute</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-keyword">super</span>.onPreExecute();
+        }
+        <span class="hljs-comment">//&#x6267;&#x884C;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#xFF0C;&#x5728;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x8C03;&#x7528;publishProgress()&#x65B9;&#x6CD5;&#x6765;&#x66F4;&#x65B0;&#x8FDB;&#x5EA6;&#x7684;&#x64CD;&#x4F5C;</span>
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> String <span class="hljs-title">doInBackground</span><span class="hljs-params">(String... params)</span> </span>{
+            <span class="hljs-keyword">double</span> result,opNum1,opNum2;
+            <span class="hljs-keyword">char</span> op = <span class="hljs-string">&apos; &apos;</span>;
+            String para = params[<span class="hljs-number">0</span>];
+            <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;i &lt; para.length();i++){
+                <span class="hljs-keyword">if</span>(!Character.isDigit(para.charAt(i))){
+                    index = i;
+                    op = para.charAt(i);
+                    <span class="hljs-keyword">break</span>;
+                }
+            }
+            opNum1 = Double.parseDouble(para.substring(<span class="hljs-number">0</span>,index));
+            opNum2 = Double.parseDouble(para.substring(index+<span class="hljs-number">1</span>));
+
+            <span class="hljs-keyword">switch</span> (op){
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;+&apos;</span>:result = opNum1 + opNum2;<span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;-&apos;</span>:result = opNum1 - opNum2;<span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;*&apos;</span>:result = opNum1 * opNum2;<span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">case</span> <span class="hljs-string">&apos;/&apos;</span>:result = opNum1 / opNum2;<span class="hljs-keyword">break</span>;
+                <span class="hljs-keyword">default</span>:<span class="hljs-keyword">return</span> <span class="hljs-string">&quot;error&quot;</span>;
+            }
+            <span class="hljs-keyword">return</span> String.valueOf(result);
+        }
+
+
+        <span class="hljs-comment">//&#x5728;UI&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#xFF0C;&#x5728;doInBackground&#x8C03;&#x7528;publishProgress(Progress...)&#x540E;&#x6267;&#x884C;</span>
+        <span class="hljs-comment">//&#x7528;&#x4E8E;&#x5728;&#x524D;&#x53F0;&#x663E;&#x793A;&#x540E;&#x53F0;&#x8FDB;&#x7A0B;&#x7684;&#x5B8C;&#x6210;&#x60C5;&#x51B5;</span>
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onProgressUpdate</span><span class="hljs-params">(Void... values)</span> </span>{
+            <span class="hljs-keyword">super</span>.onProgressUpdate(values);
+        }
+        <span class="hljs-comment">//&#x5728;&#x8017;&#x65F6;&#x64CD;&#x4F5C;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x89E6;&#x53D1;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x5728;UI&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#xFF0C;&#x66F4;&#x65B0;UI&#xFF0C;&#x544A;&#x8BC9;&#x7528;&#x6237;&#x540E;&#x53F0;&#x64CD;&#x4F5C;&#x5DF2;&#x7ECF;&#x5B8C;&#x6210;</span>
+        <span class="hljs-meta">@Override</span>
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onPostExecute</span><span class="hljs-params">(String s)</span> </span>{
+            <span class="hljs-keyword">super</span>.onPostExecute(s);
+        }
+    }
+</code></pre>
+<h3 id="&#x53D6;&#x6D88;&#x4EFB;&#x52A1;">&#x53D6;&#x6D88;&#x4EFB;&#x52A1;</h3>
+<p>&#x53EF;&#x4EE5;&#x968F;&#x65F6;&#x4F7F;&#x7528;<code>cancel(boolean)</code>&#x65B9;&#x6CD5;&#x6765;&#x53D6;&#x6D88;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x3002;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x88AB;&#x53D6;&#x6D88;&#x540E;&#xFF0C;&#x7CFB;&#x7EDF;&#x4F1A;&#x6267;&#x884C;<code>onCancelled()</code>&#x4F5C;&#x4E3A;&#x7ED3;&#x679C;&#x56DE;&#x8C03;&#x63A5;&#x53E3;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4F7F;&#x7528;<code>onPostExecute(Object)</code>&#x3002;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>isCancelled(Object)</code>&#x65B9;&#x6CD5;&#x5224;&#x65AD;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x662F;&#x5426;&#x88AB;&#x53D6;&#x6D88;&#x3002;&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x53EF;&#x80FD;&#x88AB;&#x53D6;&#x6D88;&#x7684;&#x8BDD;&#xFF0C;&#x5C31;&#x5C3D;&#x91CF;&#x5728;<code>doInBackground()</code>&#x65B9;&#x6CD5;&#x4E2D;&#x5B9A;&#x671F;&#x7684;&#x68C0;&#x67E5;<code>isCancel()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5982;&#x679C;&#x4EFB;&#x52A1;&#x88AB;&#x53D6;&#x6D88;&#x53EF;&#x4EE5;&#x63D0;&#x65E9;&#x7ED3;&#x675F;&#x4EFB;&#x52A1;&#xFF0C;&#x8282;&#x7EA6;&#x8D44;&#x6E90;&#x3002;</p>
+<h3 id="&#x6CE8;&#x610F;&#x4E8B;&#x9879;">&#x6CE8;&#x610F;&#x4E8B;&#x9879;</h3>
+<ol>
+<li><code>AsyncTask</code>&#x7C7B;&#x5FC5;&#x987B;&#x5728;&#x4E3B;&#x7EBF;&#x7A0B;&#x4E2D;&#x52A0;&#x8F7D;&#x3002;&#x5728;<code>Build.VERSION_CODES.JELLY_BEAN</code>(API 16)&#x7248;&#x672C;&#x4EE5;&#x540E;&#x81EA;&#x52A8;&#x5B8C;&#x6210;&#x3002;</li>
+<li><code>AsyncTask</code>&#x7C7B;&#x7684;&#x5B9E;&#x4F8B;&#x5FC5;&#x987B;&#x5728;UI&#x7EBF;&#x7A0B;&#x4E2D;&#x88AB;&#x521B;&#x5EFA;(Android5.1&#x4EE5;&#x524D;)&#x3002;</li>
+<li><code>execute</code>&#x65B9;&#x6CD5;&#x5FC5;&#x987B;&#x5728;UI&#x7EBF;&#x7A0B;&#x4E2D;&#x8C03;&#x7528;(Android5.1&#x4EE5;&#x524D;)&#x3002;</li>
+<li>&#x4E0D;&#x80FD;&#x624B;&#x52A8;&#x8C03;&#x7528;<code>onPreExecute()</code>, <code>onPostExecute</code>, <code>doInBackground</code>, <code>onProgressUpdate</code>&#x56DB;&#x4E2A;&#x65B9;&#x6CD5;&#x3002;</li>
+<li>&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x5B9E;&#x4F8B;&#x53EA;&#x80FD;&#x6267;&#x884C;&#x4E00;&#x6B21;&#x3002;(&#x7B2C;&#x4E8C;&#x6B21;&#x6267;&#x884C;&#x4F1A;&#x88AB;&#x629B;&#x51FA;&#x5F02;&#x5E38;)</li>
+</ol>
+<h3 id="&#x53D8;&#x91CF;&#x8D4B;&#x503C;">&#x53D8;&#x91CF;&#x8D4B;&#x503C;</h3>
+<p>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x662F;AsyncTask&#x5B50;&#x7C7B;&#x7684;&#x6210;&#x5458;&#x53D8;&#x91CF;&#xFF0C;&#x90A3;&#x4E48;&#xFF1A;</p>
+<ol>
+<li>&#x5728;&#x6784;&#x9020;&#x51FD;&#x6570;&#x4E2D;&#x8D4B;&#x503C;&#x6216;&#x8005;&#x5728;<code>onPreExecute</code>&#x65B9;&#x6CD5;&#x4E2D;&#x8D4B;&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x6240;&#x6709;&#x7684;&#x56DE;&#x8C03;&#x4E2D;&#x83B7;&#x53D6;&#x8BE5;&#x503C;&#xFF1B;</li>
+<li>&#x5728;<code>doInBackground</code>&#x65B9;&#x6CD5;&#x4E2D;&#x8D4B;&#x503C;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;<code>onProgressUpdate</code>&#xFF0C;<code>onPostExecute</code>&#xFF0C;<code>onCancel</code>&#x4E2D;&#x83B7;&#x53D6;&#x8BE5;&#x503C;&#x3002;</li>
+</ol>
+<h3 id="&#x6267;&#x884C;&#x987A;&#x5E8F;">&#x6267;&#x884C;&#x987A;&#x5E8F;</h3>
+<p><code>AsyncTask</code>&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x968F;&#x7CFB;&#x7EDF;&#x7248;&#x672C;&#x6709;&#x8FC7;&#x5DE8;&#x5927;&#x7684;&#x6539;&#x53D8;&#x3002;</p>
+<ol>
+<li>Android1.5&#x65F6;&#xFF0C;&#x5B83;&#x662F;&#x5728;&#x4E00;&#x4E2A;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x4E2D;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x7684;&#xFF0C;&#x7531;&#x8C03;&#x7528;&#x987A;&#x5E8F;&#x51B3;&#x5B9A;&#x4E86;&#x4EFB;&#x52A1;&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#xFF1B;</li>
+<li>Android1.6 - Android2.3.2&#x5B83;&#x662F;&#x5728;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#x5F53;&#x4E2D;&#x5E76;&#x53D1;&#x6267;&#x884C;&#x7684;</li>
+<li>Android3.0- &#xFF5E; &#x5B83;&#x53C8;&#x662F;&#x5728;&#x4E00;&#x4E2A;&#x540E;&#x53F0;&#x7EBF;&#x7A0B;&#x4E2D;&#x987A;&#x5E8F;&#x6267;&#x884C;&#x3002;&#x4F46;&#x662F;&#xFF0C;&#x5982;&#x679C;&#x6211;&#x4EEC;&#x60F3;&#x8BA9;AsyncTask&#x5E76;&#x53D1;&#x7684;&#x6267;&#x884C;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;<code>executeOnExecutor</code>&#x65B9;&#x6CD5;&#xFF0C;&#x4E3A;&#x5B83;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;<code>Executor</code>&#x5BF9;&#x8C61;&#xFF0C;&#x63A7;&#x5236;&#x5B83;&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x3002;</li>
+</ol>
+<blockquote>
+<p>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x4E24;&#x4E2A;Executor</p>
+<p>public static ExecutorService exec = Executors.newFixedThreadPool(10);</p>
+<p>AsyncTask.THREAD_POOL_EXECUTOR</p>
+<p>task.executeOnExecutor(targetExecutor, params);</p>
+</blockquote>
+<h2 id="asynctask&#x66FE;&#x7ECF;&#x7684;&#x7F3A;&#x9677;">AsyncTask&#x66FE;&#x7ECF;&#x7684;&#x7F3A;&#x9677;</h2>
+<p>AsyncTask&#x5728;&#x5E76;&#x53D1;&#x6267;&#x884C;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;&#x65F6;&#x53D1;&#x751F;&#x5F02;&#x5E38;&#x3002;&#x5176;&#x5B9E;&#x8FD8;&#x662F;&#x5B58;&#x5728;&#x7684;&#xFF0C;&#x5728;3.0&#x4EE5;&#x524D;&#x7684;&#x7CFB;&#x7EDF;&#x4E2D;&#x8FD8;&#x662F;&#x4F1A;&#x4EE5;&#x652F;&#x6301;&#x591A;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#x7684;&#x65B9;&#x5F0F;&#x6267;&#x884C;&#xFF0C;&#x652F;&#x6301;&#x5E76;&#x53D1;&#x6570;&#x4E5F;&#x662F;&#x6211;&#x4EEC;&#x4E0A;&#x9762;&#x6240;&#x8BA1;&#x7B97;&#x7684;128&#xFF0C;&#x963B;&#x585E;&#x961F;&#x5217;&#x53EF;&#x4EE5;&#x5B58;&#x653E;10&#x4E2A;&#xFF1B;&#x4E5F;&#x5C31;&#x662F;&#x540C;&#x65F6;&#x6267;&#x884C;138&#x4E2A;&#x4EFB;&#x52A1;&#x662F;&#x6CA1;&#x6709;&#x95EE;&#x9898;&#x7684;&#xFF1B;&#x800C;&#x8D85;&#x8FC7;138&#x4F1A;&#x9A6C;&#x4E0A;&#x51FA;&#x73B0;<a href="http://lib.csdn.net/base/javase" target="_blank">Java</a>.util.concurrent.RejectedExecutionException&#xFF1B;</p>
+<h2 id="&#x6E90;&#x7801;&#x6D45;&#x6790;">&#x6E90;&#x7801;&#x6D45;&#x6790;</h2>
+<p>&#x5728;&#x8FDB;&#x884C;&#x6E90;&#x7801;&#x89E3;&#x91CA;&#x4E4B;&#x524D;&#x5148;&#x6765;&#x666E;&#x53CA;&#x4E00;&#x4E0B;Callable&#x548C;FutureTask</p>
+<h3 id="&#x4EC0;&#x4E48;&#x662F;callable&#x548C;futuretask&#xFF1F;">&#x4EC0;&#x4E48;&#x662F;Callable&#x548C;FutureTask&#xFF1F;</h3>
+<p>Callable&#x662F;&#x7C7B;&#x4F3C;&#x4E8E;Runnable&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x5B9E;&#x73B0;Callable&#x548C;Runnable&#x7684;&#x7C7B;&#x90FD;&#x662F;&#x53EF;&#x88AB;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x6267;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#x3002;</p>
+<p>Runnable&#x548C;Callable&#x7684;&#x533A;&#x522B;&#x662F;&#xFF1A;</p>
+<p>(1)Callable&#x89C4;&#x5B9A;&#x7684;&#x65B9;&#x6CD5;&#x662F;call(),Runnable&#x89C4;&#x5B9A;&#x7684;&#x65B9;&#x6CD5;&#x662F;run()&#x3002;<br>(2)Callable&#x7684;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x540E;&#x53EF;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x800C;Runnable&#x7684;&#x4EFB;&#x52A1;&#x662F;&#x4E0D;&#x80FD;&#x8FD4;&#x56DE;&#x503C;&#x7684;&#x3002;<br>(3)call&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF0C;run&#x65B9;&#x6CD5;&#x4E0D;&#x53EF;&#x4EE5;&#x3002;<br>(4)&#x8FD0;&#x884C;Callable&#x4EFB;&#x52A1;&#x53EF;&#x4EE5;&#x62FF;&#x5230;&#x4E00;&#x4E2A;Future&#x5BF9;&#x8C61;&#xFF0C;&#x8868;&#x793A;&#x5F02;&#x6B65;&#x8BA1;&#x7B97;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x5B83;&#x63D0;&#x4F9B;&#x4E86;&#x68C0;&#x67E5;&#x8BA1;&#x7B97;&#x662F;&#x5426;&#x5B8C;&#x6210;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x4EE5;&#x7B49;&#x5F85;&#x8BA1;&#x7B97;&#x7684;&#x5B8C;&#x6210;&#xFF0C;&#x5E76;&#x68C0;&#x7D22;&#x8BA1;&#x7B97;&#x7684;&#x7ED3;&#x679C;&#x3002;&#x901A;&#x8FC7;Future&#x5BF9;&#x8C61;&#x53EF;&#x4EE5;&#x4E86;&#x89E3;&#x4EFB;&#x52A1;&#x6267;&#x884C;&#x60C5;&#x51B5;&#xFF0C;&#x53EF;&#x53D6;&#x6D88;&#x4EFB;&#x52A1;&#x7684;&#x6267;&#x884C;&#xFF0C;&#x8FD8;&#x53EF;&#x83B7;&#x53D6;&#x6267;&#x884C;&#x7ED3;&#x679C;&#x3002;</p>
+<p>FutureTask&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x7684;&#x64CD;&#x4F5C;&#x7C7B;&#xFF0C;&#x5B83;&#x5E76;&#x4E0D;&#x542F;&#x52A8;&#x65B0;&#x7EBF;&#x7A0B;&#xFF0C;&#x53EA;&#x662F;&#x5728;&#x81EA;&#x5DF1;&#x6240;&#x5728;&#x7EBF;&#x7A0B;&#x4E0A;&#x64CD;&#x4F5C;&#xFF0C;&#x4EFB;&#x52A1;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x662F;&#x6784;&#x9020;FutureTask&#x65F6;&#x63D0;&#x4F9B;&#x7684;&#x3002;</p>
+<p>FutureTask&#x6267;&#x884C;Callable&#x4EFB;&#x52A1;&#xFF08;&#x7C7B;&#x4F3C;Thread&#x6267;&#x884C;runnable&#x4EFB;&#x52A1;&#xFF09;&#xFF0C;&#x6267;&#x884C;&#x5B8C;&#x4F1A;&#x8C03;&#x7528;done&#x65B9;&#x6CD5;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x76F4;&#x63A5;&#x4ECE;AsyncTask&#x7684;execute(Params... params)&#x65B9;&#x6CD5;&#x8BF4;&#x8D77;&#xFF0C;&#x5728;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x91CC;&#x4F1A;&#x8C03;&#x7528;executeOnExecutor()&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4E2D;&#x4F1A;&#x5148;&#x68C0;&#x67E5;&#x5F53;&#x524D;&#x4EFB;&#x52A1;&#x7684;&#x72B6;&#x6001;&#x662F;&#x5426;&#x662F;Pending&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x662F;Pending&#x72B6;&#x6001;&#xFF0C;&#x5C31;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF0C;&#x8FD9;&#x4E5F;&#x5C31;&#x610F;&#x5473;&#x7740;&#xFF0C;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x4E0D;&#x80FD;&#x88AB;&#x591A;&#x6B21;&#x6267;&#x884C;&#xFF0C;&#x5982;&#x679C;&#x662F;Pending&#xFF0C;&#x5C31;&#x5C06;&#x5F53;&#x524D;&#x4EFB;&#x52A1;&#x7684;&#x72B6;&#x6001;&#x53D8;&#x4E3A;Running&#x72B6;&#x6001;&#xFF0C;&#x7136;&#x540E;&#x5728;onPreExecute()&#x65B9;&#x6CD5;&#x4E2D;&#x6267;&#x884C;&#x4E00;&#x4E9B;&#x4EFB;&#x52A1;&#x7684;&#x521D;&#x59CB;&#x5316;&#x64CD;&#x4F5C;&#xFF0C;&#x4E4B;&#x540E;&#x5C06;&#x6267;&#x884C;&#x65F6;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;&#x8D4B;&#x503C;&#x7ED9;Callable&#x7684;&#x5BF9;&#x8C61;mWorker&#xFF0C;&#x8FD9;&#x91CC;&#x7684;Callable&#x5BF9;&#x8C61;&#x548C;FutureTask&#x5BF9;&#x8C61;&#x662F;&#x5728;&#x521B;&#x5EFA;AsyncTask&#x65F6;&#x521D;&#x59CB;&#x5316;&#x7684;&#xFF0C;&#x7136;&#x540E;&#x8C03;&#x7528;&#x9ED8;&#x8BA4;&#x6267;&#x884C;&#x5668;&#x7684;execute()&#x65B9;&#x6CD5;&#xFF0C;&#x6267;&#x884C;&#x5668;&#x5728;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x65F6;&#xFF0C;&#x4F1A;&#x5148;&#x5C06;&#x4EFB;&#x52A1;&#x52A0;&#x5165;&#x5230;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#x7684;&#x961F;&#x5C3E;&#xFF0C;&#x7136;&#x540E;&#x5224;&#x65AD;mActive&#x662F;&#x5426;&#x4E3A;&#x7A7A;&#xFF0C;&#x7B2C;&#x4E00;&#x6B21;&#x8FD0;&#x884C;&#x65F6;&#x662F;null&#xFF0C;&#x63A5;&#x4E0B;&#x6765;&#x5C31;&#x4F1A;&#x6267;&#x884C;scheduleNext()&#x65B9;&#x6CD5;&#xFF0C;&#x4ECE;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#x7684;&#x5934;&#x90E8;&#x53D6;&#x51FA;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x5728;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x6267;&#x884C;&#x5E76;&#x4E14;&#x5C06;&#x8BE5;&#x4EFB;&#x52A1;&#x5728;&#x6D88;&#x606F;&#x961F;&#x5217;&#x4E2D;&#x5220;&#x9664;&#xFF0C;&#x76F4;&#x5230;&#x6D88;&#x606F;&#x961F;&#x5217;&#x4E3A;&#x7A7A;&#x65F6;&#xFF0C;&#x6267;&#x884C;&#x7ED3;&#x675F;&#xFF0C;&#x5728;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x4F1A;&#x5148;&#x8C03;&#x7528;doInBackground()&#x65B9;&#x6CD5;&#xFF0C;&#x5E76;&#x5C06;&#x4EFB;&#x52A1;&#x7ED3;&#x679C;&#xFF0C;&#x901A;&#x8FC7;postResult()&#x65B9;&#x6CD5;&#xFF0C;&#x501F;&#x52A9;Handler&#xFF0C;&#x5C06;&#x7ED3;&#x679C;&#x53D1;&#x9001;&#x5230;UI&#x7EBF;&#x7A0B;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x7684;finish()&#x65B9;&#x6CD5;&#xFF0C;&#x5728;finish&#x65B9;&#x6CD5;&#x4E2D;&#x6839;&#x636E;&#x4EFB;&#x52A1;&#x662F;&#x5426;&#x5DF2;&#x7ECF;&#x88AB;&#x53D6;&#x6D88;&#xFF0C;&#x51B3;&#x5B9A;&#x56DE;&#x8C03;onCancelled&#x8FD8;&#x662F;onPostExecute()&#xFF0C;&#x6267;&#x884C;&#x5B8C;&#x56DE;&#x8C03;&#x65B9;&#x6CD5;&#x540E;&#xFF0C;&#x5C06;&#x8BE5;&#x4EFB;&#x52A1;&#x7684;&#x72B6;&#x6001;&#x7F6E;&#x4E3A;Finished&#x3002;</p>
+<pre><code class="lang-java"><span class="hljs-comment">/**
+     * Creates a new asynchronous task. This constructor must be invoked on the UI thread.
+     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AsyncTask</span><span class="hljs-params">()</span> </span>{
+        mWorker = <span class="hljs-keyword">new</span> WorkerRunnable&lt;Params, Result&gt;() {
+            <span class="hljs-function"><span class="hljs-keyword">public</span> Result <span class="hljs-title">call</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>{
+                mTaskInvoked.set(<span class="hljs-keyword">true</span>);
+
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+                <span class="hljs-comment">//noinspection unchecked</span>
+                Result result = doInBackground(mParams);
+                Binder.flushPendingCommands();
+                <span class="hljs-keyword">return</span> postResult(result);
+            }
+        };
+
+        mFuture = <span class="hljs-keyword">new</span> FutureTask&lt;Result&gt;(mWorker) {
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">done</span><span class="hljs-params">()</span> </span>{
+                <span class="hljs-keyword">try</span> {
+                    postResultIfNotInvoked(get());
+                } <span class="hljs-keyword">catch</span> (InterruptedException e) {
+                    android.util.Log.w(LOG_TAG, e);
+                } <span class="hljs-keyword">catch</span> (ExecutionException e) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;An error occurred while executing doInBackground()&quot;</span>,
+                            e.getCause());
+                } <span class="hljs-keyword">catch</span> (CancellationException e) {
+                    postResultIfNotInvoked(<span class="hljs-keyword">null</span>);
+                }
+            }
+        };
+    }
+</code></pre>
+<p>&#x5728;AsyncTask&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#xFF0C;&#x5B8C;&#x6210;&#x4E86;Callable&#x5BF9;&#x8C61;&#x548C;FutureTask&#x5BF9;&#x8C61;&#x7684;&#x521D;&#x59CB;&#x5316;</p>
+<pre><code class="lang-java"><span class="hljs-meta">@MainThread</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> AsyncTask&lt;Params, Progress, Result&gt; <span class="hljs-title">execute</span><span class="hljs-params">(Params... params)</span> </span>{
+        <span class="hljs-keyword">return</span> executeOnExecutor(sDefaultExecutor, params);
+    }
+
+    <span class="hljs-meta">@MainThread</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> AsyncTask&lt;Params, Progress, Result&gt; <span class="hljs-title">executeOnExecutor</span><span class="hljs-params">(Executor exec,
+            Params... params)</span> </span>{
+        <span class="hljs-keyword">if</span> (mStatus != Status.PENDING) {
+            <span class="hljs-keyword">switch</span> (mStatus) {
+                <span class="hljs-keyword">case</span> RUNNING:
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;Cannot execute task:&quot;</span>
+                            + <span class="hljs-string">&quot; the task is already running.&quot;</span>);
+                <span class="hljs-keyword">case</span> FINISHED:
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;Cannot execute task:&quot;</span>
+                            + <span class="hljs-string">&quot; the task has already been executed &quot;</span>
+                            + <span class="hljs-string">&quot;(a task can be executed only once)&quot;</span>);
+            }
+        }
+
+        mStatus = Status.RUNNING;
+
+        onPreExecute();
+
+        mWorker.mParams = params;
+        exec.execute(mFuture);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+</code></pre>
+<p><code>execute</code>&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x4E86;<code>executeOnExecutor</code>&#x65B9;&#x6CD5;&#x3002;&#x5B83;&#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x4E2A;&#x9ED8;&#x8BA4;&#x7684;<code>Executor</code>&#x5BF9;&#x8C61;&#x7BA1;&#x7406;&#x7EBF;&#x7A0B;&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x3002;<strong>&#x9ED8;&#x8BA4;&#x7684;Executor&#x662F;&#x4E00;&#x4E2A;ServialExecutor&#xFF0C;&#x8FD9;&#x4E2A;&#x7528;&#x6765;&#x4FDD;&#x8BC1;&#x7EBF;&#x7A0B;&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#xFF0C;&#x5F53;&#x4E00;&#x4E2A;&#x5B8C;&#x6210;&#x540E;&#x6267;&#x884C;&#x53E6;&#x4E00;&#x4E2A;&#x3002;</strong>&#x5728;<code>executoOnExecutor</code>&#x65B9;&#x6CD5;&#x4E2D;&#xFF0C;&#x9996;&#x5148;&#x5BF9;&#x72B6;&#x6001;&#x8FDB;&#x884C;&#x4E86;&#x5904;&#x7406;&#xFF0C;&#x975E;<code>PENDING</code>&#x72B6;&#x6001;&#x6267;&#x884C;&#x90FD;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#xFF0C;&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x89E3;&#x91CA;&#x4E3A;&#x4EC0;&#x4E48;&#x4E0D;&#x80FD;&#x6267;&#x884C;&#x4E24;&#x6B21;&#x3002;&#x7136;&#x540E;&#x9996;&#x5148;&#x8C03;&#x7528;&#x4E86;<code>onPreExecute()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x7136;&#x540E;&#x5229;&#x7528;&#x4F20;&#x8FDB;&#x6765;&#x7684;<code>Executor</code>&#x5BF9;&#x8C61;&#x6267;&#x884C;&#x4E86;<code>mFuture</code>&#x4EFB;&#x52A1;&#xFF0C;&#x5E76;&#x5C06;&#x81EA;&#x5DF1;&#x8FD4;&#x56DE;&#x3002;</p>
+<h2 id="asynctask&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#x5728;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x65F6;&#x7A76;&#x7ADF;&#x5728;&#x5E72;&#x4EC0;&#x4E48;&#xFF1F;">AsyncTask&#x4E2D;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#x5728;&#x6267;&#x884C;&#x4EFB;&#x52A1;&#x65F6;&#x7A76;&#x7ADF;&#x5728;&#x5E72;&#x4EC0;&#x4E48;&#xFF1F;</h2>
+<pre><code class="lang-java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">volatile</span> Executor sDefaultExecutor = SERIAL_EXECUTOR;  
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Executor SERIAL_EXECUTOR = <span class="hljs-keyword">new</span> SerialExecutor();  
+<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SerialExecutor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Executor</span> </span>{  
+        <span class="hljs-keyword">final</span> ArrayDeque&lt;Runnable&gt; mTasks = <span class="hljs-keyword">new</span> ArrayDeque&lt;Runnable&gt;();  
+        Runnable mActive;  
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">execute</span><span class="hljs-params">(<span class="hljs-keyword">final</span> Runnable r)</span> </span>{  
+            mTasks.offer(<span class="hljs-keyword">new</span> Runnable() {  
+                <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>{  
+                    <span class="hljs-keyword">try</span> {  
+                        r.run();  
+                    } <span class="hljs-keyword">finally</span> {  
+                        scheduleNext();  
+                    }  
+                }  
+            });  
+            <span class="hljs-keyword">if</span> (mActive == <span class="hljs-keyword">null</span>) {  
+                scheduleNext();  
+            }  
+        }  
+        <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">synchronized</span> <span class="hljs-keyword">void</span> <span class="hljs-title">scheduleNext</span><span class="hljs-params">()</span> </span>{  
+            <span class="hljs-keyword">if</span> ((mActive = mTasks.poll()) != <span class="hljs-keyword">null</span>) {  
+                THREAD_POOL_EXECUTOR.execute(mActive);  
+            }  
+        }  
+}
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;sDefaultExecutor&#x5176;&#x5B9E;&#x4E3A;SerialExecutor&#x7684;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#xFF0C;&#x5176;&#x5185;&#x90E8;&#x7EF4;&#x6301;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#xFF1B;&#x76F4;&#x63A5;&#x770B;&#x5176;execute&#xFF08;Runnable runnable&#xFF09;&#x65B9;&#x6CD5;&#xFF0C;&#x5C06;runnable&#x653E;&#x5165;mTasks&#x961F;&#x5C3E;&#xFF1B;<br>16-17&#x884C;&#xFF1A;&#x5224;&#x65AD;&#x5F53;&#x524D;mActive&#x662F;&#x5426;&#x4E3A;&#x7A7A;&#xFF0C;&#x4E3A;&#x7A7A;&#x5219;&#x8C03;&#x7528;scheduleNext&#x65B9;&#x6CD5;<br>20&#x884C;&#xFF1A;scheduleNext&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x53D6;&#x51FA;&#x4EFB;&#x52A1;&#x961F;&#x5217;&#x4E2D;&#x7684;&#x961F;&#x9996;&#x4EFB;&#x52A1;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x4E3A;null&#x5219;&#x4F20;&#x5165;THREAD_POOL_EXECUTOR&#x8FDB;&#x884C;&#x6267;&#x884C;&#x3002;<br>&#x4E0B;&#x9762;&#x770B;THREAD_POOL_EXECUTOR&#x4E3A;&#x4F55;&#x65B9;&#x795E;&#x5723;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Executor THREAD_POOL_EXECUTOR  
+          =<span class="hljs-keyword">new</span> ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,  
+                    TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);
+</code></pre>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x81EA;&#x5DF1;&#x8BBE;&#x7F6E;&#x53C2;&#x6570;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x53C2;&#x6570;&#x4E3A;&#xFF1A;</p>
+<pre><code class="lang-java"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CPU_COUNT = Runtime.getRuntime().availableProcessors();
+    <span class="hljs-comment">// We want at least 2 threads and at most 4 threads in the core pool,</span>
+    <span class="hljs-comment">// preferring to have 1 less than the CPU count to avoid saturating</span>
+    <span class="hljs-comment">// the CPU with background work</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> CORE_POOL_SIZE = Math.max(<span class="hljs-number">2</span>, Math.min(CPU_COUNT - <span class="hljs-number">1</span>, <span class="hljs-number">4</span>));
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> MAXIMUM_POOL_SIZE = CPU_COUNT * <span class="hljs-number">2</span> + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> KEEP_ALIVE_SECONDS = <span class="hljs-number">30</span>;
+<span class="hljs-comment">/**
+     * An {<span class="hljs-doctag">@link</span> Executor} that can be used to execute tasks in parallel.
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Executor THREAD_POOL_EXECUTOR;
+
+    <span class="hljs-keyword">static</span> {
+        ThreadPoolExecutor threadPoolExecutor = <span class="hljs-keyword">new</span> ThreadPoolExecutor(
+                CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,
+                sPoolWorkQueue, sThreadFactory);
+        threadPoolExecutor.allowCoreThreadTimeOut(<span class="hljs-keyword">true</span>);
+        THREAD_POOL_EXECUTOR = threadPoolExecutor;
+    }
+</code></pre>
+<p>&#x770B;&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x5927;&#x5BB6;&#x53EF;&#x80FD;&#x4F1A;&#x8BA4;&#x4E3A;&#xFF0C;&#x80CC;&#x540E;&#x539F;&#x6765;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x4E14;&#x6700;&#x5927;&#x652F;&#x6301;128&#x7684;&#x7EBF;&#x7A0B;&#x5E76;&#x53D1;&#xFF0C;&#x52A0;&#x4E0A;&#x957F;&#x5EA6;&#x4E3A;10&#x7684;&#x963B;&#x585E;&#x961F;&#x5217;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x89C9;&#x5F97;&#x5C31;&#x662F;&#x5728;&#x5FEB;&#x901F;&#x8C03;&#x7528;138&#x4E2A;&#x4EE5;&#x5185;&#x7684;AsyncTask&#x5B50;&#x7C7B;&#x7684;execute&#x65B9;&#x6CD5;&#x4E0D;&#x4F1A;&#x51FA;&#x73B0;&#x95EE;&#x9898;&#xFF0C;&#x800C;&#x5927;&#x4E8E;138&#x5219;&#x4F1A;&#x629B;&#x51FA;&#x5F02;&#x5E38;&#x3002;<br>&#x5176;&#x5B9E;&#x4E0D;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x518D;&#x4ED4;&#x7EC6;&#x770B;&#x4E00;&#x4E0B;&#x4EE3;&#x7801;&#xFF0C;&#x56DE;&#x987E;&#x4E00;&#x4E0B;sDefaultExecutor&#xFF0C;&#x771F;&#x6B63;&#x5728;execute()&#x4E2D;&#x8C03;&#x7528;&#x7684;&#x4E3A;sDefaultExecutor.execute&#xFF1A;</p>
+<p>&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5982;&#x679C;&#x6B64;&#x65F6;&#x6709;10&#x4E2A;&#x4EFB;&#x52A1;&#x540C;&#x65F6;&#x8C03;&#x7528;execute&#xFF08;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;&#x540C;&#x6B65;&#x7684;synchronized&#xFF09;&#x65B9;&#x6CD5;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x5165;&#x961F;&#xFF0C;&#x7136;&#x540E;&#x5728;mActive = mTasks.poll()) != null&#x88AB;&#x53D6;&#x51FA;&#xFF0C;&#x5E76;&#x4E14;&#x8D4B;&#x503C;&#x7ED9;mActivte&#xFF0C;&#x7136;&#x540E;&#x4EA4;&#x7ED9;&#x7EBF;&#x7A0B;&#x6C60;&#x53BB;&#x6267;&#x884C;&#x3002;&#x7136;&#x540E;&#x7B2C;&#x4E8C;&#x4E2A;&#x4EFB;&#x52A1;&#x5165;&#x961F;&#xFF0C;&#x4F46;&#x662F;&#x6B64;&#x65F6;mActive&#x5E76;&#x4E0D;&#x4E3A;null&#xFF0C;&#x5E76;&#x4E0D;&#x4F1A;&#x6267;&#x884C;scheduleNext();&#x6240;&#x4EE5;&#x5982;&#x679C;&#x7B2C;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x6BD4;&#x8F83;&#x6162;&#xFF0C;10&#x4E2A;&#x4EFB;&#x52A1;&#x90FD;&#x4F1A;&#x8FDB;&#x5165;&#x961F;&#x5217;&#x7B49;&#x5F85;&#xFF1B;&#x771F;&#x6B63;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x7684;&#x65F6;&#x673A;&#x662F;&#xFF0C;&#x7EBF;&#x7A0B;&#x6C60;&#x6267;&#x884C;&#x5B8C;&#x6210;&#x7B2C;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x4EE5;&#x540E;&#xFF0C;&#x8C03;&#x7528;Runnable&#x4E2D;&#x7684;finally&#x4EE3;&#x7801;&#x5757;&#x4E2D;&#x7684;scheduleNext&#xFF0C;&#x6240;&#x4EE5;&#x867D;&#x7136;&#x5185;&#x90E8;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#xFF0C;&#x5176;&#x5B9E;&#x8C03;&#x7528;&#x7684;&#x8FC7;&#x7A0B;&#x8FD8;&#x662F;&#x7EBF;&#x6027;&#x7684;&#x3002;&#x4E00;&#x4E2A;&#x63A5;&#x7740;&#x4E00;&#x4E2A;&#x7684;&#x6267;&#x884C;&#xFF0C;&#x76F8;&#x5F53;&#x4E8E;&#x5355;&#x7EBF;&#x7A0B;&#x3002;</p>
+<h2 id="&#x6CE8;&#x610F;">&#x6CE8;&#x610F;</h2>
+<p>&#x5728;Android4.1&#x4EE5;&#x540E;AsyncTask&#x7684;execute()&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;&#x4E86;&#xFF0C;&#x4F46;&#x662F;onPreExecute&#x65B9;&#x6CD5;&#x662F;&#x4E0E;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x7684;execute&#x65B9;&#x6CD5;&#x662F;&#x5728;&#x540C;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x4E2D;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5982;&#x679C;&#x5728;&#x5B50;&#x7EBF;&#x7A0B;&#x4E2D;&#x6267;&#x884C;execute&#x65B9;&#x6CD5;&#xFF0C;&#x4E00;&#x5B9A;&#x8981;&#x786E;&#x4FDD;onPreExecute&#x65B9;&#x6CD5;&#x4E0D;&#x6267;&#x884C;&#x5237;&#x65B0;UI&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x629B;&#x51FA;&#x5982;&#x4E0B;&#x5F02;&#x5E38;&#xFF1A;</p>
+<pre><code class="lang-java">android.view.ViewRootImpl$CalledFromWrongThreadException: Only the original 
+thread that created a view hierarchy can touch its views.
+at android.view.ViewRootImpl.checkThread(ViewRootImpl.java:<span class="hljs-number">6981</span>)
+at android.view.ViewRootImpl.requestLayout(ViewRootImpl.java:<span class="hljs-number">1034</span>)
+at android.view.View.requestLayout(View.java:<span class="hljs-number">17704</span>)
+at android.view.View.requestLayout(View.java:<span class="hljs-number">17704</span>)
+at android.view.View.requestLayout(View.java:<span class="hljs-number">17704</span>)
+at android.view.View.requestLayout(View.java:<span class="hljs-number">17704</span>)
+at android.widget.RelativeLayout.requestLayout(RelativeLayout.java:<span class="hljs-number">380</span>)
+at android.view.View.requestLayout(View.java:<span class="hljs-number">17704</span>)
+at android.widget.TextView.checkForRelayout(TextView.java:<span class="hljs-number">7109</span>)
+at android.widget.TextView.setText(TextView.java:<span class="hljs-number">4082</span>)
+at android.widget.TextView.setText(TextView.java:<span class="hljs-number">3940</span>)
+at android.widget.TextView.setText(TextView.java:<span class="hljs-number">3915</span>)
+at com.example.aaron.helloworld.MainActivity$MAsyncTask.onPreExecute(MainActivity.java:<span class="hljs-number">53</span>)
+at android.os.AsyncTask.executeOnExecutor(AsyncTask.java:<span class="hljs-number">587</span>)
+at android.os.AsyncTask.execute(AsyncTask.java:<span class="hljs-number">535</span>)
+at com.example.aaron.helloworld.MainActivity$<span class="hljs-number">1</span>$<span class="hljs-number">1</span>.run(MainActivity.java:<span class="hljs-number">40</span>)
+at java.lang.Thread.run(Thread.java:<span class="hljs-number">818</span>)
+</code></pre>
+<p>&#x4F7F;&#x7528;AsyncTask&#x6267;&#x884C;&#x591A;&#x4E2A;&#x4EFB;&#x52A1;&#x9700;&#x8981;&#x521B;&#x5EFA;&#x591A;&#x4E2A;AsyncTask&#x5BF9;&#x8C61;&#xFF0C;&#x56E0;&#x4E3A;AsyncTask&#x91CC;&#x9762;&#x7684;&#x7EBF;&#x7A0B;&#x6C60;&#x662F;&#x9759;&#x6001;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x662F;&#x6574;&#x4E2A;&#x7C7B;&#x5171;&#x6709;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x6BCF;&#x4E2A;AsyncTask&#x5BF9;&#x8C61;&#x8981;&#x6267;&#x884C;&#x7684;&#x4EFB;&#x52A1;&#x90FD;&#x4F1A;&#x653E;&#x5728;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#x4E2D;&#x6267;&#x884C;&#xFF0C;&#x7531;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x6C60;&#x7BA1;&#x7406;&#x3002;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="IntentService.html" class="navigation navigation-prev " aria-label="Previous page: 线程模型">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="线程池.html" class="navigation navigation-next " aria-label="Next page: 线程池">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"AsyncTask详解","level":"2.15.1","depth":2,"next":{"title":"线程池","level":"2.15.2","depth":2,"path":"Android/Android中的线程模型/线程池.md","ref":"Android/Android中的线程模型/线程池.md","articles":[]},"previous":{"title":"线程模型","level":"2.15","depth":1,"path":"Android/Android中的线程模型/IntentService.md","ref":"Android/Android中的线程模型/IntentService.md","articles":[{"title":"AsyncTask详解","level":"2.15.1","depth":2,"path":"Android/Android中的线程模型/AsyncTask详解.md","ref":"Android/Android中的线程模型/AsyncTask详解.md","articles":[]},{"title":"线程池","level":"2.15.2","depth":2,"path":"Android/Android中的线程模型/线程池.md","ref":"Android/Android中的线程模型/线程池.md","articles":[]},{"title":"HandlerThread","level":"2.15.3","depth":2,"path":"Android/Android中的线程模型/HandlerThread.md","ref":"Android/Android中的线程模型/HandlerThread.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"Android/Android中的线程模型/AsyncTask详解.md","mtime":"2018-10-14T15:59:37.543Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-10-14T16:00:24.685Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
